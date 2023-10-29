@@ -64,12 +64,14 @@ export default function Grafico(data) {
                     color: (opacity = 1) => `#1b5a76`,
                     labelColor: (opacity = 1) => `#1b5a76`,
                 }}
+                backgroundColor={"#ffffff"}
                 accessor={"macros"}
                 paddingLeft={"5"}
                 center={[10, 10]}
                 absolut
             />
             </View>)
+    
     }else if(tipo == "Barra"){
         
           return (

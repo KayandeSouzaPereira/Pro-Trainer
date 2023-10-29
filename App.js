@@ -1,15 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
+
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { Poppins_400Regular } from '@expo-google-fonts/poppins'
-import Login from './src/paginas/Login';
-import Dashboard from './src/paginas/Dashboard';
-import { BarraSuperiorLogin } from './src/assets/BarraSuperiorLogin';
-import { BarraSuperior } from './src/assets/BarraSuperior';
-import { BarraInferior } from './src/assets/BarraInferior';
+import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import AppNavigacao from './src/rotas';
 
 export default function App() {
+  const Stack = createStackNavigator();
   let [fontsLoaded] = useFonts({
     Poppins_400Regular
   });
@@ -18,11 +19,15 @@ export default function App() {
   } else {
   SplashScreen.hideAsync();
   return (
+   
     <View style={styles.container}>
-      <StatusBar style="auto" />
-      <BarraSuperiorLogin />
-        <Login/>
+        <NavigationContainer>
+          <View style={{alignContent:'center', colour:'white', width: 400, height: 950}}>
+            <AppNavigacao />
+          </View>
+        </NavigationContainer>
     </View>
+    
   );
 }}
 

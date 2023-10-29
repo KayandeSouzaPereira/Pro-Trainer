@@ -1,26 +1,32 @@
-import { API_URL } from "../Util"
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import RNSimpleCrypto from "react-native-simple-crypto";
+import { api} from "../Util"
 
-async function loginChamada(usuario, senha){
-    let credenciais = {
-        "usuario" : usuario,
-        "password" : senha
+function loginRequest(login, senha) {
+    return api.post('auth', {
+        usuario: login,
+        password: senha
+      })
+  }
+  function cadRequest(login, senha) {
+    return api.post('cad', {
+        usuario: login,
+        password: senha
+      })
+  }
+async function setToken(_token){
+    //const rsaKeys = await RNSimpleCrypto.RSA.generateKeys(4096);
+    if(_token){
+        console.log("tk:" + _token);
+        let tkk = _token;
+        //await AsyncStorage.setItem('RK', JSON.stringify(rsaKeys));
+        //const rsaTkEncript = await RNSimpleCrypto.RSA.encrypt(tkk,rsaKeys.public);
+       
+        await AsyncStorage.setItem('Token', tkk);
     }
+} 
+  
 
-    return fetch(`${API_URL}auth`,{
-        method: "POST",
-        headers: {
-            'Content-Type' : 'application/json',
-        },
-        body: JSON.stringify(credenciais)
-    }).then(res => {
-        res.json()
-    }).then(resJson => {
-        
-        return resJson;
-    }).catch(e => {
-        console.log(e);
-        return "Error";
-    })
-}
 
-export { loginChamada }
+
+export { cadRequest, loginRequest, setToken }

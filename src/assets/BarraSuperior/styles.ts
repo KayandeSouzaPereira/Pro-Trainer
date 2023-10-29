@@ -4,6 +4,8 @@ export const styles = StyleSheet.create({
     container:{
         width: 600,
         height: 100,
+        right: 120,
+        bottom: 70,
         backgroundColor: 'white',
         alignContent: 'flex-start'
     },
@@ -14,6 +16,6 @@ export const styles = StyleSheet.create({
     },
     imageContainer:{
         left: 120,
-        top: 42
+        top: 50
     }
 });

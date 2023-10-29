@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
     },
     containerPizza:{
         backgroundColor: 'white', 
+        color: 'white',
         borderRadius : 10, 
         borderColor: 'black',
         borderWidth: 2,
@@ -34,6 +35,8 @@ export const styles = StyleSheet.create({
     containerBarra:{
         backgroundColor: 'white', 
         borderRadius : 10, 
+        borderColor: 'black',
+        borderWidth: 2,
         width: 330, 
         height: 230 ,
         alignItems: 'center',

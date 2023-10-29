@@ -1,7 +1,9 @@
 import Grafico from "../../assets/Grafico"
 import {View, FlatList} from "react-native"
+import { BarraInferior } from "../../assets/BarraInferior"
+import { BarraSuperior } from "../../assets/BarraSuperior"
 
-export default function Dashboard() {
+export default function Dashboard({ navigation }) {
   const dadosMock = [
     {id: 1,
      tipo: "Linha",
@@ -52,33 +54,23 @@ export default function Dashboard() {
       infos: [5,10,20],
       titulos: ["Jan", "Fev", "Mar"],
       Titulo: "TESTE"
-     },
-     {id: 5,
-      tipo: "Linha",
-      infos: [5,10,20],
-      titulos: ["Jan", "Fev", "Mar"],
-      Titulo: "TESTE"
-     },
-     {id: 6,
-      tipo: "Linha",
-      infos: [5,10,20],
-      titulos: ["Jan", "Fev", "Mar"],
-      Titulo: "TESTE"
-     },
+     }
   ]
     return(
-      <View style={{height: 600, top: 20}}>
-        <FlatList
-        data={dadosMock}
-                keyExtractor={item => item.id}
-                renderItem={({item}) => (
-                    <Grafico 
-                        data={item} 
-                    />
-                )}
-                        contentContainerStyle={{ paddingBottom: 20}}
-                        showsVerticalScrollIndicator={false}
-            />
+      <View style={{height: 800, top: 50, left: 30}}>
+        <BarraSuperior/>
+          <FlatList
+          data={dadosMock}
+                  keyExtractor={item => item.id}
+                  renderItem={({item}) => (
+                      <Grafico 
+                          data={item} 
+                      />
+                  )}
+                          contentContainerStyle={{ paddingBottom: 30}}
+                          showsVerticalScrollIndicator={true}
+              />   
+        <BarraInferior {... {navigation}}/>    
         </View>
     )
 }
