@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TextInput, Button, FlatList} from 'react-native';
 import { CaixaTreino } from '../../assets/CaixaTreino';
+import { CaixaAdd } from '../../assets/CaixaAdd';
 import { styles } from '../Treinos/styles';
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
@@ -38,6 +39,9 @@ export default function Treinos({ navigation }) {
                 nome: 'Treino D',
             },
             descricao: 'Treino focado em superiores'
+        },
+        {
+            id:'0'
         }
        
 ]
@@ -50,10 +54,15 @@ export default function Treinos({ navigation }) {
                 data={dados}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
-                    <CaixaTreino 
-                        data={item} 
-                    />
-                )}
+                    
+                    item.id == "0" ?
+                         <CaixaAdd/>
+                        :
+                        <CaixaTreino 
+                        data={item}/>
+                       
+                    ) 
+                }
                         contentContainerStyle={{ paddingBottom: 100, paddingTop: 30}}
                         showsVerticalScrollIndicator={false}
             />
