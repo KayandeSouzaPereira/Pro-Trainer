@@ -18,11 +18,17 @@ export const styles = StyleSheet.create({
         fontFamily: 'Poppins_400Regular',
         color: 'black',
         fontSize: 20,
-        marginVertical: 50
+        marginVertical: 30
     },
     Campos:{
         fontFamily: 'Poppins_400Regular',
         color: 'black',
+        fontSize: 20,
+        margin: 5
+    },
+    CampoConfirma:{
+        fontFamily: 'Poppins_400Regular',
+        color: 'white',
         fontSize: 20,
         margin: 5
     }

@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import RNSimpleCrypto from "react-native-simple-crypto";
 import { api} from "../Util"
 
 function loginRequest(login, senha) {
@@ -19,10 +18,12 @@ async function setToken(_token){
     if(_token){
         console.log("tk:" + _token);
         let tkk = _token;
+        return await AsyncStorage.setItem('Token', tkk);
+
         //await AsyncStorage.setItem('RK', JSON.stringify(rsaKeys));
         //const rsaTkEncript = await RNSimpleCrypto.RSA.encrypt(tkk,rsaKeys.public);
        
-        await AsyncStorage.setItem('Token', tkk);
+        
     }
 } 
   
