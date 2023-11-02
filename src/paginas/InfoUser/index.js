@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState, useEffect }  from 'react';
 import { AntDesign  } from '@expo/vector-icons';
 import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity } from 'react-native';
+import { LoadingModal } from "react-native-loading-modal";
 import { styles } from '../InfoUser/styles';
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
@@ -28,7 +29,8 @@ export default function InfoUser({ navigation }) {
     const [peso_, setPeso_] = useState(0);
     const [edit, setEdit] = useState(false);
     const [disabled,setDisabled] = useState(false)
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    
 
 
 
@@ -52,9 +54,11 @@ export default function InfoUser({ navigation }) {
         setId(id.data.retorno.idAuth);
         let info = await getUsuarioInfoRequest(id.data.retorno.idAuth, tkk)
         setInfos(info.data.resultado[0])
+        setLoading(false);
     }
 
     const setData = async () => {
+        setLoading(true);
         let tkk = await AsyncStorage.getItem('Token');
         let alturaS
         let pesoS
@@ -80,6 +84,7 @@ export default function InfoUser({ navigation }) {
 
 
         await setUsuarioInfoRequest(id, alturaS, pesoS, idadeS, tkk);
+        setLoading(false);
     }
     
        
@@ -91,7 +96,7 @@ export default function InfoUser({ navigation }) {
             <View style={{left: 130, top: 55}}>
                 <BarraSuperior/>
             </View>
-           
+            <LoadingModal modalVisible={loading} />
             <Image 
                             source={{uri : encodeURI(urlImage)}}
                             style={styles.avatar}
