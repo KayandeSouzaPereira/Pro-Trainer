@@ -137,7 +137,6 @@ export default function InfoUser({ navigation }) {
                         <TouchableOpacity disabled={disabled} style={{backgroundColor:"#1b5a76", color:"white", borderRadius: 20}} onPress={ async () => {
                            setDisabled(true);
                            await setData();
-                           await getData();
                            setDisabled(false);
                            setEdit(false);
                         }}>

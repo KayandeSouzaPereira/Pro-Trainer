@@ -3,6 +3,7 @@ import { styles } from '../CaixaTreino/styles';
 import { AntDesign, Feather   } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ModalTreinos } from '../ModalTreinos';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos';
 
 
@@ -17,6 +18,7 @@ export function CaixaTreino({data, reload}) {
     const [idTreino, setIdTreino] = useState(0);
     const [titulo_, setTitulo_] = useState("");
     const [descricao_, setDescricao_] = useState("");
+    const [modal, setModal] = useState(false);
     
     
     
@@ -30,6 +32,7 @@ export function CaixaTreino({data, reload}) {
 
 
         const setData = async (titulo_, descricao_) => {
+            console.log("ENVIO")
             let tkk = await AsyncStorage.getItem('Token');
             let data = await getUsuarioRequest(tkk);
             let id = data.data.retorno.idAuth;
@@ -47,6 +50,7 @@ export function CaixaTreino({data, reload}) {
             }
            let ret = await setUsuarioTreinoRequest(id, tituloEnv, descricaoEnv, tkk, idTreino);
            if (ret){
+                console.log("RECARGA")
                 reload();
            }
            
@@ -54,39 +58,45 @@ export function CaixaTreino({data, reload}) {
     
     return(
         <View style={styles.container}>
-            {
-                edit === true ? 
+            <TouchableOpacity disabled={idTreino === 0} onPress={() => {setModal(true)}}>
+                <ModalTreinos
+                    reload={reload}
+                    id={idTreino}
+                    visible={modal}
+                />
+                {
+                    edit === true ? 
+                    <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
+                        <TouchableOpacity disabled={disabled} style={{left:300, top: 18, zIndex: 1}} onPress={async () => {
+                        if(edit == true){
+                            await setData(titulo_, descricao_);
+                            setEdit(false)
+                        }else{
+                            setEdit(true)
+                        }
+                        }}>
+                        <Feather name="send" size={40} color="black" />
+                    </TouchableOpacity>
+                    <TextInput style={styles.CamposTituloEdit} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
+                    <TextInput style={styles.CamposEdit} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
+                    </View>
+                : 
+                
                 <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
-                    <TouchableOpacity disabled={disabled} style={{left:300, top: 18, zIndex: 1}} onPress={async () => {
-                    if(edit == true){
-                        await setData(titulo_, descricao_);
-                        setEdit(false)
-                    }else{
-                        setEdit(true)
-                    }
-                    }}>
-                    <Feather name="send" size={40} color="black" />
-                </TouchableOpacity>
-                <TextInput style={styles.CamposTituloEdit} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
-                <TextInput style={styles.CamposEdit} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
-                </View>
-               : 
-               
-               <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
-                <TouchableOpacity disabled={disabled} style={{left:300, top: 10, zIndex: 1}} onPress={() => {
-                    if(edit == true){
-                        setEdit(false)
-                    }else{
-                        setEdit(true)
-                    }
-                    }}>
-                    <AntDesign name="edit" size={40} color="black" />
-                </TouchableOpacity>
-                <Text style={styles.CamposTitulo}>{titulo}</Text>
-                <Text style={styles.Campos}>{descricao}</Text>
-                </View>
-            }
-            
+                    <TouchableOpacity disabled={disabled} style={{left:300, top: 10, zIndex: 1}} onPress={() => {
+                        if(edit == true){
+                            setEdit(false)
+                        }else{
+                            setEdit(true)
+                        }
+                        }}>
+                        <AntDesign name="edit" size={40} color="black" />
+                    </TouchableOpacity>
+                    <Text style={styles.CamposTitulo}>{titulo}</Text>
+                    <Text style={styles.Campos}>{descricao}</Text>
+                    </View>
+                }
+            </TouchableOpacity>
         </View>
     )
 }
