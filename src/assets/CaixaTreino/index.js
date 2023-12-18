@@ -3,13 +3,12 @@ import { styles } from '../CaixaTreino/styles';
 import { AntDesign, Feather   } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ModalTreinos } from '../ModalTreinos';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos';
 
 
 
 
-export function CaixaTreino({data, reload}) {
+export function CaixaTreino({data, reload, navigation}) {
 
     const [edit, setEdit] = useState(false);
     const [disabled, setDisabled] = useState(false);
@@ -18,7 +17,7 @@ export function CaixaTreino({data, reload}) {
     const [idTreino, setIdTreino] = useState(0);
     const [titulo_, setTitulo_] = useState("");
     const [descricao_, setDescricao_] = useState("");
-    const [modal, setModal] = useState(false);
+    
     
     
     
@@ -58,12 +57,8 @@ export function CaixaTreino({data, reload}) {
     
     return(
         <View style={styles.container}>
-            <TouchableOpacity disabled={idTreino === 0} onPress={() => {setModal(true)}}>
-                <ModalTreinos
-                    reload={reload}
-                    id={idTreino}
-                    visible={modal}
-                />
+            <TouchableOpacity disabled={idTreino === 0} onPress={() => {navigation.navigate("TreinosInfo", {treino: idTreino})}}>
+                
                 {
                     edit === true ? 
                     <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>

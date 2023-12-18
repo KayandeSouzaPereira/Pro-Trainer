@@ -2,25 +2,24 @@ import { View, FlatList} from 'react-native';
 import React, { useState, useEffect, useRef }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoadingModal } from "react-native-loading-modal";
-import { CaixaTreino } from '../../assets/CaixaTreino';
-import { CaixaAdd } from '../../assets/CaixaAdd';
+import { CaixaAddExercicio } from '../../assets/CaixaAddExercicio';
 import { styles } from '../Treinos/styles';
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
-import { ModalExercicio } from '../../assets/ModalExercicio';
-import { Video } from "../../assets/Video"
-import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos'
-import { Button } from 'react-native-paper';
+import { getUserExerciseByTraining } from '../../servicos/Exercicios'
+import { CaixaExercicio } from '../../assets/CaixaExercicio';
 
 
-export default function Treinos({ navigation }) {
+export default function TreinoInfo({ navigation, treino }) {
     const [dados, setDados] = useState([]);
     const [loadingData, setLoadingData] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [idTreino, setIdTreino] = useState(0);
 
    
 
     useEffect(() => {
+        setIdTreino(treino)
         getData();
     },[loadingData])
 
@@ -37,18 +36,17 @@ export default function Treinos({ navigation }) {
     const getData = async () => {
         setLoading(true);
         let tkk = await AsyncStorage.getItem('Token');
-        let data = await getUsuarioRequest(tkk);
-        let id = data.data.retorno.idAuth;
-        let dadosTreino = await getUserTraining(id, tkk);
+        let dadosTreino = await getUserExerciseByTraining(tkk, idTreino);
         let dados_ = [];
         
         if(dadosTreino.data.resultado != "Vazio") {
             dados_ = dadosTreino.data.resultado;
         }
         setDados([]);
-        dados_.push({idTreinos: 0})
+        dados_.push({idExercicios: 0})
         setDados(dados_);
-        
+        console.log("dados")
+        console.log(dados)
         setLoading(false);
         
     } 
@@ -68,19 +66,19 @@ export default function Treinos({ navigation }) {
             <LoadingModal modalVisible={loading} />
             { <FlatList
                 data={dados}
-                keyExtractor={item => item.idTreinos}
+                keyExtractor={item => item.idExercicios}
                 renderItem={({item}) => (
                     
-                    item.idTreinos == "0" ?
-                        <CaixaAdd
+                    item.idExercicios == "0" ?
+                        <CaixaAddExercicio
                         navigation={navigation}
+                        idTreino={idTreino}
                         reload={reload}
                         />
                         :
-                        <CaixaTreino 
+                        <CaixaExercicio 
                         data={item}
                         reload={reload}
-                        navigation={navigation}
                         />
                        
                     ) 

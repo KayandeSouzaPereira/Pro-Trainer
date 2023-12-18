@@ -10,13 +10,14 @@ export function Video({id}) {
     
     
     return(
-        <View style={{flex: 1, width: 300, height: 200}}>
+        <View style={{flex: 1, width: 330, left: 7}}>
                 <WebView
-                    style={ {} }
+                    style={ {width: 330} }
+                    allowsFullscreenVideo={true}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     androidHardwareAccelerationDisabled={true}
-                    source={{uri: '' }}
+                    source={{uri: 'https://www.youtube.com/embed/' + id }}
                 />
         </View>
     )

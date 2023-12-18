@@ -6,6 +6,7 @@ import Login from '../../paginas/Login';
 import Home from '../../paginas/Dashboard';
 import Info from '../../paginas/InfoUser';
 import Treinos from '../../paginas/Treinos';
+import TreinoInfo from '../../paginas/TreinoInfo';
 
 
 const Stack = createStackNavigator();
@@ -29,6 +30,7 @@ export default function StackMainNavigation(props){
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Info" component={Info} />
             <Stack.Screen name="Treinos" component={Treinos} />
+            <Stack.Screen name="TreinosInfo" component={TreinoInfo} />
         </Stack.Navigator>
     )
 }

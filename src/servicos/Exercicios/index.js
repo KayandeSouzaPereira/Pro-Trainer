@@ -11,18 +11,16 @@ import { api } from "../Util"
   }
 
 
-  function getUserTraining(login, tk) {
+  function getUserExerciseByTraining(tk, id) {
     console.log(tk)
     const config = {
         headers: { Authorization: `Bearer ${tk}` }
     };
 
-    const bodyParameters = {
-        usuario: login
-     };
+   
 
 
-    return api.post('treino', bodyParameters, config)
+    return api.get('exercise?idTraining=1', config)
   }
 
   function setUsuarioTreinoRequest(login, treino, descricao, tk, idTreino) {
@@ -46,4 +44,4 @@ import { api } from "../Util"
 
 
 
-export { getUsuarioRequest, getUserTraining, setUsuarioTreinoRequest}
+export { getUserExerciseByTraining, setUsuarioTreinoRequest, getUsuarioRequest}

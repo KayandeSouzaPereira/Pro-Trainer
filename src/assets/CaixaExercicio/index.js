@@ -4,6 +4,7 @@ import { AntDesign, Feather   } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos';
+import { ModalExercicio } from '../ModalExercicio';
 
 
 
@@ -14,19 +15,21 @@ export function CaixaExercicio({data, reload}) {
     const [disabled, setDisabled] = useState(false);
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
-    const [idTreino, setIdTreino] = useState(0);
+    const [idExercicio, setIdExercicio] = useState(0);
     const [titulo_, setTitulo_] = useState("");
     const [descricao_, setDescricao_] = useState("");
+    const [video, setVideo] = useState("");
     
     
     
 
     useEffect(() => {
-        console.log(data);
+        setIdExercicio(data.idExercicios)
         setTitulo(data.nm_exercicios);
-        setDescricao(data.ds_exercicios);
-        setIdTreino(data.idTreinos)
+        setDescricao(data.ds_exercicio);
+        setVideo(data.link_exercicio);
         },[])
+
 
 
         const setData = async (titulo_, descricao_) => {
@@ -48,7 +51,6 @@ export function CaixaExercicio({data, reload}) {
             }
            let ret = await setUsuarioTreinoRequest(id, tituloEnv, descricaoEnv, tkk, idTreino);
            if (ret){
-                console.log("RECARGA")
                 reload();
            }
            
@@ -58,20 +60,9 @@ export function CaixaExercicio({data, reload}) {
         <View style={styles.container}>
             {
                 edit === true ? 
-                <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
-                    <TouchableOpacity disabled={disabled} style={{left:300, top: 18, zIndex: 1}} onPress={async () => {
-                    if(edit == true){
-                        await setData(titulo_, descricao_);
-                        setEdit(false)
-                    }else{
-                        setEdit(true)
-                    }
-                    }}>
-                    <Feather name="send" size={40} color="black" />
-                </TouchableOpacity>
-                <TextInput style={styles.CamposTituloEdit} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
-                <TextInput style={styles.CamposEdit} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
-                </View>
+                <ModalExercicio
+                    data={data}
+                />
                : 
                
                <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
