@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
         fontSize: 30,
         flex: 1,
         alignSelf:"center",
-        paddingTop:10,
+        paddingTop:20,
         paddingBottom: 20
     },
     CamposTituloEdit:{
@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
         color: 'white',
         backgroundColor: '#1b5a76',
         fontSize: 20,
-        marginLeft: 20,
+        marginLeft: 10,
         borderRadius: 20,
         paddingLeft: 20,
         top: 20,

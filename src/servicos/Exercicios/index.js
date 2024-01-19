@@ -12,36 +12,33 @@ import { api } from "../Util"
 
 
   function getUserExerciseByTraining(tk, id) {
-    console.log(tk)
     const config = {
         headers: { Authorization: `Bearer ${tk}` }
     };
-
-   
-
-
-    return api.get('exercise?idTraining=1', config)
+    return api.get('exercise?idTraining=' + id, config)
   }
 
-  function setUsuarioTreinoRequest(login, treino, descricao, tk, idTreino) {
-    
+  function setUsuarioExerciseRequest(login, treino, descricao, link, tk, idTreino, idExercicio) {
+
     const config = {
         headers: { Authorization: `Bearer ${tk}` }
     };
 
     const bodyParameters = {
         usuario: login,
-        treino: treino,
+        exercicio: treino,
         descricao: descricao,
-        idTreino: idTreino
+        link: link,
+        treino: idTreino,
+        id_exercicio: idExercicio
      };
 
 
-    return api.post('treino', bodyParameters, config)
+    return api.post('exercise', bodyParameters, config)
   }
  
   
 
 
 
-export { getUserExerciseByTraining, setUsuarioTreinoRequest, getUsuarioRequest}
+export { getUserExerciseByTraining, setUsuarioExerciseRequest, getUsuarioRequest}

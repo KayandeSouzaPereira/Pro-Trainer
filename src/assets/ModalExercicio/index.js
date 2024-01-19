@@ -3,30 +3,40 @@ import { styles } from './styles'
 import React, { useState, useEffect }  from 'react';
 import { Video } from '../Video';
 import { AntDesign, Feather   } from '@expo/vector-icons';
+import { getUsuarioRequest } from '../../servicos/Usuario';
+import {setUsuarioExerciseRequest } from '../../servicos/Exercicios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LoadingModal } from "react-native-loading-modal";
 
 
 
 
-export function ModalExercicio({data}) {
+export function ModalExercicio({data, edition, treino}) {
 
 
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
     const [video, setVideo] = useState("");
     const [videourl, setVideoUrl] = useState("URL");
+    const [videourl_, setVideoUrl_] = useState("URL");
     const [disabled, setDisabled] = useState(false);
     const [idExercicio, setIdExercicio] = useState(0);
+    const [idTreino, setIdTreino] = useState(0);
     const [edit, setEdit] = useState(false);
     const [titulo_, setTitulo_] = useState("");
     const [descricao_, setDescricao_] = useState("");
+    const [loading, setLoading] = useState(true);
 
     
     useEffect(() => {
+        console.log("DATA :" + treino)
         setIdExercicio(data.idExercicios)
         setTitulo(data.nm_exercicios);
         setDescricao(data.ds_exercicio);
-        let teste = filtroEmbed(data.link_exercicio);
-        setVideo(teste);
+        let video_ = filtroEmbed(data.link_exercicio);
+        setVideoUrl(data.link_exercicio);
+        setVideo(video_);
+        setLoading(false);
         },[])
     
     const filtroEmbed = (str) => {
@@ -36,33 +46,75 @@ export function ModalExercicio({data}) {
         filterStr = filterStr.replaceAll('"]', '');
         return filterStr;
     }
+
+    const setData = async () => {
+        console.log("ENVIO")
+        setLoading(true);
+       
+        let tituloEnv = "";
+        let descricaoEnv = "";
+        let videourlEnv = "";
+        let tkk = await AsyncStorage.getItem('Token');
+        let data = await getUsuarioRequest(tkk);
+        
+        let id = data.data.retorno.idAuth;
+
+       
+
+        if (titulo_ == ""){
+            tituloEnv = titulo;
+        }else{
+            tituloEnv = titulo_;
+        } 
+        if (descricao_ == ""){
+            descricaoEnv = descricao;
+        }else{
+            descricaoEnv = descricao_;
+        }
+        if (videourl_ == ""){
+            videourlEnv = videourl;
+        }else{
+            videourlEnv = videourl_;
+        }
+
+        console.log(tituloEnv)
+       let ret = await setUsuarioExerciseRequest(id, tituloEnv, descricaoEnv, videourlEnv, tkk, idTreino, idExercicio);
+       if (ret){
+            setLoading(false);
+            edition();
+       }
+       setLoading(false);
+       
+    }
     
     return(
         <View style={{height: 650}}>
         <View style={styles.container}>
+        <LoadingModal modalVisible={loading} />
             <ScrollView style={{flex:1, alignContent:"center"}}>
             { 
             edit === true ? 
                 <View style = {{paddingTop: 40, paddingVertical: 30}}>
-                    <TouchableOpacity disabled={disabled} style={{left:300, top: -10, zIndex: 1}} onPress={() => {
+                    <TouchableOpacity disabled={disabled} style={{left:290, top: -10, zIndex: 1}} onPress={async () => {
                         if(edit == true){
+                            await setData();
                             setEdit(false)
                         }else{
                             setEdit(true)
                         }
                         }}>
-                        <AntDesign name="edit" size={30} color="black" />
+                        <Feather name="send" size={40} color="black" />
                     </TouchableOpacity>
                     <TextInput style={styles.CamposEdit} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
                     <TextInput style={styles.CamposEdit} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
-                    <TextInput style={styles.CamposEdit} onChangeText={text => setVideoUrl(text)} >{videourl}</TextInput>
+                    <TextInput style={styles.CamposEdit} onChangeText={text => setVideoUrl_(text)} >{videourl}</TextInput>
                     <View style={{top:10, height: 300,flex: 1,
                     alignSelf:"center",}}>
                     </View>   
                 </View> 
                 :
-                <View>
-                    <TouchableOpacity disabled={disabled} style={{left:300, top: 10, zIndex: 1}} onPress={() => {
+                <View style={{top:10}}>
+                    <TouchableOpacity disabled={disabled} style={{left:290, top: 10, zIndex: 1}} onPress={() => {
                         if(edit == true){
                             setEdit(false)
                         }else{
@@ -74,7 +126,7 @@ export function ModalExercicio({data}) {
                     <Text style={styles.CamposTitulo}>{titulo}</Text>
                     <Text style={styles.Campos}>{descricao}</Text>
                     <Text style={styles.CamposSubTitulo}>Video</Text>
-                    <View style={{top:10, height: 300,flex: 1,
+                    <View style={{top:10, height: 300, flex: 1,
                     alignSelf:"center",}}>
                             <Video
                                 id={video}

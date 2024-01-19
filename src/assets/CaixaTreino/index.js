@@ -57,7 +57,9 @@ export function CaixaTreino({data, reload, navigation}) {
     
     return(
         <View style={styles.container}>
-            <TouchableOpacity disabled={idTreino === 0} onPress={() => {navigation.navigate("TreinosInfo", {treino: idTreino})}}>
+            <TouchableOpacity disabled={idTreino === 0} onPress={async () => {
+                await AsyncStorage.setItem("idTreino", JSON.stringify(idTreino));
+                navigation.navigate("TreinosInfo")}}>
                 
                 {
                     edit === true ? 

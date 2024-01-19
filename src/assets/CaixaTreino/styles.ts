@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
         fontFamily: 'Poppins_400Regular',
         color: 'black',
         fontSize: 30,
-        bottom: 30,
+        top: 10,
         marginLeft: 20
     },
     CamposTituloEdit:{
@@ -33,6 +33,7 @@ export const styles = StyleSheet.create({
         fontFamily: 'Poppins_400Regular',
         color: 'black',
         fontSize: 20,
+        top: 20,
         marginLeft: 20
     },
     CamposEdit:{

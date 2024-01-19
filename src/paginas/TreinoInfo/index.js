@@ -10,17 +10,17 @@ import { getUserExerciseByTraining } from '../../servicos/Exercicios'
 import { CaixaExercicio } from '../../assets/CaixaExercicio';
 
 
-export default function TreinoInfo({ navigation, treino }) {
+export default function TreinoInfo({ navigation}) {
     const [dados, setDados] = useState([]);
     const [loadingData, setLoadingData] = useState(false);
     const [loading, setLoading] = useState(true);
     const [idTreino, setIdTreino] = useState(0);
+    const [inEdit, setInEdit] = useState(false);
 
    
 
     useEffect(() => {
-        setIdTreino(treino)
-        getData();
+        getData(); 
     },[loadingData])
 
     function reload() {
@@ -33,22 +33,36 @@ export default function TreinoInfo({ navigation, treino }) {
         
     }
 
+    function edition() {
+        if(inEdit == false){
+            console.log("DISABLE")
+            setInEdit(true);
+        }else{
+            setInEdit(false);
+        }
+    }
+
     const getData = async () => {
         setLoading(true);
-        let tkk = await AsyncStorage.getItem('Token');
-        let dadosTreino = await getUserExerciseByTraining(tkk, idTreino);
-        let dados_ = [];
-        
-        if(dadosTreino.data.resultado != "Vazio") {
-            dados_ = dadosTreino.data.resultado;
+        const treino = await AsyncStorage.getItem("idTreino");
+        if (treino != 0 && treino != undefined){
+            setIdTreino(treino)
+            let tkk = await AsyncStorage.getItem('Token');
+            let dadosTreino = await getUserExerciseByTraining(tkk, treino);
+            let dados_ = [];
+            
+            if(dadosTreino.data.resultado != "Vazio") {
+                dados_ = dadosTreino.data.resultado;
+            }
+            setDados([]);
+            dados_.push({idExercicios: 0})
+            setDados(dados_);
+            console.log("dados")
+            console.log(dados)
+            setLoading(false);
+        }else{
+            setLoading(false)
         }
-        setDados([]);
-        dados_.push({idExercicios: 0})
-        setDados(dados_);
-        console.log("dados")
-        console.log(dados)
-        setLoading(false);
-        
     } 
 
     
@@ -69,16 +83,17 @@ export default function TreinoInfo({ navigation, treino }) {
                 keyExtractor={item => item.idExercicios}
                 renderItem={({item}) => (
                     
-                    item.idExercicios == "0" ?
+                    item.idExercicios === 0 ?
                         <CaixaAddExercicio
-                        navigation={navigation}
-                        idTreino={idTreino}
                         reload={reload}
+                        edition={inEdit}
+                        treino={idTreino}
                         />
-                        :
+                        : 
                         <CaixaExercicio 
                         data={item}
-                        reload={reload}
+                        treino={idTreino}
+                        editionFunction={edition}
                         />
                        
                     ) 

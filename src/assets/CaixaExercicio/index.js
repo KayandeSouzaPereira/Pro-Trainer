@@ -9,7 +9,7 @@ import { ModalExercicio } from '../ModalExercicio';
 
 
 
-export function CaixaExercicio({data, reload}) {
+export function CaixaExercicio({data, editionFunction, treino}) {
 
     const [edit, setEdit] = useState(false);
     const [disabled, setDisabled] = useState(false);
@@ -17,6 +17,7 @@ export function CaixaExercicio({data, reload}) {
     const [descricao, setDescricao] = useState("");
     const [idExercicio, setIdExercicio] = useState(0);
     const [titulo_, setTitulo_] = useState("");
+    const [idTreino, setIdTreino] = useState(0);
     const [descricao_, setDescricao_] = useState("");
     const [video, setVideo] = useState("");
     
@@ -28,57 +29,41 @@ export function CaixaExercicio({data, reload}) {
         setTitulo(data.nm_exercicios);
         setDescricao(data.ds_exercicio);
         setVideo(data.link_exercicio);
+        setIdTreino(treino);
         },[])
 
 
-
-        const setData = async (titulo_, descricao_) => {
-            console.log("ENVIO")
-            let tkk = await AsyncStorage.getItem('Token');
-            let data = await getUsuarioRequest(tkk);
-            let id = data.data.retorno.idAuth;
-            let tituloEnv = "";
-            let descricaoEnv = "";
-            if (titulo_ == ""){
-                tituloEnv = titulo;
-            }else{
-                tituloEnv = titulo_;
-            } 
-            if (descricao_ == ""){
-                descricaoEnv = descricao;
-            }else{
-                descricaoEnv = descricao_;
-            }
-           let ret = await setUsuarioTreinoRequest(id, tituloEnv, descricaoEnv, tkk, idTreino);
-           if (ret){
-                reload();
-           }
-           
-        }
+    const edition = () => {
+        editionFunction();
+        setEdit(false);
+    }
+       
     
     return(
         <View style={styles.container}>
+             <TouchableOpacity disabled={disabled} style={{zIndex: 1}} onPress={() => {
+                if(edit == true){
+                    setEdit(false)
+                }else{
+                    editionFunction();
+                    setEdit(true)
+                }
+                }}>
             {
                 edit === true ? 
                 <ModalExercicio
                     data={data}
+                    edition={edition}
+                    treino={idTreino}
                 />
                : 
-               
+              
                <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
-                <TouchableOpacity disabled={disabled} style={{left:300, top: 10, zIndex: 1}} onPress={() => {
-                    if(edit == true){
-                        setEdit(false)
-                    }else{
-                        setEdit(true)
-                    }
-                    }}>
-                    <AntDesign name="edit" size={40} color="black" />
-                </TouchableOpacity>
-                <Text style={styles.CamposTitulo}>{titulo}</Text>
-                <Text style={styles.Campos}>{descricao}</Text>
+                        <Text style={styles.CamposTitulo}>{titulo}</Text>
+                        <Text style={styles.Campos}>{descricao}</Text>
                 </View>
             }
+            </TouchableOpacity>
             
         </View>
     )
