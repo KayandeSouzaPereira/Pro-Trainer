@@ -1,5 +1,5 @@
 import { Text, View, TouchableOpacity,TextInput } from 'react-native';
-import { styles } from '../CaixaTreino/styles';
+import { styles } from '../CaixaExercicio/styles';
 import { AntDesign, Feather   } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,7 +9,7 @@ import { ModalExercicio } from '../ModalExercicio';
 
 
 
-export function CaixaExercicio({data, editionFunction, treino}) {
+export function CaixaExercicio({data, editionFunction, treino, reload}) {
 
     const [edit, setEdit] = useState(false);
     const [disabled, setDisabled] = useState(false);
@@ -43,7 +43,7 @@ export function CaixaExercicio({data, editionFunction, treino}) {
         <View style={styles.container}>
              <TouchableOpacity disabled={disabled} style={{zIndex: 1}} onPress={() => {
                 if(edit == true){
-                    setEdit(false)
+                    //setEdit(false)
                 }else{
                     editionFunction();
                     setEdit(true)
@@ -55,6 +55,7 @@ export function CaixaExercicio({data, editionFunction, treino}) {
                     data={data}
                     edition={edition}
                     treino={idTreino}
+                    reload={reload}
                 />
                : 
               

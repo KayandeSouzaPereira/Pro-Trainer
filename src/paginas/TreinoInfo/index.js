@@ -35,7 +35,6 @@ export default function TreinoInfo({ navigation}) {
 
     function edition() {
         if(inEdit == false){
-            console.log("DISABLE")
             setInEdit(true);
         }else{
             setInEdit(false);
@@ -44,21 +43,26 @@ export default function TreinoInfo({ navigation}) {
 
     const getData = async () => {
         setLoading(true);
-        const treino = await AsyncStorage.getItem("idTreino");
+        
+        const treino = parseInt(await AsyncStorage.getItem("idTreino"));
+
         if (treino != 0 && treino != undefined){
+            setDados([]);
             setIdTreino(treino)
             let tkk = await AsyncStorage.getItem('Token');
-            let dadosTreino = await getUserExerciseByTraining(tkk, treino);
-            let dados_ = [];
-            
-            if(dadosTreino.data.resultado != "Vazio") {
+            let dadosTreino = ""
+            console.log(treino);
+            dadosTreino = await getUserExerciseByTraining(tkk, treino);
+            let dados_
+            if(dadosTreino.data.resultado != "treinos não encontrado") {
+               
                 dados_ = dadosTreino.data.resultado;
+                dados_.push({idExercicios: 0})
+            }else if(dadosTreino.data.resultado === "treinos não encontrado"){
+                dados_ = [{idExercicios: 0}];
             }
-            setDados([]);
-            dados_.push({idExercicios: 0})
+            console.log(dados_)
             setDados(dados_);
-            console.log("dados")
-            console.log(dados)
             setLoading(false);
         }else{
             setLoading(false)
@@ -83,10 +87,9 @@ export default function TreinoInfo({ navigation}) {
                 keyExtractor={item => item.idExercicios}
                 renderItem={({item}) => (
                     
-                    item.idExercicios === 0 ?
+                     item.idExercicios === 0 ?
                         <CaixaAddExercicio
                         reload={reload}
-                        edition={inEdit}
                         treino={idTreino}
                         />
                         : 
@@ -94,7 +97,8 @@ export default function TreinoInfo({ navigation}) {
                         data={item}
                         treino={idTreino}
                         editionFunction={edition}
-                        />
+                        reload={reload}
+                        /> 
                        
                     ) 
                 }

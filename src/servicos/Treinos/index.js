@@ -41,9 +41,23 @@ import { api } from "../Util"
 
     return api.post('treino', bodyParameters, config)
   }
+
+  function deleteUsuarioTreinoRequest(tk, idTreino) {
+    
+    const config = {
+        headers: { Authorization: `Bearer ${tk}` }
+    };
+
+    const bodyParameters = {
+        deleteIdTreino: idTreino
+     };
+
+
+    return api.post('treino', bodyParameters, config)
+  }
  
   
 
 
 
-export { getUsuarioRequest, getUserTraining, setUsuarioTreinoRequest}
+export { getUsuarioRequest, getUserTraining, setUsuarioTreinoRequest, deleteUsuarioTreinoRequest}

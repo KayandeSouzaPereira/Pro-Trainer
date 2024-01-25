@@ -4,8 +4,10 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     container:{
         width: 350,
-        height: 600,
-        flex: 1,
+        height: 300,
+        left: 25,
+        opacity: 1,
+        top: 200,
         flexDirection:"column",
         alignItems: 'center',
         textAlign:"center",
@@ -42,6 +44,15 @@ export const styles = StyleSheet.create({
         alignSelf:"center",
         paddingBottom: 40
     },
+    CamposSubTitle:{
+        fontFamily: 'Poppins_400Regular',
+        color: 'black',
+        fontSize: 22,
+        flex: 1,
+        alignSelf:"center",
+        marginHorizontal:10,
+        paddingBottom: 2
+    },
     Campos:{
         fontFamily: 'Poppins_400Regular',
         color: 'black',
@@ -49,19 +60,25 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignSelf:"center",
         marginHorizontal:10,
-        paddingBottom: 20
+        paddingBottom: 5
+    },
+    CamposTextEdit:{
+        fontFamily: 'Poppins_400Regular',
+        color: 'black',
+        fontSize: 18,
+        flex: 1,
+        alignSelf:"center",
+        marginHorizontal:10
     },
     CamposEdit:{
         fontFamily: 'Poppins_400Regular',
         color: 'white',
         backgroundColor: '#1b5a76',
-        fontSize: 20,
+        fontSize: 18,
         marginLeft: 10,
         borderRadius: 20,
         paddingLeft: 20,
-        top: 20,
-        marginBottom: 30,
-        width: 330,
-        height: 60
+        width: 250,
+        height: 30
     }
 });

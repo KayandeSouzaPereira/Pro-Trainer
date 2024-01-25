@@ -3,20 +3,14 @@ import { styles } from '../CaixaAddExercicio/styles';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getUsuarioRequest, setUsuarioExerciseRequest } from '../../servicos/Exercicios';
+import { getUsuarioRequest, setUsuarioExerciseRequestEmpt } from '../../servicos/Exercicios';
 
 
 
 
-export function CaixaAddExercicio({reload, edition, treino}) {
+export function CaixaAddExercicio({reload, treino}) {
 
-    const [inEdit, setInEdit] = useState(false);
-
-    useEffect(() => {
-        console.log("EDIT :" + edition)
-        setInEdit(edition);
-    }, [])
-
+    
     const setData = async (titulo, descricao) => {
         console.log("data set")
         let tkk = await AsyncStorage.getItem('Token');
@@ -24,7 +18,8 @@ export function CaixaAddExercicio({reload, edition, treino}) {
         let data = await getUsuarioRequest(tkk);
         let id = data.data.retorno.idAuth;
         try {
-            let ret = await setUsuarioExerciseRequest(id, titulo, descricao, undefined, tkk, treino, undefined);
+            console.log("ID : " + treino)
+            let ret = await setUsuarioExerciseRequestEmpt(id, titulo, descricao, "", tkk, treino, "");
             if (ret != null){
                 console.log("RETORNO : " + JSON.stringify(ret))
                 reload();
@@ -40,14 +35,12 @@ export function CaixaAddExercicio({reload, edition, treino}) {
     
     return(
         <View> 
-            { inEdit === false ? 
                 <View style={styles.container}>
                     <TouchableOpacity style={{zIndex: 1}} onPress={async () => { setData("'Titulo do exercicio'", "'Descrição do exercicio'")}}>
                         
                         <Ionicons name="add" size={40} color="black" />
                     </TouchableOpacity>
-                </View> : <View/>
-            }
+                </View> 
         </View>
     )
 }

@@ -3,7 +3,7 @@ import { styles } from '../CaixaTreino/styles';
 import { AntDesign, Feather   } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos';
+import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining, deleteUsuarioTreinoRequest} from '../../servicos/Treinos';
 
 
 
@@ -28,6 +28,15 @@ export function CaixaTreino({data, reload, navigation}) {
         setDescricao(data.ds_treinos);
         setIdTreino(data.idTreinos)
         },[])
+
+        const deleteCard = async () => {
+            let tkk = await AsyncStorage.getItem('Token');
+            let ret = await deleteUsuarioTreinoRequest(tkk, idTreino);
+            if (ret){
+                 console.log("RECARGA")
+                 reload();
+            }
+        }
 
 
         const setData = async (titulo_, descricao_) => {
@@ -64,7 +73,7 @@ export function CaixaTreino({data, reload, navigation}) {
                 {
                     edit === true ? 
                     <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
-                        <TouchableOpacity disabled={disabled} style={{left:300, top: 18, zIndex: 1}} onPress={async () => {
+                        <TouchableOpacity disabled={disabled} style={{left:320, top: 18, zIndex: 1}} onPress={async () => {
                         if(edit == true){
                             await setData(titulo_, descricao_);
                             setEdit(false)
@@ -72,7 +81,7 @@ export function CaixaTreino({data, reload, navigation}) {
                             setEdit(true)
                         }
                         }}>
-                        <Feather name="send" size={40} color="black" />
+                        <Feather name="send" size={30} color="black" />
                     </TouchableOpacity>
                     <TextInput style={styles.CamposTituloEdit} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
                     <TextInput style={styles.CamposEdit} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
@@ -80,14 +89,19 @@ export function CaixaTreino({data, reload, navigation}) {
                 : 
                 
                 <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
-                    <TouchableOpacity disabled={disabled} style={{left:300, top: 10, zIndex: 1}} onPress={() => {
+                    <TouchableOpacity disabled={disabled} style={{left:310, top: 10, zIndex: 1}} onPress={() => {
                         if(edit == true){
                             setEdit(false)
                         }else{
                             setEdit(true)
                         }
                         }}>
-                        <AntDesign name="edit" size={40} color="black" />
+                        <AntDesign name="edit" size={30} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity disabled={disabled} style={{left:20,width: 40, height: 40, bottom: 20, zIndex: 1}} onPress={() => {
+                        deleteCard();
+                        }}>
+                        <Feather name="trash-2" size={30} color="black" />
                     </TouchableOpacity>
                     <Text style={styles.CamposTitulo}>{titulo}</Text>
                     <Text style={styles.Campos}>{descricao}</Text>

@@ -1,13 +1,23 @@
-import { StyleSheet, Text, View, TextInput, Button, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Dimensions, TouchableOpacity, Modal } from 'react-native';
+import { useState, useEffect } from 'react';
 import { LineChart, PieChart, ContributionGraph, BarChart} from 'react-native-chart-kit';
 import { styles } from './styles';
+import { ModalMacro } from '../ModalMacro';
 
 export default function Grafico(data) {
+
+   const [modalMacro, setModalMacro] = useState(false);
+
+
+
+
   let dados = data.data;
   let tipo = dados.tipo;
   let titulos = dados.titulos;
   let valores = dados.infos;
   let titulo = dados.Titulo;
+
+  
     if (tipo == "Linha"){
         return(
             <View style={styles.containerLinha}>
@@ -51,6 +61,7 @@ export default function Grafico(data) {
     }else if(tipo == "Pizza"){
           return (
             <View style={styles.containerPizza}>
+            <TouchableOpacity onPress={() => setModalMacro(true) }>
             <Text>{titulo}</Text>
             <PieChart
                 data={valores}
@@ -70,6 +81,14 @@ export default function Grafico(data) {
                 center={[10, 10]}
                 absolut
             />
+            <Modal
+                visible={modalMacro}
+                transparent={true}
+                onRequestClose={() => {setModalMacro(false);}}
+            >
+                <ModalMacro reload={() => {setModalMacro(false);}}/>
+            </Modal>
+            </TouchableOpacity>
             </View>)
     
     }else if(tipo == "Barra"){

@@ -15,36 +15,36 @@ export const styles = StyleSheet.create({
         fontFamily: 'Poppins_400Regular',
         color: 'black',
         fontSize: 30,
-        top: 10,
+        top: -10,
         marginLeft: 20
     },
     CamposTituloEdit:{
         fontFamily: 'Poppins_400Regular',
         color: 'white',
         backgroundColor: '#1b5a76',
-        fontSize: 30,
-        bottom: 30,
+        fontSize: 25,
+        bottom: 20,
         marginLeft: 20,
         borderRadius: 20,
         paddingLeft: 20,
-        width: 250,
+        width: 280
     },
     Campos:{
         fontFamily: 'Poppins_400Regular',
         color: 'black',
         fontSize: 20,
-        top: 20,
+        top: -10,
         marginLeft: 20
     },
     CamposEdit:{
         fontFamily: 'Poppins_400Regular',
         color: 'white',
         backgroundColor: '#1b5a76',
-        fontSize: 20,
+        fontSize: 18,
         marginLeft: 20,
         borderRadius: 20,
         paddingLeft: 20,
-        width: 330,
+        width: 300,
         height: 100
     }
 });

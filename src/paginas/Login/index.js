@@ -24,9 +24,9 @@ export default function Login({navigation}) {
                 return true
             }).catch(err => {
                 if(JSON.stringify(err).includes('403')){
+                    console.log("ERRO : " + err)
                     return "incorreto";
                 }
-                console.log("ERRO : " + err);
             });
         }else {
             return false;
