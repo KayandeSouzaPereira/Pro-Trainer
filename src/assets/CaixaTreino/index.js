@@ -1,11 +1,11 @@
-import { Text, View, TouchableOpacity,TextInput } from 'react-native';
+import { Text, View, TouchableOpacity,TextInput, Animated } from 'react-native';
 import { styles } from '../CaixaTreino/styles';
-import { AntDesign, Feather   } from '@expo/vector-icons';
+import { AntDesign, Feather  } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining, deleteUsuarioTreinoRequest} from '../../servicos/Treinos';
-
-
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { RectButton } from 'react-native-gesture-handler';
 
 
 export function CaixaTreino({data, reload, navigation}) {
@@ -23,7 +23,6 @@ export function CaixaTreino({data, reload, navigation}) {
     
 
     useEffect(() => {
-        console.log(data);
         setTitulo(data.nm_treinos);
         setDescricao(data.ds_treinos);
         setIdTreino(data.idTreinos)
@@ -33,14 +32,12 @@ export function CaixaTreino({data, reload, navigation}) {
             let tkk = await AsyncStorage.getItem('Token');
             let ret = await deleteUsuarioTreinoRequest(tkk, idTreino);
             if (ret){
-                 console.log("RECARGA")
                  reload();
             }
         }
 
 
         const setData = async (titulo_, descricao_) => {
-            console.log("ENVIO")
             let tkk = await AsyncStorage.getItem('Token');
             let data = await getUsuarioRequest(tkk);
             let id = data.data.retorno.idAuth;
@@ -58,56 +55,128 @@ export function CaixaTreino({data, reload, navigation}) {
             }
            let ret = await setUsuarioTreinoRequest(id, tituloEnv, descricaoEnv, tkk, idTreino);
            if (ret){
-                console.log("RECARGA")
                 reload();
            }
            
         }
+
+        renderRightActions = (progress, dragX) => {
+            const trans = dragX.interpolate({
+              inputRange: [-100,0],
+              outputRange: [0, 20],
+            });
+            return (
+              <RectButton style={styles.rightAction} onPress={this.close}>
+                <Animated.Text
+                  style={[
+                    styles.actionText,
+                    {
+                      transform: [{ translateX: trans }],
+                    },
+                  ]}>
+                <Feather name="trash-2" size={20} color="black" />
+                <View style={{width: 20}}></View>
+                  Deletar   
+                </Animated.Text>
+                
+              </RectButton>
+            );
+          };
+
+           renderLeftActions = (progress, dragX) => {
+            const trans = dragX.interpolate({
+                inputRange: [0,100],
+                outputRange: [20, 0],
+            });
+            return (
+              <RectButton style={styles.leftAction} onPress={this.close}>
+                { edit == false ?
+                <Animated.Text
+                  style={[
+                    styles.actionText,
+                    {
+                      transform: [{ translateX: trans }],
+                    },
+                  ]}>
+                
+                <AntDesign name="edit" size={20} color="black" />
+                <View style={{width: 20}}></View>
+                  Editar
+                  
+                </Animated.Text>
+                :
+                <Animated.Text
+                  style={[
+                    styles.actionText,
+                    {
+                      transform: [{ translateX: trans }],
+                    },
+                  ]}>
+                
+                <Feather name="send" size={20} color="black" />
+                <View style={{width: 20}}></View>
+                  Enviar
+                </Animated.Text>
+                }
+              </RectButton>
+            );
+          };
     
     return(
         <View style={styles.container}>
-            <TouchableOpacity disabled={idTreino === 0} onPress={async () => {
-                await AsyncStorage.setItem("idTreino", JSON.stringify(idTreino));
-                navigation.navigate("TreinosInfo")}}>
-                
-                {
-                    edit === true ? 
-                    <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
-                        <TouchableOpacity disabled={disabled} style={{left:320, top: 18, zIndex: 1}} onPress={async () => {
-                        if(edit == true){
-                            await setData(titulo_, descricao_);
-                            setEdit(false)
-                        }else{
-                            setEdit(true)
-                        }
-                        }}>
-                        <Feather name="send" size={30} color="black" />
-                    </TouchableOpacity>
-                    <TextInput style={styles.CamposTituloEdit} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
-                    <TextInput style={styles.CamposEdit} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
+        <Swipeable 
+        renderLeftActions={renderLeftActions}  onSwipeableOpen={(direction) => {console.log("direcao: " + direction)}} onSwipeableRightOpen={console.log("deletado")} 
+        renderRightActions={renderRightActions} onSwipeableLeftOpen={ () => {
+            if(edit == true){
+                setEdit(false)
+            }else{
+                setEdit(true)
+            }}}>
+                <TouchableOpacity disabled={idTreino === 0} onPress={async () => {
+                    await AsyncStorage.setItem("idTreino", JSON.stringify(idTreino));
+                    navigation.navigate("TreinosInfo")}}>
+                    
+                    {
+                        edit === true ? 
+                        <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
+                            <TouchableOpacity disabled={disabled} style={{left:320, top: 18, zIndex: 1}} onPress={async () => {
+                            if(edit == true){
+                                await setData(titulo_, descricao_);
+                                setEdit(false)
+                            }else{
+                                setEdit(true)
+                            }
+                            }}>
+                            <Feather name="send" size={30} color="black" />
+                        </TouchableOpacity>
+                        <TextInput style={styles.CamposTituloEdit} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
+                        <TextInput style={styles.CamposEdit} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
+                        </View>
+                    : 
+                    
+                    <View style={styles.containerbox}>
+                        <View style={styles.containerHeader}>
+                            <TouchableOpacity disabled={disabled} style={{width: 20, height: 20, top: 10}} onPress={() => {
+                                deleteCard();
+                                }}>
+                                <Feather name="trash-2" size={20} color="black" />
+                            </TouchableOpacity>
+                            <Text style={styles.CamposTitulo}>{titulo}</Text>
+                            <TouchableOpacity disabled={disabled} style={{width: 20, height: 20, top: 10}} onPress={() => {
+                                if(edit == true){
+                                    setEdit(false)
+                                }else{
+                                    setEdit(true)
+                                }
+                                }}>
+                                <AntDesign name="edit" size={20} color="black" />
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={styles.Campos}>{descricao}</Text>
                     </View>
-                : 
-                
-                <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
-                    <TouchableOpacity disabled={disabled} style={{left:310, top: 10, zIndex: 1}} onPress={() => {
-                        if(edit == true){
-                            setEdit(false)
-                        }else{
-                            setEdit(true)
-                        }
-                        }}>
-                        <AntDesign name="edit" size={30} color="black" />
-                    </TouchableOpacity>
-                    <TouchableOpacity disabled={disabled} style={{left:20,width: 40, height: 40, bottom: 20, zIndex: 1}} onPress={() => {
-                        deleteCard();
-                        }}>
-                        <Feather name="trash-2" size={30} color="black" />
-                    </TouchableOpacity>
-                    <Text style={styles.CamposTitulo}>{titulo}</Text>
-                    <Text style={styles.Campos}>{descricao}</Text>
-                    </View>
-                }
-            </TouchableOpacity>
+                    }
+                </TouchableOpacity>
+            </Swipeable>
         </View>
     )
 }

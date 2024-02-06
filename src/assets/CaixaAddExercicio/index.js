@@ -12,20 +12,15 @@ export function CaixaAddExercicio({reload, treino}) {
 
     
     const setData = async (titulo, descricao) => {
-        console.log("data set")
         let tkk = await AsyncStorage.getItem('Token');
-        console.log(tkk)
         let data = await getUsuarioRequest(tkk);
         let id = data.data.retorno.idAuth;
         try {
-            console.log("ID : " + treino)
             let ret = await setUsuarioExerciseRequestEmpt(id, titulo, descricao, "", tkk, treino, "");
             if (ret != null){
-                console.log("RETORNO : " + JSON.stringify(ret))
                 reload();
                }
         } catch (error) {
-            console.log(error)
             Alert.alert("Aviso: ", "Já existe um formulario de Exercicio disponivel para cadastro na lista");
         }
         

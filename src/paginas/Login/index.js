@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
 import { cadRequest, loginRequest, setToken } from "../../servicos/Login";
 import { ProgressBar } from 'react-native-paper';
+import { styles } from "./styles";
 
 
 
@@ -18,13 +19,11 @@ export default function Login({navigation}) {
     const loginFunction = async () => {
         if (usuario !== '' && senha !== '') {
             return loginRequest(usuario, senha).then(async res => {
-                console.log(res.data);
                 await setToken(res.data.token)
                 navigation.navigate('Home')
                 return true
             }).catch(err => {
                 if(JSON.stringify(err).includes('403')){
-                    console.log("ERRO : " + err)
                     return "incorreto";
                 }
             });
@@ -37,7 +36,6 @@ export default function Login({navigation}) {
     const loginBtn = async () => {
         setLoading(true);
         let _ret = await loginFunction();
-        console.log(_ret);
         if (_ret == true){
             setLoading(false);
             
@@ -56,10 +54,8 @@ export default function Login({navigation}) {
 
     const cadBtn = async() => {
         setLoading(true);
-        console.log("Usuario : " + usuario);
         if (usuario !== '' && senha !== '') {
             let _ret = cadRequest(usuario, senha).then(async res => {
-                console.log(res.data);
                 if(res.data.retorno.includes('Usuário já cadastrado')){
                     setLoading(false);
                     Alert.alert("Atenção", "Usuario já cadastrado.")
@@ -74,7 +70,6 @@ export default function Login({navigation}) {
                     return "incorreto";
                 }
                 setLoading(false);
-                console.log("ERRO : " + err);
             });
         } else {
             Alert.alert("Atenção", "E Necessario preencher todos os campos do Login para acessar.")
@@ -86,22 +81,19 @@ export default function Login({navigation}) {
 
 
     return(
-        <View style={{width: 400, flex: 1,backgroundColor: '#2e6c80',alignItems: 'center',justifyContent: 'center'}}>
-            <Text style={{fontFamily: 'Poppins_400Regular', color: 'white', fontSize: 30, right: 70}}>Bem vindo !</Text>
-            <Text style={{fontFamily: 'Poppins_400Regular', color: 'white', fontSize: 30, right: 120}}>Login</Text>
-            <TextInput placeholder="Usuário" value={usuario} onChangeText={text => setUsuario(text)} style={{width: 200, height: 40,  paddingLeft: 10, backgroundColor: 'white', borderRadius: 5, right: 60,fontFamily: 'Poppins_400Regular', color: 'black', fontSize: 15,top: 20}}></TextInput>
-            <TextInput secureTextEntry={true} placeholder="Senha" value={senha} onChangeText={text => setSenha(text)} style={{width: 200, height: 40,  paddingLeft: 10, backgroundColor: 'white', borderRadius: 5, right: 60,fontFamily: 'Poppins_400Regular', color: 'black', fontSize: 15, top: 40}}></TextInput>
-            <View style={{left: 100, top: 100, }}>
-                <Button title='Login' onPress={async () => {
-                    await loginBtn();
-                    }} style={{borderRadius:15, fontFamily: 'Poppins_400Regular'}}></Button>
-                <View style={{height:20}}></View>
-                <Button title='Inscrição 1-click' style={{borderRadius:15, fontFamily: 'Poppins_400Regular'}}
-                    onPress={async () => {
-                        await cadBtn();
-                    }}
-                ></Button>
-            </View>
+        <View style={styles.container}>
+                <Text style={styles.Titulo}>Bem vindo !</Text>
+                <Text style={styles.Titulo2}>Login</Text>
+                <TextInput placeholder="Usuário" value={usuario} onChangeText={text => setUsuario(text)} style={styles.CamposLogin}></TextInput>
+                <TextInput secureTextEntry={true} placeholder="Senha" value={senha} onChangeText={text => setSenha(text)} style={styles.CamposSenha}></TextInput>
+                <View style={styles.ContainerBotões}>
+                    <TouchableOpacity  onPress={async () => {await loginBtn();}} style={styles.BotaoLogin}><Text style={styles.textoLogin}>Login</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.BotaoLogin}
+                        onPress={async () => {
+                            await cadBtn();
+                        }}
+                    ><Text style={styles.textoLogin}>Inscrição 1-click</Text></TouchableOpacity>
+                </View>
             {
                 loading ?
                     <View  style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(26, 28, 41,0.8)', justifyContent: "center", alignItems: "center"}}>

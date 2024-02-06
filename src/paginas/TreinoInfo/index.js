@@ -12,6 +12,7 @@ import { CaixaExercicio } from '../../assets/CaixaExercicio';
 
 export default function TreinoInfo({ navigation}) {
     const [dados, setDados] = useState([]);
+    const [id, setId] = useState(0);
     const [loadingData, setLoadingData] = useState(false);
     const [loading, setLoading] = useState(true);
     const [idTreino, setIdTreino] = useState(0);
@@ -50,8 +51,7 @@ export default function TreinoInfo({ navigation}) {
             setDados([]);
             setIdTreino(treino)
             let tkk = await AsyncStorage.getItem('Token');
-            let dadosTreino = ""
-            console.log(treino);
+            let dadosTreino = "";
             dadosTreino = await getUserExerciseByTraining(tkk, treino);
             let dados_
             if(dadosTreino.data.resultado != "treinos não encontrado") {
@@ -61,7 +61,6 @@ export default function TreinoInfo({ navigation}) {
             }else if(dadosTreino.data.resultado === "treinos não encontrado"){
                 dados_ = [{idExercicios: 0}];
             }
-            console.log(dados_)
             setDados(dados_);
             setLoading(false);
         }else{
@@ -78,10 +77,9 @@ export default function TreinoInfo({ navigation}) {
 
     return(
         <View style={styles.container}>
-            <View style={{left: 130, top: 45}}>
-                <BarraSuperior/>
-            </View>
+            <BarraSuperior/>
             <LoadingModal modalVisible={loading} />
+            <View style={{marginHorizontal:10, marginTop: 60, height: 730}}>
             { <FlatList
                 data={dados}
                 keyExtractor={item => item.idExercicios}
@@ -105,9 +103,8 @@ export default function TreinoInfo({ navigation}) {
                         contentContainerStyle={{ paddingBottom: 100, paddingTop: 30}}
                         showsVerticalScrollIndicator={false}
             /> }
-            <View style={{left: 130, bottom: 10}}>
-                <BarraInferior {... {navigation}}/>
-            </View>            
+            </View>
+            <BarraInferior {... {navigation}}/>          
         </View>
     )
 }

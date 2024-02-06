@@ -6,11 +6,13 @@ import MainRoute from './Main';
 
 export default function AppNavigacao({navigation, stateApp}) {
     const Stack = createStackNavigator();
+
+    
     
     return(
         <Stack.Navigator>
             {
-                <Stack.Screen name="Main" component={MainRoute} />
+                <Stack.Screen name="Main" component={MainRoute}  options={{headerShown:false}} />
             }
             
          </Stack.Navigator>

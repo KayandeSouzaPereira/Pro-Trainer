@@ -29,7 +29,6 @@ export function ModalExercicio({data, edition, treino, reload}) {
 
     
     useEffect(() => {
-        console.log("DATA :" + treino)
         setIdExercicio(data.idExercicios)
         setTitulo(data.nm_exercicios);
         setDescricao(data.ds_exercicio);
@@ -37,9 +36,6 @@ export function ModalExercicio({data, edition, treino, reload}) {
         let video_ = filtroEmbed(data.link_exercicio);
         setVideoUrl(data.link_exercicio);
         setVideo(video_);
-        console.log("VIDEO : ")
-        console.log(videourl.includes("youtu"))
-
         setLoading(false);
         },[])
     
@@ -52,7 +48,6 @@ export function ModalExercicio({data, edition, treino, reload}) {
     }
 
     const setData = async () => {
-        console.log("ENVIO")
         setLoading(true);
        
         let tituloEnv = "";
@@ -80,8 +75,6 @@ export function ModalExercicio({data, edition, treino, reload}) {
         }else{
             videourlEnv = videourl_;
         }
-
-        console.log(tituloEnv)
        let ret = await setUsuarioExerciseRequest(id, tituloEnv, descricaoEnv, videourlEnv, tkk, idTreino, idExercicio);
        if (ret){
             setLoading(false);
@@ -94,7 +87,6 @@ export function ModalExercicio({data, edition, treino, reload}) {
     
     const deleteCard = async () => {
         let tkk = await AsyncStorage.getItem('Token');
-        console.log(idExercicio)
         let ret = await deleteUsuarioExerciseRequest(tkk, idExercicio);
         if (ret){
              reload();

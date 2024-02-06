@@ -33,9 +33,6 @@ import { api } from "../Util"
         id_exercicio: idExercicio
      };
 
-
-    console.log(bodyParameters)
-
     return api.post('exercise', bodyParameters, config)
   }
 
@@ -54,7 +51,6 @@ import { api } from "../Util"
      };
 
 
-    console.log(bodyParameters)
 
     return api.post('exercise', bodyParameters, config)
   }

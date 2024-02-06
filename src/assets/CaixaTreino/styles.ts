@@ -11,12 +11,25 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         marginBottom: 20
     },
+    containerbox:{
+        backgroundColor:"white", 
+        width: 370, 
+        height: 200,
+        borderRadius: 15, 
+        borderColor: 'black',
+        borderWidth: 2
+    },
+    containerHeader:{
+        flexDirection:"row", 
+        width: 360,
+        paddingHorizontal: 15,
+        justifyContent: 'space-between',
+        top: 10
+    },
     CamposTitulo:{
         fontFamily: 'Poppins_400Regular',
         color: 'black',
-        fontSize: 30,
-        top: -10,
-        marginLeft: 20
+        fontSize: 30
     },
     CamposTituloEdit:{
         fontFamily: 'Poppins_400Regular',
@@ -31,9 +44,9 @@ export const styles = StyleSheet.create({
     },
     Campos:{
         fontFamily: 'Poppins_400Regular',
-        color: 'black',
+        color: 'rgba(0, 0, 0, 0.5)',
         fontSize: 20,
-        top: -10,
+        top: 10,
         marginLeft: 20
     },
     CamposEdit:{
@@ -46,5 +59,12 @@ export const styles = StyleSheet.create({
         paddingLeft: 20,
         width: 300,
         height: 100
+    },
+    leftAction:{},
+    rightAction:{},
+    actionText:{
+        fontFamily: 'Poppins_400Regular',
+        fontSize: 20,
+        top: 50
     }
 });

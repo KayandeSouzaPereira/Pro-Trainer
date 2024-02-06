@@ -16,3 +16,8 @@ export const theme = {
       text: 'Poppins_400Regular',
     }
   };
+
+export const GLOBALS = {
+  IDUSER: 0,
+  IMG: ""
+}

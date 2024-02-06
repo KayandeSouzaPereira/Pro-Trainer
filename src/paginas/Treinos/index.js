@@ -7,14 +7,12 @@ import { CaixaAdd } from '../../assets/CaixaAdd';
 import { styles } from '../Treinos/styles';
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
-import { ModalExercicio } from '../../assets/ModalExercicio';
-import { Video } from "../../assets/Video"
-import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos'
-import { Button } from 'react-native-paper';
-
+import { GLOBALS } from '../../configs';
+import { getUserTraining } from '../../servicos/Treinos';
 
 export default function Treinos({ navigation }) {
     const [dados, setDados] = useState([]);
+    const [id, setId] = useState(0);
     const [loadingData, setLoadingData] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -37,18 +35,24 @@ export default function Treinos({ navigation }) {
     const getData = async () => {
         setLoading(true);
         let tkk = await AsyncStorage.getItem('Token');
-        let data = await getUsuarioRequest(tkk);
-        let id = data.data.retorno.idAuth;
-        let dadosTreino = await getUserTraining(id, tkk);
-        let dados_ = [];
-        
-        if(dadosTreino.data.resultado != "Vazio") {
-            dados_ = dadosTreino.data.resultado;
+        let id = GLOBALS.IDUSER;
+        setId(id);
+        try {
+            let dadosTreino = await getUserTraining(id, tkk);
+            let dados_ = [];
+            
+            if(dadosTreino.data.resultado != "Vazio") {
+                dados_ = dadosTreino.data.resultado;
+            }
+            setDados([]);
+            dados_.push({idTreinos: 0})
+            setDados(dados_);
+        } catch (err){
+            console.log(err)
+            let dados_ = [];
+            dados_.push({idTreinos: 0})
+            setDados(dados_);
         }
-        setDados([]);
-        dados_.push({idTreinos: 0})
-        setDados(dados_);
-        
         setLoading(false);
         
     } 
@@ -62,10 +66,9 @@ export default function Treinos({ navigation }) {
 
     return(
         <View style={styles.container}>
-            <View style={{left: 130, top: 45}}>
-                <BarraSuperior/>
-            </View>
+            <BarraSuperior/>
             <LoadingModal modalVisible={loading} />
+            <View style={{marginHorizontal:10, marginTop: 60, height: 730}}>
             { <FlatList
                 data={dados}
                 keyExtractor={item => item.idTreinos}
@@ -88,9 +91,8 @@ export default function Treinos({ navigation }) {
                         contentContainerStyle={{ paddingBottom: 100, paddingTop: 30}}
                         showsVerticalScrollIndicator={false}
             /> }
-            <View style={{left: 130, bottom: 10}}>
-                <BarraInferior {... {navigation}}/>
-            </View>            
+            </View>
+            <BarraInferior {... {navigation}}/>         
         </View>
     )
 }

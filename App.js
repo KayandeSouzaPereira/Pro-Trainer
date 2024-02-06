@@ -19,14 +19,13 @@ export default function App() {
   } else {
   SplashScreen.hideAsync();
   return (
-   
-    <View style={styles.container}>
-        <NavigationContainer>
-          <View style={{alignContent:'center', colour:'white', width: 400, height: 950}}>
-            <AppNavigacao />
-          </View>
-        </NavigationContainer>
-    </View>
+      <View style={styles.container}>
+          <NavigationContainer>
+            <View style={{alignContent:'center', colour:'white', width: 400, height: 950}}>
+              <AppNavigacao />
+            </View>
+          </NavigationContainer>
+      </View>
     
   );
 }}

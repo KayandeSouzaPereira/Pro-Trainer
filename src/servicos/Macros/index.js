@@ -18,6 +18,26 @@ function getMacros(login, tk) {
     return api.get('macros?idUser='+login, config)
   }
 
+  function getPresenca(login, tk) {
+    const config = {
+        headers: { Authorization: `Bearer ${tk}` }
+    };
+
+
+
+    return api.get('dashboard?tipo=presenca&usuario='+login, config)
+  }
+
+  function getForca(login, tk) {
+    const config = {
+        headers: { Authorization: `Bearer ${tk}` }
+    };
+
+
+
+    return api.get('dashboard?tipo=forca&usuario='+login, config)
+  }
+
   function setMacros(login, proteinas, gorduras, tk, carboidratos) {
     
     const config = {
@@ -31,10 +51,6 @@ function getMacros(login, tk) {
         carboidratos: carboidratos
      };
 
-
-     console.log("BODY : " + JSON.stringify(bodyParameters))
-
-
     return api.post('macros', bodyParameters, config)
   }
  
@@ -42,4 +58,4 @@ function getMacros(login, tk) {
 
 
 
-export { getUsuarioRequest, getMacros, setMacros}
+export { getUsuarioRequest, getMacros, setMacros, getForca, getPresenca}

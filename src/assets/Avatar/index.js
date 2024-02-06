@@ -12,7 +12,7 @@ export function Avatar( {urlImage} ) {
                 colors={['#0A1033', 'white']}
                 >
                     <Image 
-                        source={{uri : encodeURI(urlImage)}}
+                        source={{uri : urlImage}}
                         style={styles.avatar}
                         />
             </LinearGradient>

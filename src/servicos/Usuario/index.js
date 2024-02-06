@@ -10,31 +10,36 @@ import { api } from "../Util"
   }
 
   function getUsuarioInfoRequest(login, tk) {
-    console.log(tk)
     const config = {
         headers: { Authorization: `Bearer ${tk}` }
     };
-
-    const bodyParameters = {
-        usuario: login
-     };
-
-
-    return api.post('userInfo', bodyParameters, config)
+    return api.get('userInfo?user=' + login, config)
   }
 
-  function setUsuarioInfoRequest(login, altura, peso, idade, tk) {
-    console.log("setInfo")
+  function getUsuarioInfoIMGRequest(login, tk) {
+    const config = {
+        headers: { Authorization: `Bearer ${tk}` }
+    };
+
+    
+
+
+    return api.get('userInfo?user=' + login, config)
+  }
+
+
+  function setUsuarioInfoRequest(login, altura, peso, idade, image, tk) {
     const config = {
         headers: { Authorization: `Bearer ${tk}` }
     };
 
     const bodyParameters = {
-        usuario: login,
-        altura: altura,
-        peso: peso,
-        idade: idade
-     };
+      usuario: login,
+      altura: altura,
+      peso: peso,
+      idade: idade,
+      img: image
+   };
 
 
     return api.post('userInfo', bodyParameters, config)
@@ -44,4 +49,4 @@ import { api } from "../Util"
 
 
 
-export { getUsuarioRequest, getUsuarioInfoRequest, setUsuarioInfoRequest}
+export { getUsuarioRequest, getUsuarioInfoRequest, setUsuarioInfoRequest, getUsuarioInfoIMGRequest}

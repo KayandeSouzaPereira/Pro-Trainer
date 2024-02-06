@@ -1,35 +1,97 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 export const styles = StyleSheet.create({
     container:{
-        width: 600, 
-        right: 100,
         flex: 1,
-        backgroundColor: '#2e6c80',
-        alignItems: 'center',
-        justifyContent: 'center'
+        backgroundColor: '#2e6c80', 
+        flexDirection: 'column'
     },
     avatar:{
-        width: 180,
-        height: 180,
+        width: 140,
+        height: 140,
         borderRadius: 160,
+        marginTop: 20
+    },
+    containerCampos:{
+        backgroundColor:"white", 
+        width: 350, 
+        height: 450, 
+        marginHorizontal: 25, 
+        marginTop: 20, 
+        borderRadius: 15, 
+        borderColor: 'black', 
+        borderWidth: 2, 
+        alignItems: 'center'
+    },
+    containerUser:{
+        width: Dimensions.get('window').width,
+        height:240,
+        marginTop: 60,
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign:'center'
+    },
+    containerAvatar:{
+        width: 160,
+        height:160,
+        marginLeft: 30,
+        flexDirection: 'column'
+    },
+    containerButton:{
+        width:55,
+        height: 55,
+        flexDirection:'column',
+        backgroundColor: '#2e6c80',
+        borderRadius: 160,
+        alignItems: 'center',
+        marginLeft:250,
+        marginTop:18,
+        paddingTop:10,
+        borderWidth: 2
+    },
+    containerButtonIMG:{
+        width:35,
+        height: 35,
+        flexDirection:'column',
+        backgroundColor: '#2e6c80',
+        borderRadius: 160,
+        alignItems: 'center',
+        marginLeft:100,
+        paddingTop: 8,
+        bottom: 60
     },
     CamposUser:{
         fontFamily: 'Poppins_400Regular',
-        color: 'black',
-        fontSize: 20,
-        marginVertical: 30
+        color: 'white',
+        width: Dimensions.get('window').width - 20, 
+        fontSize: 30,
+        marginTop: 10,
+        textAlign:'center'
+        
+    },
+    containerCamposForm:{
+        width: 300,
+        flexDirection: 'column',
+        paddingBottom: 5
     },
     Campos:{
         fontFamily: 'Poppins_400Regular',
         color: 'black',
-        fontSize: 20,
-        margin: 5
+        fontSize: 15
+    },
+    CamposEdit:{
+        fontFamily: 'Poppins_400Regular',
+        color: 'black',
+        fontSize: 15,
+        margin: 5,
+        height: 20,
+        width: 250,
+        borderBottomWidth: 2,
     },
     CampoConfirma:{
         fontFamily: 'Poppins_400Regular',
         color: 'white',
-        fontSize: 20,
+        fontSize: 12,
         margin: 5
     }
 });

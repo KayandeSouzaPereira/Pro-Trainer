@@ -1,13 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
 
 export const styles = StyleSheet.create({
     container:{
-        width: 600,
+        width: Dimensions.get('window').width * 2,
         height: 120,
-        right: 120,
-        bottom: 70,
+        right: 80,
+        top: 70,
         backgroundColor: 'white',
-        alignContent: 'center'
+        alignContent: 'center',
+        flexDirection: 'column'
     },
     texto:{
         left: 210, 

@@ -12,7 +12,6 @@ import { api } from "../Util"
 
 
   function getUserTraining(login, tk) {
-    console.log(tk)
     const config = {
         headers: { Authorization: `Bearer ${tk}` }
     };
@@ -38,6 +37,24 @@ import { api } from "../Util"
         idTreino: idTreino
      };
 
+    console.log(bodyParameters);
+
+    return api.post('treino', bodyParameters, config)
+  }
+
+  function setUsuarioTreinoRequestEmpty(login, treino, descricao, tk, ) {
+    
+    const config = {
+        headers: { Authorization: `Bearer ${tk}` }
+    };
+
+    const bodyParameters = {
+        usuario: login,
+        treino: treino,
+        descricao: descricao
+     };
+
+    console.log(bodyParameters);
 
     return api.post('treino', bodyParameters, config)
   }
@@ -60,4 +77,4 @@ import { api } from "../Util"
 
 
 
-export { getUsuarioRequest, getUserTraining, setUsuarioTreinoRequest, deleteUsuarioTreinoRequest}
+export { getUsuarioRequest, getUserTraining, setUsuarioTreinoRequest, deleteUsuarioTreinoRequest, setUsuarioTreinoRequestEmpty}

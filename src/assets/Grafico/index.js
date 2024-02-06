@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import { LineChart, PieChart, ContributionGraph, BarChart} from 'react-native-chart-kit';
 import { styles } from './styles';
 import { ModalMacro } from '../ModalMacro';
+import { ModalTreinoRegistro } from '../ModalTreinoRegistro';
 
 export default function Grafico(data) {
 
    const [modalMacro, setModalMacro] = useState(false);
+   const [modalTreino, setModalTreino] = useState(false);
 
 
 
@@ -22,6 +24,7 @@ export default function Grafico(data) {
         return(
             <View style={styles.containerLinha}>
             <Text>{titulo}</Text>
+            <TouchableOpacity onPress={() => setModalTreino(true) }>
             <LineChart
             data={{
                 labels: titulos,
@@ -56,6 +59,14 @@ export default function Grafico(data) {
                 borderRadius: 16
             }}
             />
+            <Modal
+                visible={modalTreino}
+                transparent={true}
+                onRequestClose={() => {setModalTreino(false);}}
+            >
+                <ModalTreinoRegistro reload={() => {setModalTreino(false);}}/>
+            </Modal>
+            </TouchableOpacity>
         </View>
         )
     }else if(tipo == "Pizza"){

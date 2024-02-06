@@ -16,7 +16,6 @@ function loginRequest(login, senha) {
 async function setToken(_token){
     //const rsaKeys = await RNSimpleCrypto.RSA.generateKeys(4096);
     if(_token){
-        console.log("tk:" + _token);
         let tkk = _token;
         return await AsyncStorage.setItem('Token', tkk);
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
+import { BarraInferior } from "../../assets/BarraInferior"
+import { BarraSuperior } from "../../assets/BarraSuperior"
 import { createStackNavigator } from '@react-navigation/stack';
-import { BarraSuperior } from '../../assets/BarraSuperior';
-import { BarraInferior } from '../../assets/BarraInferior';
 import Login from '../../paginas/Login';
 import Home from '../../paginas/Dashboard';
 import Info from '../../paginas/InfoUser';
@@ -14,6 +14,7 @@ const Stack = createStackNavigator();
 
 export default function StackMainNavigation(props){
    
+
     
 
     return(
@@ -30,7 +31,8 @@ export default function StackMainNavigation(props){
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Info" component={Info} />
             <Stack.Screen name="Treinos" component={Treinos} />
-            <Stack.Screen name="TreinosInfo" component={TreinoInfo} />
+            <Stack.Screen name="TreinosInfo" component={TreinoInfo} /> 
         </Stack.Navigator>
+          
     )
 }
