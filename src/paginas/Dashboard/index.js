@@ -1,10 +1,9 @@
 import Grafico from "../../assets/Grafico"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect } from "react"
 import {View, FlatList, Text} from "react-native"
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
-import { LoadingModal } from "react-native-loading-modal";
-import { useFocusEffect } from "@react-navigation/native";  
+import { LoadingModal } from "react-native-loading-modal";  
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getMacros, getUsuarioRequest, getForca, getPresenca } from '../../servicos/Macros';
 import { getUserTraining } from "../../servicos/Treinos"
@@ -23,9 +22,7 @@ export default function Dashboard({ navigation }) {
   const [mock, setMock] = useState([]);
   const [recall, setRecall] = useState([false]);
 
-  useFocusEffect(useCallback(() => { 
-    setDataMacro();
-  }, []));
+  
 
 
   useEffect(() => {
@@ -292,9 +289,6 @@ export default function Dashboard({ navigation }) {
 
   
 
-    function callback(){
-      console.log("callback")
-    }
 
 
     return(
@@ -313,7 +307,6 @@ export default function Dashboard({ navigation }) {
                       :
                       <Grafico 
                           data={item} 
-                          callback={callback}
                       />
                   )}
                           contentContainerStyle={{ paddingBottom: 50, height: 1000}}

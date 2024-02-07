@@ -57,6 +57,10 @@ export default function InfoUser({ navigation }) {
        getData();
     },[])
 
+    useEffect(() => {
+        setData();
+     },[imgBS64])
+
     
 
     let urlImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZH15XmvGL5ftl3MGXUuUXajy-FGo0jCfwQQZY5sOWNw&s"
@@ -85,7 +89,7 @@ export default function InfoUser({ navigation }) {
           mediaTypes: ImagePicker.MediaTypeOptions.All,
           allowsEditing: true,
           aspect: [4, 3],
-          quality: 1,
+          quality: 0.3,
         });
 
        
@@ -93,6 +97,7 @@ export default function InfoUser({ navigation }) {
           setImage(result.assets[0].uri);
           const base64 = await FileSystem.readAsStringAsync(result.assets[0].uri, { encoding: 'base64' })
           setImgBS64(base64);
+          setData();
         }
       };
 
@@ -123,6 +128,7 @@ export default function InfoUser({ navigation }) {
 
 
         try {
+            console.log(imgBS64);
             await setUsuarioInfoRequest(id, alturaS, pesoS, idadeS, imgBS64, tkk);
         } catch (err){
             console.log("ERRO : " + err)

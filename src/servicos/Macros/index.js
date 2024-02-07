@@ -10,7 +10,11 @@ function getUsuarioRequest(tk) {
 
 function getMacros(login, tk) {
     const config = {
-        headers: { Authorization: `Bearer ${tk}` }
+        headers: { Authorization: `Bearer ${tk}`,
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        }
     };
 
 
@@ -20,7 +24,11 @@ function getMacros(login, tk) {
 
   function getPresenca(login, tk) {
     const config = {
-        headers: { Authorization: `Bearer ${tk}` }
+        headers: { Authorization: `Bearer ${tk}` ,
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      }
     };
 
 
@@ -30,7 +38,11 @@ function getMacros(login, tk) {
 
   function getForca(login, tk) {
     const config = {
-        headers: { Authorization: `Bearer ${tk}` }
+        headers: { Authorization: `Bearer ${tk}` ,
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      }
     };
 
 
