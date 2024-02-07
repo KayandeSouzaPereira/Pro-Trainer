@@ -17,8 +17,8 @@ export function ModalExercicio({data, edition, treino, reload}) {
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
     const [video, setVideo] = useState("");
-    const [videourl, setVideoUrl] = useState("URL");
-    const [videourl_, setVideoUrl_] = useState("URL");
+    const [videourl, setVideoUrl] = useState("Link de video do Youtube");
+    const [videourl_, setVideoUrl_] = useState("Link de video do Youtube");
     const [disabled, setDisabled] = useState(false);
     const [idExercicio, setIdExercicio] = useState(0);
     const [idTreino, setIdTreino] = useState(0);
@@ -32,10 +32,19 @@ export function ModalExercicio({data, edition, treino, reload}) {
         setIdExercicio(data.idExercicios)
         setTitulo(data.nm_exercicios);
         setDescricao(data.ds_exercicio);
+
+        console.log(data.link_exercicio)
         
-        let video_ = filtroEmbed(data.link_exercicio);
-        setVideoUrl(data.link_exercicio);
-        setVideo(video_);
+        if(data.link_exercicio != ""){
+            console.log("VIDEO")
+            let video_ = filtroEmbed(data.link_exercicio);
+            setVideoUrl(data.link_exercicio);
+            setVideo(video_);
+        }else {
+            setVideoUrl("Link de video do Youtube");
+            setVideo("Link de video do Youtube");
+        }
+        
         setLoading(false);
         },[])
     
@@ -148,7 +157,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
                     </TouchableOpacity>
                     <Text style={styles.CamposTitulo}>{titulo}</Text>
                     <Text style={styles.Campos}>{descricao}</Text>
-                    {videourl.includes("youtube") ?
+                    {videourl.includes("youtu") ?
                     <View>
                         <Text style={styles.CamposSubTitulo}>Video</Text>
                         <View style={{top:10, height: 300, flex: 1,

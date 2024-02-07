@@ -5,7 +5,7 @@ import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
 import { LoadingModal } from "react-native-loading-modal";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getMacros, getUsuarioRequest } from '../../servicos/Macros';
+import { getMacros, getUsuarioRequest, getForca, getPresenca } from '../../servicos/Macros';
 import { GLOBALS } from "../../configs"
 
 export default function Dashboard({ navigation }) {
@@ -137,19 +137,40 @@ export default function Dashboard({ navigation }) {
     GLOBALS.IDUSER = idUser
     try { 
       let dados = await getMacros(idUser, tkk);
-   
+      
       if (dados.data.resultado != null ){
           let dados_ = dados.data.resultado[0]
           setDadosMacro(dados_);
           montaMock(dados_);
       }
     } catch (err){
-      setLoading(false);
-      montaMock("");
+      
     }
 
+    try {
+      let dados = await getForca(idUser, tkk);
 
-    
+      if (dados.data.resultado != null){
+        console.log("FORCA : " + dados.data.resultado);
+      }
+
+    } catch (err){
+
+    }
+
+    try {
+      let dados = await getPresenca(idUser, tkk);
+
+      if (dados.data.resultado != null){
+        console.log("PRESENÇA : " + dados.data.resultado);
+      }
+
+    } catch (err){
+
+    }
+
+    setLoading(false);
+
   }
 
 

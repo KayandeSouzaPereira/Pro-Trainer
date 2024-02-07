@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     },
     Campos:{
         fontFamily: 'Poppins_400Regular',
-        color: 'black',
+        color: 'rgba(0, 0, 0, 0.5)',
         fontSize: 20,
         top: 40,
         marginLeft: 20

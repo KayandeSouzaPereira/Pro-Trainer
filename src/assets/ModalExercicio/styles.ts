@@ -53,8 +53,7 @@ export const styles = StyleSheet.create({
     },
     CamposEdit:{
         fontFamily: 'Poppins_400Regular',
-        color: 'white',
-        backgroundColor: '#1b5a76',
+        color: 'black',
         fontSize: 20,
         marginLeft: 10,
         borderRadius: 20,
@@ -62,6 +61,7 @@ export const styles = StyleSheet.create({
         top: 20,
         marginBottom: 30,
         width: 330,
-        height: 60
+        height: 60,
+        borderBottomWidth: 2
     }
 });

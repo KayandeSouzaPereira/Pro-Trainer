@@ -1,10 +1,24 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 export const styles = StyleSheet.create({
     container:{
         flex: 1, 
-        height: 900,
         backgroundColor: '#2e6c80',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    video:{
+        flex: 1,
+        height:  Dimensions.get('window').height + 300,
+        width:  Dimensions.get('window').width + 150,
+        position:'absolute'
+    },
+    containerLogin:{
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        width: 500,
+        height: 500,
+        paddingBottom: 150,
+        marginTop: 250,
         alignItems: 'center',
         justifyContent: 'center'
     },

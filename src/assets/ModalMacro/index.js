@@ -82,7 +82,19 @@ export function ModalMacro ({reload}){
                 <LoadingModal modalVisible={loading} />
                 {edit === true ? 
                     <View style = {{paddingTop: 40, paddingVertical: 30}}>
-                        <TouchableOpacity disabled={disabled} style={{left:240, top: -10, zIndex: 1}} onPress={async () => {
+                       
+                        <View style={{height:170, top: 0}}>
+                            <Text style={styles.CamposTextEdit}>Proteínas Diarias em gramas :</Text>
+                            <TextInput keyboardType='numeric' style={styles.CamposEdit} onChangeText={text => _setProteinas(text)} >{proteinas}</TextInput>
+                            <Text style={styles.CamposTextEdit}>Gorduras Diarias em gramas :</Text>
+                            <TextInput keyboardType='numeric' style={styles.CamposEdit} onChangeText={text => _setGorduras(text)} >{gorduras}</TextInput>
+                            <Text style={styles.CamposTextEdit}>Carboidratos Diarios em gramas :</Text>
+                            <TextInput keyboardType='numeric' style={styles.CamposEdit} onChangeText={text => _setCarboidratos(text)} >{carboidratos}</TextInput>
+                        </View>
+                        <View style={{top:10, height: 300,flex: 1,
+                        alignSelf:"center",}}>
+                        </View>   
+                        <TouchableOpacity disabled={disabled} style={{left:280, top: 0, zIndex: 1}} onPress={async () => {
                             if(edit == true){
                                 await setData();
                                 setEdit(false)
@@ -92,17 +104,6 @@ export function ModalMacro ({reload}){
                             }}>
                             <Feather name="send" size={30} color="black" />
                         </TouchableOpacity>
-                        <View style={{height:170, top: 0}}>
-                            <Text style={styles.CamposTextEdit}>Proteínas Diarias :</Text>
-                            <TextInput style={styles.CamposEdit} onChangeText={text => _setProteinas(text)} >{proteinas}</TextInput>
-                            <Text style={styles.CamposTextEdit}>Gorduras Diarias :</Text>
-                            <TextInput style={styles.CamposEdit} onChangeText={text => _setGorduras(text)} >{gorduras}</TextInput>
-                            <Text style={styles.CamposTextEdit}>Carboidratos Diarios :</Text>
-                            <TextInput style={styles.CamposEdit} onChangeText={text => _setCarboidratos(text)} >{carboidratos}</TextInput>
-                        </View>
-                        <View style={{top:10, height: 300,flex: 1,
-                        alignSelf:"center",}}>
-                        </View>   
                     </View> 
                     :
                     <View style={{top:10}}>

@@ -125,13 +125,19 @@ export function CaixaTreino({data, reload, navigation}) {
     return(
         <View style={styles.container}>
         <Swipeable 
-        renderLeftActions={renderLeftActions}  onSwipeableOpen={(direction) => {console.log("direcao: " + direction)}} onSwipeableRightOpen={console.log("deletado")} 
-        renderRightActions={renderRightActions} onSwipeableLeftOpen={ () => {
+        renderLeftActions={renderLeftActions} renderRightActions={renderRightActions} onSwipeableOpen={async (direction) => {
+          if(direction === "left"){
             if(edit == true){
-                setEdit(false)
-            }else{
-                setEdit(true)
-            }}}>
+              await setData(titulo_, descricao_)
+              setEdit(false)
+              }else{
+                  setEdit(true)
+              }
+          }else if(direction === "right"){
+            deleteCard()
+          }}
+        }
+        >
                 <TouchableOpacity disabled={idTreino === 0} onPress={async () => {
                     await AsyncStorage.setItem("idTreino", JSON.stringify(idTreino));
                     navigation.navigate("TreinosInfo")}}>

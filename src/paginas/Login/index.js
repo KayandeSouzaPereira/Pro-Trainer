@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
 import { cadRequest, loginRequest, setToken } from "../../servicos/Login";
 import { ProgressBar } from 'react-native-paper';
 import { styles } from "./styles";
+import { Audio, Video } from 'expo-av';
+import { useAssets } from 'expo-asset';
 
 
 
@@ -13,6 +15,12 @@ export default function Login({navigation}) {
     const [usuario, setUsuario] = useState('');
     const [senha, setSenha] = useState('');
     const [loading, setLoading] = useState(false);
+    const [url, setUrl] = useAssets([require('../../../assets/video.mp4')]);
+    
+
+    const video = React.useRef(null);
+
+    
 
     const mensagemErro = "Não foi possível realizar sua solicitação.\nVerifique sua conexão com a Internet."
 
@@ -82,6 +90,22 @@ export default function Login({navigation}) {
 
     return(
         <View style={styles.container}>
+               { url != null ?
+                <Video
+                    style={styles.video}
+                    source={{
+                    uri: url[0].uri,
+                    }}
+                    shouldPlay={true}
+                    resizeMode="cover"
+                    isLooping={true}
+                    isMuted
+                    
+                    useNativeControls={false}
+                />:
+                <></>
+                }
+                <View style={styles.containerLogin}>
                 <Text style={styles.Titulo}>Bem vindo !</Text>
                 <Text style={styles.Titulo2}>Login</Text>
                 <TextInput placeholder="Usuário" value={usuario} onChangeText={text => setUsuario(text)} style={styles.CamposLogin}></TextInput>
@@ -94,6 +118,8 @@ export default function Login({navigation}) {
                         }}
                     ><Text style={styles.textoLogin}>Inscrição 1-click</Text></TouchableOpacity>
                 </View>
+                </View>
+                
             {
                 loading ?
                     <View  style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(26, 28, 41,0.8)', justifyContent: "center", alignItems: "center"}}>

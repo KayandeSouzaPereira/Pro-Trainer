@@ -29,18 +29,20 @@ export const styles = StyleSheet.create({
     CamposTitulo:{
         fontFamily: 'Poppins_400Regular',
         color: 'black',
-        fontSize: 30
+        fontSize: 30,
+        textAlign:"center"
     },
     CamposTituloEdit:{
         fontFamily: 'Poppins_400Regular',
-        color: 'white',
-        backgroundColor: '#1b5a76',
+        color: 'black',
         fontSize: 25,
         bottom: 20,
         marginLeft: 20,
         borderRadius: 20,
         paddingLeft: 20,
-        width: 280
+        width: 280,
+        borderBottomWidth: 2
+
     },
     Campos:{
         fontFamily: 'Poppins_400Regular',
@@ -51,14 +53,14 @@ export const styles = StyleSheet.create({
     },
     CamposEdit:{
         fontFamily: 'Poppins_400Regular',
-        color: 'white',
-        backgroundColor: '#1b5a76',
+        color: 'black',
         fontSize: 18,
         marginLeft: 20,
         borderRadius: 20,
         paddingLeft: 20,
         width: 300,
-        height: 100
+        height: 100,
+        borderBottomWidth: 2
     },
     leftAction:{},
     rightAction:{},
