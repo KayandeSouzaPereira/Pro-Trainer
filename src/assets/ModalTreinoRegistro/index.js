@@ -9,6 +9,7 @@ import { CaixaHistoricoTreino } from '../CaixaHistoricoTreino';
 import { getUserTraining } from '../../servicos/Treinos';
 import { getUserExerciseByTraining } from '../../servicos/Exercicios';
 import { getHistorico, setHistorico, getUsuarioRequest } from '../../servicos/Historico';
+import { GLOBALS } from '../../configs';
 
 
 export function ModalTreinoRegistro ({reload}){
@@ -40,13 +41,16 @@ export function ModalTreinoRegistro ({reload}){
     const getData = async () => {
         let tkk = await AsyncStorage.getItem('Token');
         let dataUser = await getUsuarioRequest(tkk);
-        let idUser = dataUser.data.retorno.idAuth
+        let idUser = GLOBALS.IDUSER
         
         let dados = await getHistorico(idUser, tkk);
        
         if (dados.data.resultado != null ){
             let dados_ = dados.data.resultado
             console.log("TREINOS : " + JSON.stringify(dados_))
+            if(dados_.length === 0){
+                dados_.push({idRegistro_exercicio: 0})
+            }
             setDadosHistory(dados_);
         }
         getIdsTreinos();
@@ -223,6 +227,9 @@ export function ModalTreinoRegistro ({reload}){
                                 data={dadosHistory}
                                 keyExtractor={item => item.idRegistro_exercicio}
                                 renderItem={({item}) => (
+                                     item.idRegistro_exercicio === 0 ? 
+                                        <Text style={{flex: 1, textAlign:"center"}}>Não há registros encontrados.</Text>
+                                        :
                                             <CaixaHistoricoTreino 
                                                 data={item} 
                                             />

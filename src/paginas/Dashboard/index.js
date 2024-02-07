@@ -1,9 +1,10 @@
 import Grafico from "../../assets/Grafico"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import {View, FlatList, Text} from "react-native"
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
 import { LoadingModal } from "react-native-loading-modal";
+import { useFocusEffect } from "@react-navigation/native";  
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getMacros, getUsuarioRequest, getForca, getPresenca } from '../../servicos/Macros';
 import { getUserTraining } from "../../servicos/Treinos"
@@ -22,6 +23,9 @@ export default function Dashboard({ navigation }) {
   const [mock, setMock] = useState([]);
   const [recall, setRecall] = useState([false]);
 
+  useFocusEffect(useCallback(() => { 
+    setDataMacro();
+  }, []));
 
 
   useEffect(() => {
@@ -31,6 +35,7 @@ export default function Dashboard({ navigation }) {
 
   useEffect(() => {
     if(recall === true){
+      setRecall(false);
       setDataMacro();
     }
   }, [recall])
@@ -52,7 +57,6 @@ export default function Dashboard({ navigation }) {
   const montaMock = () => {
 
     const dadosMock = [];
-    console.log(treinos > 0)
 
     if (dadosMacro.length != 0){
       let dados = dadosMacro
@@ -92,7 +96,6 @@ export default function Dashboard({ navigation }) {
        dadosMock.push(dadosMacroMock); 
 
        if(treinos > 0 && dadosPresenca.length > 0){
-        console.log("DADOS : " + dadosPresenca)
         const treinos = {id: 2,
           tipo: "Linha",
           infos: dadosPresenca,
@@ -121,25 +124,27 @@ export default function Dashboard({ navigation }) {
 
       }
 
-      if (1 != 1){
-        const dev = [{id: 2,
+      if (treinos > 0 && dadosForca.length == 0 && dadosPresenca.length == 0){
+        const meses = ultimosMes();
+        const mock = {id: 2,
           tipo: "Linha",
-          infos: [5,10,20],
-          titulos: ["Jan", "Fev", "Mar"],
-          Titulo: "Treinos"
-         },
-         
-          {id: 3,
+          infos: [0,0,0],
+          titulos: meses,
+          Titulo: "Presença nos Treinos"
+         };
+         const mock2 =  {id: 3,
            tipo: "Barra",
            infos:{
-           labels: [ "Maio", "Junho", "Julho"],
+           labels: ["1", "2", "3"],
            datasets: [
              {
-               data: [20, 15, 10]
+               data: [0,0,0]
              }
            ]},
-           Titulo: "Aumento de Força"
-          }]
+           Titulo: "Aumento de Força (ultimos 3 registro do treino)"
+          };
+          dadosMock.push(mock)
+          dadosMock.push(mock2)
       }
 
       
@@ -152,7 +157,6 @@ export default function Dashboard({ navigation }) {
       }
 
 
-    
     setMock(dadosMock)
     setLoading(false);
     }else{
@@ -220,6 +224,17 @@ export default function Dashboard({ navigation }) {
 
   }
 
+  function ultimosMes(){
+    const data = [];
+
+    data.push(moment().subtract(1, 'months').format('MMMM').substring(0, 3))
+    data.push(moment().subtract(1, 'months').format('MMMM').substring(0, 3))
+    data.push(moment().subtract(2, 'months').format('MMMM').substring(0, 3))
+
+    return data;
+
+  }
+
   const setDataMacro = async () => {
 
     setLoading(true);
@@ -231,7 +246,6 @@ export default function Dashboard({ navigation }) {
       let dados = await getUserTraining(idUser, tkk);
 
       if (dados.data != null){
-        console.log("Training : " + JSON.stringify(dados.data.resultado.length));
         setTreinos(dados.data.resultado.length)
       }
 
@@ -254,7 +268,6 @@ export default function Dashboard({ navigation }) {
       let dados = await getForca(idUser, tkk);
 
       if (dados.data.resultado != null){
-        console.log("FORCA : " + JSON.stringify(dados.data.resultado));
         handleForca(dados.data.resultado);
       }
 
@@ -266,7 +279,6 @@ export default function Dashboard({ navigation }) {
       let dados = await getPresenca(idUser, tkk);
 
       if (dados.data.resultado != null){
-        console.log("PRESENÇA : " + JSON.stringify(dados.data.resultado));
         handleHistorico(dados.data.resultado);
       }
 
@@ -274,32 +286,34 @@ export default function Dashboard({ navigation }) {
 
     }
     
-    setLoading(false);
 
   }
 
 
   
 
-    
+    function callback(){
+      console.log("callback")
+    }
 
 
     return(
       <View style={{flex: 1}}>
         <LoadingModal modalVisible={loading} />
         <BarraSuperior/>
-        <View style={{flex: 1,marginHorizontal: 30, marginVertical: 20, top: 120}}>
+        <View style={{flex: 1,marginHorizontal: 20, marginVertical: 20, top: 120}}>
           <FlatList
           data={mock}
                   keyExtractor={item => item.id}
                   renderItem={({item}) => (
                      item.id === 0?
-                      <View style={{width: 350}}>
+                      <View style={{width: 330}}>
                         <Text>Nenhum dado de treino cadastrado, por favor insira suas informações de Treino, na aba de treino.</Text>
                       </View>
                       :
                       <Grafico 
                           data={item} 
+                          callback={callback}
                       />
                   )}
                           contentContainerStyle={{ paddingBottom: 50, height: 1000}}

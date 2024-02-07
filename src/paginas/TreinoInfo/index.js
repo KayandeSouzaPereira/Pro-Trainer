@@ -79,7 +79,7 @@ export default function TreinoInfo({ navigation}) {
         <View style={styles.container}>
             <BarraSuperior/>
             <LoadingModal modalVisible={loading} />
-            <View style={{marginHorizontal:10, marginTop: 120, height: 800}}>
+            <View style={{marginHorizontal:5, marginTop: 120, height: 730}}>
             { <FlatList
                 data={dados}
                 keyExtractor={item => item.idExercicios}
@@ -100,7 +100,7 @@ export default function TreinoInfo({ navigation}) {
                        
                     ) 
                 }
-                        contentContainerStyle={{ paddingBottom: 100, paddingTop: 30}}
+                        contentContainerStyle={{ paddingBottom: 60, paddingTop: 30}}
                         showsVerticalScrollIndicator={false}
             /> }
             </View>

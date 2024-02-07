@@ -11,8 +11,7 @@ export default function Grafico(data) {
    const [modalMacro, setModalMacro] = useState(false);
    const [modalTreino, setModalTreino] = useState(false);
 
-
-
+   
 
   let dados = data.data;
   let tipo = dados.tipo;
@@ -38,8 +37,8 @@ export default function Grafico(data) {
                 }
                 ]
             }}
-            width={300}
-            height={180}
+            width={280}
+            height={150}
             yAxisInterval={1}
             chartConfig={{
                 backgroundColor: "#ffffff",
@@ -83,8 +82,8 @@ export default function Grafico(data) {
             </View>
             <PieChart
                 data={valores}
-                width={300}
-                height={180} 
+                width={280}
+                height={150} 
                 hasLegend={true}
                 chartConfig={{
                     backgroundColor: "#ffffff",
@@ -116,8 +115,8 @@ export default function Grafico(data) {
             <Text>{titulo}</Text>
             <BarChart
                 data={valores}
-                width={300}
-                height={180}
+                width={280}
+                height={150}
                 chartConfig={{
                     backgroundColor: "#ffffff",
                     backgroundGradientFrom: "#ffffff",

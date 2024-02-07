@@ -140,7 +140,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
                         }}>
                         <AntDesign name="edit" size={30} color="black" />
                     </TouchableOpacity> :
-                    <TouchableOpacity disabled={disabled} style={{left:250, top: 20, width:40, height:40, zIndex: 1}} onPress={() => {
+                    <TouchableOpacity disabled={disabled} style={{left:280, top: 20, width:40, height:40, zIndex: 1}} onPress={() => {
                         if(edit == true){
                             setEdit(false)
                         }else{
