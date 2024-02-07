@@ -14,8 +14,8 @@ export const styles = StyleSheet.create({
         borderRadius : 10, 
         borderColor: 'black',
         borderWidth: 2,
-        width: 330, 
-        height: 230,
+        width: 350, 
+        height: 250,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 20
@@ -26,8 +26,8 @@ export const styles = StyleSheet.create({
         borderRadius : 10, 
         borderColor: 'black',
         borderWidth: 2,
-        width: 330, 
-        height: 230,
+        width: 350, 
+        height: 250,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 20 
@@ -37,11 +37,21 @@ export const styles = StyleSheet.create({
         borderRadius : 10, 
         borderColor: 'black',
         borderWidth: 2,
-        width: 330, 
-        height: 230 ,
+        width: 350, 
+        height: 250 ,
         alignItems: 'center',
         justifyContent: 'center', 
         marginBottom: 20
-    }
+    },
+    containerButtonIcons:{
+        width:35,
+        height: 35,
+        flexDirection:'column',
+        backgroundColor: '#2e6c80',
+        borderRadius: 160,
+        alignItems: 'center',
+        marginLeft:260,
+        paddingTop: 8,
+    },
     
 });

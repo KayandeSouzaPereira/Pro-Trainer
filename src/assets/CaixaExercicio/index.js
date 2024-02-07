@@ -59,7 +59,7 @@ export function CaixaExercicio({data, editionFunction, treino, reload}) {
                 />
                : 
               
-               <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
+               <View style={styles.containerText}>
                         <Text style={styles.CamposTitulo}>{titulo}</Text>
                         <Text style={styles.Campos}>Toque para saber mais...</Text>
                 </View>

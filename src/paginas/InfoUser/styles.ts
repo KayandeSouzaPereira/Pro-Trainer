@@ -15,8 +15,8 @@ export const styles = StyleSheet.create({
     containerCampos:{
         backgroundColor:"white", 
         width: 350, 
-        height: 450, 
-        marginHorizontal: 25, 
+        height: 550, 
+        marginHorizontal: 30, 
         marginTop: 20, 
         borderRadius: 15, 
         borderColor: 'black', 
@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     containerUser:{
         width: Dimensions.get('window').width,
         height:240,
-        marginTop: 60,
+        marginTop: 120,
         flexDirection: 'column',
         alignItems: 'center',
         textAlign:'center'

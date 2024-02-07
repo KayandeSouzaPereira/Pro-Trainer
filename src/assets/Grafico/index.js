@@ -4,6 +4,7 @@ import { LineChart, PieChart, ContributionGraph, BarChart} from 'react-native-ch
 import { styles } from './styles';
 import { ModalMacro } from '../ModalMacro';
 import { ModalTreinoRegistro } from '../ModalTreinoRegistro';
+import { Entypo } from '@expo/vector-icons';
 
 export default function Grafico(data) {
 
@@ -23,8 +24,11 @@ export default function Grafico(data) {
     if (tipo == "Linha"){
         return(
             <View style={styles.containerLinha}>
-            <Text>{titulo}</Text>
+            <Text style={{top: 20}}>{titulo}</Text>
             <TouchableOpacity onPress={() => setModalTreino(true) }>
+            <View style={styles.containerButtonIcons}>
+                <Entypo name="add-to-list" size={20} color="white" />
+            </View>
             <LineChart
             data={{
                 labels: titulos,
@@ -73,7 +77,10 @@ export default function Grafico(data) {
           return (
             <View style={styles.containerPizza}>
             <TouchableOpacity onPress={() => setModalMacro(true) }>
-            <Text>{titulo}</Text>
+            <Text style={{top: 20, left: 20}}>{titulo}</Text>
+            <View style={styles.containerButtonIcons}>
+                <Entypo name="add-to-list" size={20} color="white" />
+            </View>
             <PieChart
                 data={valores}
                 width={300}

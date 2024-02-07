@@ -39,7 +39,7 @@ export function CaixaHistoricoTreino({data}) {
 
     return(
         <View style={styles.container}>
-                <View style={{backgroundColor:"white", width: 300, height: 130,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
+                <View style={styles.containerText}>
                     <Text style={styles.Campos}>Exercicio : {titulo}</Text>
                     <Text style={styles.Campos}>Peso : {peso}</Text>
                     <Text style={styles.Campos}>Repeticoes : {repeticoes}</Text>

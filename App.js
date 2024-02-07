@@ -1,5 +1,5 @@
 
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { Poppins_400Regular } from '@expo-google-fonts/poppins'
@@ -21,7 +21,7 @@ export default function App() {
   return (
       <View style={styles.container}>
           <NavigationContainer>
-            <View style={{alignContent:'center', colour:'white', width: 400, height: 950}}>
+            <View style={styles.containerBase}>
               <AppNavigacao />
             </View>
           </NavigationContainer>
@@ -37,4 +37,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  containerBase: {
+    alignContent:'center', 
+    colour:'white', 
+    width: Dimensions.get('window').width, 
+    height: Dimensions.get('window').height + 300
+  }
 });

@@ -11,6 +11,14 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         marginBottom: 20
     },
+    containerText:{
+        backgroundColor:"white",
+        width: 300, 
+        height: 130,
+        borderRadius: 15, 
+        borderColor: 'black', 
+        borderWidth: 2
+    },
     CamposTitulo:{
         fontFamily: 'Poppins_400Regular',
         color: 'black',

@@ -46,6 +46,7 @@ export function ModalTreinoRegistro ({reload}){
        
         if (dados.data.resultado != null ){
             let dados_ = dados.data.resultado
+            console.log("TREINOS : " + JSON.stringify(dados_))
             setDadosHistory(dados_);
         }
         getIdsTreinos();
@@ -56,17 +57,18 @@ export function ModalTreinoRegistro ({reload}){
         let dataUser = await getUsuarioRequest(tkk);
         let idUser = dataUser.data.retorno.idAuth;
         let dados = await getUserTraining(idUser, tkk);
-
+        
         if (dados.data.resultado != null ){
             let dados_ = dados.data.resultado
             setTreinos(dados_);
+            getIdsExercicios(dados_[0].idTreinos);
         }
     }
 
     const getIdsExercicios = async (id) => {
         let tkk = await AsyncStorage.getItem('Token');
         let dados = await getUserExerciseByTraining(tkk, id);
-
+        
         if (dados.data.resultado != null ){
             let dados_ = dados.data.resultado
             setExercicios(dados_);

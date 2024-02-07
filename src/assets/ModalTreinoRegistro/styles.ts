@@ -71,12 +71,12 @@ export const styles = StyleSheet.create({
     },
     CamposEdit:{
         fontFamily: 'Poppins_400Regular',
-        color: 'white',
-        backgroundColor: '#1b5a76',
+        color: 'black',
         fontSize: 18,
         marginLeft: 10,
         paddingLeft: 20,
         width: 250,
-        height: 40
+        height: 40,
+        borderBottomWidth: 2
     }
 });

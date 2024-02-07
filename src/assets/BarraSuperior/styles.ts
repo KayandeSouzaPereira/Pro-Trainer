@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 2,
         height: 120,
         right: 80,
-        top: 70,
+        top: 120,
         backgroundColor: 'white',
         alignContent: 'center',
         flexDirection: 'column'
