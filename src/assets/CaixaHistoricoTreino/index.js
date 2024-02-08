@@ -2,7 +2,8 @@ import { Text, View, TouchableOpacity,TextInput } from 'react-native';
 import { styles } from '../CaixaHistoricoTreino/styles';
 import { AntDesign, Feather   } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from 'moment';
+import 'moment/locale/pt-br'
 
 
 
@@ -31,7 +32,7 @@ export function CaixaHistoricoTreino({data}) {
             setObservacoes(data.observacao);
         }
         
-        setDataTempo(new Date(data.data).toISOString().slice(0, 19).replace('T', ' '));
+        setDataTempo(moment(data.data).locale('pt-br').format("DD/MM/YYYY"));
         },[])
 
       

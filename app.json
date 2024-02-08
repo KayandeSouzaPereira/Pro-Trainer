@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Pro-Trainer",
-    "slug": "Pro-Trainer",
+    "slug": "pro-g",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,10 +29,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.kayandesouzapereira.prog"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "150315c0-f552-431c-99f2-2cb167731b67"
+      }
+    },
+    "owner": "kayandesouzapereira"
   }
 }

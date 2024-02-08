@@ -24,6 +24,11 @@ export default function Dashboard({ navigation }) {
 
   
 
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      console.log("reloaded");
+    });
+  }, [navigation]);
 
   useEffect(() => {
     setDataMacro();
@@ -55,6 +60,7 @@ export default function Dashboard({ navigation }) {
 
     const dadosMock = [];
 
+    if(dadosMacro != undefined){
     if (dadosMacro.length != 0){
       let dados = dadosMacro
      let proteinas = dados.proteinas;
@@ -156,6 +162,7 @@ export default function Dashboard({ navigation }) {
 
     setMock(dadosMock)
     setLoading(false);
+    }
     }else{
       const dadosMock = [ {id: 1,
         tipo: "Pizza",
@@ -184,7 +191,7 @@ export default function Dashboard({ navigation }) {
         ],
         Titulo: "Macros do Dia"
        },{id: 0}]
-      
+      setMock(dadosMock);
     }
     setLoading(false);
   }
@@ -236,7 +243,20 @@ export default function Dashboard({ navigation }) {
 
     setLoading(true);
     let tkk = await AsyncStorage.getItem('Token');
-    let dataUser = await getUsuarioRequest(tkk);
+    console.log(tkk)
+    let dataUser = ""
+    try {
+       dataUser = await getUsuarioRequest(tkk);
+       console.log(dataUser.data);
+    } catch (err){
+      try {
+        dataUser = await getUsuarioRequest(tkk);
+        console.log(dataUser.data);
+      } catch (err){
+
+      }
+    }
+    
     let idUser = dataUser.data.retorno.idAuth;
     GLOBALS.IDUSER = idUser
     try {
@@ -293,9 +313,11 @@ export default function Dashboard({ navigation }) {
 
     return(
       <View style={{flex: 1}}>
-        <LoadingModal modalVisible={loading} />
+        
         <BarraSuperior/>
+       
         <View style={{flex: 1,marginHorizontal: 20, marginVertical: 20, top: 120}}>
+        <LoadingModal modalVisible={loading} />
           <FlatList
           data={mock}
                   keyExtractor={item => item.id}

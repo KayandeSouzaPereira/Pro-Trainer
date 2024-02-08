@@ -20,6 +20,7 @@ export function BarraSuperior() {
     const getImage = async () => {
         let tkk = await AsyncStorage.getItem('Token');
         let id = GLOBALS.IDUSER;
+        console.log("ID : " + id)
         if(id != 0){
             try {
             let data = await getUsuarioInfoIMGRequest(id, tkk);

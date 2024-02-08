@@ -58,7 +58,9 @@ export default function InfoUser({ navigation }) {
     },[])
 
     useEffect(() => {
-        setData();
+        if(imgBS64 != ''){
+            setData();
+        }
      },[imgBS64])
 
     
@@ -128,11 +130,16 @@ export default function InfoUser({ navigation }) {
 
 
         try {
-            console.log(imgBS64);
             await setUsuarioInfoRequest(id, alturaS, pesoS, idadeS, imgBS64, tkk);
         } catch (err){
-            console.log("ERRO : " + err)
-            Alert.alert("Atenção : ", "Ocorreu um problema no envio do seu cadastro.")
+            console.log("ERRO : " + JSON.stringify(err))
+            if (JSON.stringify(err).includes(500)){
+                Alert.alert("Atenção : ", "Ocorreu um problema no envio do seu cadastro.")
+            }
+            if (JSON.stringify(err).includes("code 413")){
+                Alert.alert("Atenção : ", "Arquivo muito grande para envio.")
+            }
+            
         }
 
         getData();

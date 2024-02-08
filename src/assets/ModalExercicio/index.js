@@ -37,7 +37,13 @@ export function ModalExercicio({data, edition, treino, reload}) {
         
         if(data.link_exercicio != ""){
             console.log("VIDEO")
-            let video_ = filtroEmbed(data.link_exercicio);
+            let video_ = ""
+            if (data.link_exercicio.includes("youtube")){
+                video_ = filtroEmbed(data.link_exercicio);
+            }else if(data.link_exercicio.includes("youtu.be")){
+                video_ = filtroEmbedBe(data.link_exercicio);
+            }
+            
             setVideoUrl(data.link_exercicio);
             setVideo(video_);
         }else {
@@ -53,6 +59,14 @@ export function ModalExercicio({data, edition, treino, reload}) {
         let filterStr = JSON.stringify(str.match(rx))
         filterStr = filterStr.substring(3)
         filterStr = filterStr.replaceAll('"]', '');
+        return filterStr;
+    }
+    const filtroEmbedBe = (str) => {
+        let rx = "be\/[\\dA-z]+"
+        let filterStr = JSON.stringify(str.match(rx))
+        filterStr = filterStr.substring(5)
+        filterStr = filterStr.replaceAll('"]', '');
+        console.log(filterStr);
         return filterStr;
     }
 
@@ -129,17 +143,8 @@ export function ModalExercicio({data, edition, treino, reload}) {
                     </View>   
                 </View> 
                 :
-                <View style={{top:10}}>
+                <View style={{top:10, width:300}}>
                      {videourl.includes("youtube") ?
-                    <TouchableOpacity disabled={disabled} style={{left:300, top: 20, width:40, height:40, zIndex: 1}} onPress={() => {
-                        if(edit == true){
-                            setEdit(false)
-                        }else{
-                            setEdit(true)
-                        }
-                        }}>
-                        <AntDesign name="edit" size={30} color="black" />
-                    </TouchableOpacity> :
                     <TouchableOpacity disabled={disabled} style={{left:280, top: 20, width:40, height:40, zIndex: 1}} onPress={() => {
                         if(edit == true){
                             setEdit(false)
@@ -148,32 +153,42 @@ export function ModalExercicio({data, edition, treino, reload}) {
                         }
                         }}>
                         <AntDesign name="edit" size={30} color="black" />
-                    </TouchableOpacity>}
-                    <TouchableOpacity disabled={disabled} style={{left:0, top: -20, width:40, height:40,  zIndex: 1}} onPress={() => {
-                        
-                        reload();
-                        }}>
-                        <AntDesign name="leftcircleo" size={30} color="black" />
-                    </TouchableOpacity>
+                    </TouchableOpacity> :
+                   
+                        <TouchableOpacity disabled={disabled} style={{left:270, top: 20, width:40, height:40, zIndex: 1}} onPress={() => {
+                            if(edit == true){
+                                setEdit(false)
+                            }else{
+                                setEdit(true)
+                            }
+                            }}>
+                            <AntDesign name="edit" size={30} color="black" />
+                        </TouchableOpacity>}
+                        <TouchableOpacity disabled={disabled} style={{left:0, top: -20, width:40, height:40,  zIndex: 1}} onPress={() => {
+                            
+                            reload();
+                            }}>
+                            <AntDesign name="leftcircleo" size={30} color="black" />
+                        </TouchableOpacity>
                     <Text style={styles.CamposTitulo}>{titulo}</Text>
                     <Text style={styles.Campos}>{descricao}</Text>
                     {videourl.includes("youtu") ?
                     <View>
                         <Text style={styles.CamposSubTitulo}>Video</Text>
                         <View style={{top:10, height: 300, flex: 1,
-                        alignSelf:"center",}}>
+                        alignSelf:"center",alignItems:'center', flexDirection:'column'}}>
                             <Video
                                 id={video}
                             />
                              </View>
-                             <TouchableOpacity disabled={disabled} style={{left:152, top: 40, width:80, height:80, zIndex: 1}} onPress={() => {
+                             <TouchableOpacity disabled={disabled} style={{top: 40, width:40, height:80, zIndex: 1}} onPress={() => {
                                     deleteCard();
                                     }}>
                                     <Feather name="trash-2" size={30} color="black" />
                                 </TouchableOpacity>
                              </View>
                             : <View>
-                                <TouchableOpacity disabled={disabled} style={{left:125, top: 20, width:60, height:60, zIndex: 1}} onPress={() => {
+                                <TouchableOpacity disabled={disabled} style={{top: 20, width:40, height:60, zIndex: 1}} onPress={() => {
                                     deleteCard();
                                     }}>
                                     <Feather name="trash-2" size={30} color="black" />

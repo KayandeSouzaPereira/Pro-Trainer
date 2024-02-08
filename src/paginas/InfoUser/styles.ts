@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     containerCampos:{
         backgroundColor:"white", 
         width: 350, 
-        height: 460, 
+        height: Dimensions.get('window').height / 1.65, 
         marginHorizontal: 15, 
         marginTop: 20, 
         borderRadius: 15, 

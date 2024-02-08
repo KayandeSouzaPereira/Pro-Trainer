@@ -1,4 +1,4 @@
-import { View, FlatList} from 'react-native';
+import { View, FlatList, Dimensions} from 'react-native';
 import React, { useState, useEffect, useRef }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoadingModal } from "react-native-loading-modal";
@@ -68,7 +68,7 @@ export default function Treinos({ navigation }) {
         <View style={styles.container}>
             <BarraSuperior/>
             <LoadingModal modalVisible={loading} />
-            <View style={{marginHorizontal:5, marginTop: 120, height: 720}}>
+            <View style={{marginHorizontal:5, marginTop: 120, height: Dimensions.get('window').height / 1.05}}>
             { <FlatList
                 data={dados}
                 keyExtractor={item => item.idTreinos}

@@ -9,17 +9,10 @@ function loginRequest(login, senha) {
   }
   function cadRequest(login, senha) {
 
-    const config = {
-        headers: {
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-      }
-    };
     return api.post('cad', {
         usuario: login,
         password: senha
-      }, config)
+      })
   }
 async function setToken(_token){
     //const rsaKeys = await RNSimpleCrypto.RSA.generateKeys(4096);

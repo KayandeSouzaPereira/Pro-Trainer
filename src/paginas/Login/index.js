@@ -5,6 +5,8 @@ import { ProgressBar } from 'react-native-paper';
 import { styles } from "./styles";
 import { Audio, Video } from 'expo-av';
 import { useAssets } from 'expo-asset';
+import { GLOBALS } from "../../configs";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
@@ -25,9 +27,12 @@ export default function Login({navigation}) {
     const mensagemErro = "Não foi possível realizar sua solicitação.\nVerifique sua conexão com a Internet."
 
     const loginFunction = async () => {
+        
         if (usuario !== '' && senha !== '') {
             return loginRequest(usuario, senha).then(async res => {
+                console.log(res.data)
                 await setToken(res.data.token)
+                await AsyncStorage.setItem('Token', res.data.token);
                 navigation.navigate('Home')
                 return true
             }).catch(err => {
@@ -43,10 +48,11 @@ export default function Login({navigation}) {
 
     const loginBtn = async () => {
         setLoading(true);
+        await AsyncStorage.clear();
+        GLOBALS.IDUSER = 0;
+        GLOBALS.IMG = "";
         let _ret = await loginFunction();
         if (_ret == true){
-            setLoading(false);
-            
         } else if(_ret == "incorreto") {
             Alert.alert("Atenção", "Usuario ou Senha incorretos.")
             setLoading(false);
@@ -60,16 +66,19 @@ export default function Login({navigation}) {
         }
     }
 
-    const cadBtn = async() => {
+    const cadBtn = async () => {
         setLoading(true);
+        GLOBALS.IDUSER = 0;
+        GLOBALS.IMG = "";
+        await AsyncStorage.clear();
         if (usuario !== '' && senha !== '') {
             let _ret = cadRequest(usuario, senha).then(async res => {
                 if(res.data.retorno.includes('Usuário já cadastrado')){
                     setLoading(false);
                     Alert.alert("Atenção", "Usuario já cadastrado.")
                 }if (res.data.retorno.includes('ok')){
-                    setLoading(false);
-                    navigation.navigate('Home')
+                    Alert.alert("Atenção ", "Usuario cadastrado com sucesso")
+                    loading(false);
                 }
                 
             }).catch(err => {
