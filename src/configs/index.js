@@ -4,6 +4,19 @@ export const theme = {
       secondary100: '#0A1033',
       secondary90: '#0D133D',  
       overlay: 'rgba(0,0,0,0.7)',
+      border: '#1b5a76',
+      highlight: '#ABB1CC',
+      heading: '#DDE3F0',
+      line: '#991F36',
+      on: '#32BD50',
+      cardColor:"white"
+    },
+
+    colorsPrimaryDarkMode: {
+      primary: '#2e6c80',
+      secondary100: '#0A1033',
+      secondary90: '#0D133D',  
+      overlay: 'rgba(0,0,0,0.7)',
       highlight: '#ABB1CC',
       heading: '#DDE3F0',
       line: '#991F36',
@@ -15,9 +28,12 @@ export const theme = {
     }
   };
 
+  
+
 export const GLOBALS = {
   IDUSER: 0,
-  IMG: ""
+  IMG: "",
+  DARKMODE: 0
 }
 
 export const SYSTEM_MESSAGES = {

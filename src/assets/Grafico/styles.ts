@@ -1,16 +1,17 @@
 import { StyleSheet } from 'react-native';
+import { theme } from '../../configs';
 
 
 export const styles = StyleSheet.create({
     container:{
         width: 370, 
         flex: 1,
-        backgroundColor: '#1b5a76',
+        backgroundColor: theme.colorsPrimary.border,
         alignItems: 'center',
         justifyContent: 'center',
     },
     containerLinha:{
-        backgroundColor: 'white', 
+        backgroundColor: theme.colorsPrimary.cardColor, 
         borderRadius : 10, 
         borderColor: 'black',
         borderWidth: 2,
@@ -21,8 +22,8 @@ export const styles = StyleSheet.create({
         marginBottom: 20
     },
     containerPizza:{
-        backgroundColor: 'white', 
-        color: 'white',
+        backgroundColor: theme.colorsPrimary.cardColor, 
+        color: theme.colorsPrimary.cardColor,
         borderRadius : 10, 
         borderColor: 'black',
         borderWidth: 2,
@@ -33,7 +34,7 @@ export const styles = StyleSheet.create({
         marginBottom: 20 
     },
     containerBarra:{
-        backgroundColor: 'white', 
+        backgroundColor: theme.colorsPrimary.cardColor, 
         borderRadius : 10, 
         borderColor: 'black',
         borderWidth: 2,
@@ -47,7 +48,7 @@ export const styles = StyleSheet.create({
         width:35,
         height: 35,
         flexDirection:'column',
-        backgroundColor: '#2e6c80',
+        backgroundColor: theme.colorsPrimary.primary,
         borderRadius: 160,
         alignItems: 'center',
         marginLeft:260,

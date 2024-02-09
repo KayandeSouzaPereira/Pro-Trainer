@@ -1,9 +1,10 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { theme } from '../../configs';
 
 export const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: '#2e6c80', 
+        backgroundColor: theme.colorsPrimary.primary, 
         flexDirection: 'column'
     },
     avatar:{
@@ -41,7 +42,7 @@ export const styles = StyleSheet.create({
         width:55,
         height: 55,
         flexDirection:'column',
-        backgroundColor: '#2e6c80',
+        backgroundColor: theme.colorsPrimary.primary,
         borderRadius: 160,
         alignItems: 'center',
         marginLeft:250,
@@ -53,7 +54,7 @@ export const styles = StyleSheet.create({
         width:35,
         height: 35,
         flexDirection:'column',
-        backgroundColor: '#2e6c80',
+        backgroundColor: theme.colorsPrimary.primary,
         borderRadius: 160,
         alignItems: 'center',
         marginLeft:100,
@@ -61,8 +62,8 @@ export const styles = StyleSheet.create({
         bottom: 60
     },
     CamposUser:{
-        fontFamily: 'Poppins_400Regular',
-        color: 'white',
+        fontFamily: theme.fonts.text,
+        color: theme.colorsPrimary.cardColor,
         width: Dimensions.get('window').width - 20, 
         fontSize: 30,
         marginTop: 10,
@@ -75,12 +76,12 @@ export const styles = StyleSheet.create({
         paddingBottom: 5
     },
     Campos:{
-        fontFamily: 'Poppins_400Regular',
+        fontFamily: theme.fonts.text,
         color: 'black',
         fontSize: 15
     },
     CamposEdit:{
-        fontFamily: 'Poppins_400Regular',
+        fontFamily: theme.fonts.text,
         color: 'black',
         fontSize: 15,
         margin: 5,
@@ -89,8 +90,8 @@ export const styles = StyleSheet.create({
         borderBottomWidth: 2,
     },
     CampoConfirma:{
-        fontFamily: 'Poppins_400Regular',
-        color: 'white',
+        fontFamily: theme.fonts.text,
+        color: theme.colorsPrimary.cardColor,
         fontSize: 12,
         margin: 5
     }

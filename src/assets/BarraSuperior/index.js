@@ -4,7 +4,7 @@ import { styles } from "./styles";
 import { Avatar } from '../Avatar';
 import { getUsuarioInfoIMGRequest } from '../../servicos/Usuario';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { GLOBALS } from '../../configs';
+import { GLOBALS, theme } from '../../configs';
 
 
 

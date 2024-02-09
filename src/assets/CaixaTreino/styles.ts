@@ -1,22 +1,22 @@
 import { StyleSheet } from 'react-native';
-
+import { theme } from '../../configs';
 
 export const styles = StyleSheet.create({
     container:{
         width: 370, 
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: theme.colorsPrimary.cardColor,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 20
     },
     containerbox:{
-        backgroundColor:"white", 
+        backgroundColor:theme.colorsPrimary.cardColor, 
         width: 370, 
         height: 200,
         borderRadius: 15, 
-        borderColor: 'black',
+        borderColor: theme.colorsPrimary.border,
         borderWidth: 2
     },
     containerHeader:{
@@ -27,13 +27,13 @@ export const styles = StyleSheet.create({
         top: 10
     },
     CamposTitulo:{
-        fontFamily: 'Poppins_400Regular',
+        fontFamily: theme.fonts.text,
         color: 'black',
         fontSize: 30,
         textAlign:"center"
     },
     CamposTituloEdit:{
-        fontFamily: 'Poppins_400Regular',
+        fontFamily: theme.fonts.text,
         color: 'black',
         fontSize: 25,
         bottom: 20,
@@ -45,14 +45,14 @@ export const styles = StyleSheet.create({
 
     },
     Campos:{
-        fontFamily: 'Poppins_400Regular',
+        fontFamily: theme.fonts.text,
         color: 'rgba(0, 0, 0, 0.5)',
         fontSize: 20,
         top: 10,
         marginLeft: 20
     },
     CamposEdit:{
-        fontFamily: 'Poppins_400Regular',
+        fontFamily: theme.fonts.text,
         color: 'black',
         fontSize: 18,
         marginLeft: 20,
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
     leftAction:{},
     rightAction:{},
     actionText:{
-        fontFamily: 'Poppins_400Regular',
+        fontFamily: theme.fonts.text,
         fontSize: 20,
         top: 50
     }

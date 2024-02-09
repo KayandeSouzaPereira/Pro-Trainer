@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { theme } from '../../configs';
 
 export const styles = StyleSheet.create({
     container:{
@@ -6,9 +7,9 @@ export const styles = StyleSheet.create({
         height: 100,
         bottom:120,
         right: 10,
-        backgroundColor: 'white',
+        backgroundColor: theme.colorsPrimary.cardColor,
         alignContent: 'flex-start',
-        borderColor: '#1b5a76',
+        borderColor: theme.border,
         borderWidth: 5
     },
     containerIcones:{

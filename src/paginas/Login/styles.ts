@@ -1,9 +1,10 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { theme } from '../../configs';
 
 export const styles = StyleSheet.create({
     container:{
         flex: 1, 
-        backgroundColor: '#2e6c80',
+        backgroundColor: theme.colorsPrimary.primary,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -23,14 +24,14 @@ export const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     Titulo:{
-        fontFamily: 'Poppins_400Regular',
-         color: 'white', 
+        fontFamily: theme.fonts.text,
+         color: theme.colorsPrimary.cardColor, 
          fontSize: 30, 
          right: 70
     },
     Titulo2:{
-        fontFamily: 'Poppins_400Regular', 
-        color: 'white', 
+        fontFamily: theme.fonts.text, 
+        color: theme.colorsPrimary.cardColor, 
         fontSize: 30, 
         right: 120
     },
@@ -38,10 +39,10 @@ export const styles = StyleSheet.create({
         width: 200, 
         height: 40,  
         paddingLeft: 10, 
-        backgroundColor: 'white', 
+        backgroundColor: theme.colorsPrimary.cardColor, 
         borderRadius: 5, 
         right: 60,
-        fontFamily: 'Poppins_400Regular', 
+        fontFamily: theme.fonts.text, 
         color: 'black', 
         fontSize: 15,
         top: 20
@@ -50,10 +51,10 @@ export const styles = StyleSheet.create({
         width: 200, 
         height: 40,  
         paddingLeft: 10, 
-        backgroundColor: 'white', 
+        backgroundColor: theme.colorsPrimary.cardColor, 
         borderRadius: 5, 
         right: 60,
-        fontFamily: 'Poppins_400Regular', 
+        fontFamily: theme.fonts.text, 
         color: 'black', 
         fontSize: 15, 
         top: 40
@@ -74,6 +75,6 @@ export const styles = StyleSheet.create({
     textoLogin:{
         textAlign: "center",
         paddingVertical: 7,
-        fontFamily: 'Poppins_400Regular'
+        fontFamily: theme.fonts.text
     }
 });

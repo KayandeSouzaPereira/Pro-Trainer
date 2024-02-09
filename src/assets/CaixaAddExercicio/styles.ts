@@ -1,27 +1,27 @@
 import { StyleSheet } from 'react-native';
-
+import { theme } from '../../configs';
 
 export const styles = StyleSheet.create({
     container:{
         width: 370, 
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: theme.colorsPrimary.cardColor,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 20
     },
     CamposTitulo:{
-        fontFamily: 'Poppins_400Regular',
+        fontFamily: theme.fonts.text,
         color: 'black',
         fontSize: 30,
         bottom: 30,
         marginLeft: 20
     },
     CamposTituloEdit:{
-        fontFamily: 'Poppins_400Regular',
-        color: 'white',
-        backgroundColor: '#1b5a76',
+        fontFamily: theme.fonts.text,
+        color: theme.colorsPrimary.cardColor,
+        backgroundColor: theme.colorsPrimary.border,
         fontSize: 30,
         bottom: 30,
         marginLeft: 20,
@@ -30,15 +30,15 @@ export const styles = StyleSheet.create({
         width: 250,
     },
     Campos:{
-        fontFamily: 'Poppins_400Regular',
+        fontFamily: theme.fonts.text,
         color: 'black',
         fontSize: 20,
         marginLeft: 20
     },
     CamposEdit:{
-        fontFamily: 'Poppins_400Regular',
-        color: 'white',
-        backgroundColor: '#1b5a76',
+        fontFamily: theme.fonts.text,
+        color: theme.colorsPrimary.cardColor,
+        backgroundColor: theme.colorsPrimary.border,
         fontSize: 20,
         marginLeft: 20,
         borderRadius: 20,
