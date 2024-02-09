@@ -10,7 +10,11 @@ function getUsuarioRequest(tk) {
 
 function getHistorico(login, tk) {
     const config = {
-        headers: { Authorization: `Bearer ${tk}` }
+        headers: { Authorization: `Bearer ${tk}` ,
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      }
     };
 
 

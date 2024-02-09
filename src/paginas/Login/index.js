@@ -5,7 +5,7 @@ import { ProgressBar } from 'react-native-paper';
 import { styles } from "./styles";
 import { Audio, Video } from 'expo-av';
 import { useAssets } from 'expo-asset';
-import { GLOBALS } from "../../configs";
+import { GLOBALS,SYSTEM_MESSAGES } from "../../configs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
@@ -22,7 +22,11 @@ export default function Login({navigation}) {
 
     const video = React.useRef(null);
 
-    
+    useEffect(() => {
+        navigation.addListener('focus', () => {
+            setLoading(false)
+        });
+      }, [navigation]);
 
     const mensagemErro = "Não foi possível realizar sua solicitação.\nVerifique sua conexão com a Internet."
 
@@ -30,7 +34,6 @@ export default function Login({navigation}) {
         
         if (usuario !== '' && senha !== '') {
             return loginRequest(usuario, senha).then(async res => {
-                console.log(res.data)
                 await setToken(res.data.token)
                 await AsyncStorage.setItem('Token', res.data.token);
                 navigation.navigate('Home')
@@ -54,11 +57,11 @@ export default function Login({navigation}) {
         let _ret = await loginFunction();
         if (_ret == true){
         } else if(_ret == "incorreto") {
-            Alert.alert("Atenção", "Usuario ou Senha incorretos.")
+            Alert.alert(SYSTEM_MESSAGES.AVISO, "Usuario ou Senha incorretos.")
             setLoading(false);
         } else if(_ret == false) {
            
-            Alert.alert("Atenção", "E Necessario preencher todos os campos do Login para acessar.")
+            Alert.alert(SYSTEM_MESSAGES.AVISO, "E Necessario preencher todos os campos do Login para acessar.")
             setLoading(false);
         }else {
             Alert.alert("ERRO", mensagemErro)
@@ -75,9 +78,9 @@ export default function Login({navigation}) {
             let _ret = cadRequest(usuario, senha).then(async res => {
                 if(res.data.retorno.includes('Usuário já cadastrado')){
                     setLoading(false);
-                    Alert.alert("Atenção", "Usuario já cadastrado.")
+                    Alert.alert(SYSTEM_MESSAGES.AVISO, "Usuario já cadastrado.")
                 }if (res.data.retorno.includes('ok')){
-                    Alert.alert("Atenção ", "Usuario cadastrado com sucesso")
+                    Alert.alert(SYSTEM_MESSAGES.AVISO, "Usuario cadastrado com sucesso")
                     loading(false);
                 }
                 
@@ -89,7 +92,7 @@ export default function Login({navigation}) {
                 setLoading(false);
             });
         } else {
-            Alert.alert("Atenção", "E Necessario preencher todos os campos do Login para acessar.")
+            Alert.alert(SYSTEM_MESSAGES.AVISO, "E Necessario preencher todos os campos do Login para acessar.")
             setLoading(false);
         }
     }

@@ -5,7 +5,7 @@ import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos';
 import { ModalExercicio } from '../ModalExercicio';
-
+import { SYSTEM_MESSAGES } from '../../configs';
 
 
 
@@ -41,7 +41,7 @@ export function CaixaExercicio({data, editionFunction, treino, reload}) {
     
     return(
         <View style={styles.container}>
-             <TouchableOpacity disabled={disabled} style={{zIndex: 1}} onPress={() => {
+             <TouchableOpacity disabled={edit} style={[edit ? styles.touchableActive : styles.touchableActive]} onPress={() => {
                 if(edit == true){
                     //setEdit(false)
                 }else{
@@ -61,7 +61,7 @@ export function CaixaExercicio({data, editionFunction, treino, reload}) {
               
                <View style={styles.containerText}>
                         <Text style={styles.CamposTitulo}>{titulo}</Text>
-                        <Text style={styles.Campos}>Toque para saber mais...</Text>
+                        <Text style={styles.Campos}>{SYSTEM_MESSAGES.EXERCICIODESCRICAOSAIBAMAIS}</Text>
                 </View>
             }
             </TouchableOpacity>

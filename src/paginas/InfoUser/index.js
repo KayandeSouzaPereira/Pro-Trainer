@@ -4,7 +4,7 @@ import { AntDesign, Entypo, Feather  } from '@expo/vector-icons';
 import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity, Alert } from 'react-native';
 import { LoadingModal } from "react-native-loading-modal";
 import { styles } from '../InfoUser/styles';
-import { GLOBALS } from '../../configs';
+import { SYSTEM_MESSAGES } from '../../configs';
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
 import { getUsuarioInfoRequest, getUsuarioRequest, setUsuarioInfoRequest} from "../../servicos/Usuario"
@@ -46,7 +46,6 @@ export default function InfoUser({ navigation }) {
         if (infos.img === undefined || infos.img === "0" || infos.img === "" ){
             setImage(urlImage);
         }else if(infos.img != ""){
-            console.log(infos.img == "")
             setImage(`data:image/png;base64,${infos.img}`);
         }
         
@@ -79,7 +78,6 @@ export default function InfoUser({ navigation }) {
             setInfos(info.data.resultado)
             setLoading(false);
         }catch (err){
-            console.log(err)
             setImage(urlImage);
             setImgBS64("");
             setLoading(false);
@@ -132,12 +130,11 @@ export default function InfoUser({ navigation }) {
         try {
             await setUsuarioInfoRequest(id, alturaS, pesoS, idadeS, imgBS64, tkk);
         } catch (err){
-            console.log("ERRO : " + JSON.stringify(err))
             if (JSON.stringify(err).includes(500)){
-                Alert.alert("Atenção : ", "Ocorreu um problema no envio do seu cadastro.")
+                Alert.alert(SYSTEM_MESSAGES.AVISO, "Ocorreu um problema no envio do seu cadastro.")
             }
             if (JSON.stringify(err).includes("code 413")){
-                Alert.alert("Atenção : ", "Arquivo muito grande para envio.")
+                Alert.alert(SYSTEM_MESSAGES.AVISO, "Arquivo muito grande para envio.")
             }
             
         }

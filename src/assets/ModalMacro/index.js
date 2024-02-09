@@ -5,6 +5,7 @@ import { AntDesign, Feather, Entypo  } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoadingModal } from "react-native-loading-modal";
 import { getMacros, setMacros, getUsuarioRequest } from '../../servicos/Macros';
+import { GLOBALS } from '../../configs';
 
 
 export function ModalMacro ({reload}){

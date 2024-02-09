@@ -32,11 +32,8 @@ export function ModalExercicio({data, edition, treino, reload}) {
         setIdExercicio(data.idExercicios)
         setTitulo(data.nm_exercicios);
         setDescricao(data.ds_exercicio);
-
-        console.log(data.link_exercicio)
         
         if(data.link_exercicio != ""){
-            console.log("VIDEO")
             let video_ = ""
             if (data.link_exercicio.includes("youtube")){
                 video_ = filtroEmbed(data.link_exercicio);
@@ -66,7 +63,6 @@ export function ModalExercicio({data, edition, treino, reload}) {
         let filterStr = JSON.stringify(str.match(rx))
         filterStr = filterStr.substring(5)
         filterStr = filterStr.replaceAll('"]', '');
-        console.log(filterStr);
         return filterStr;
     }
 
@@ -181,14 +177,14 @@ export function ModalExercicio({data, edition, treino, reload}) {
                                 id={video}
                             />
                              </View>
-                             <TouchableOpacity disabled={disabled} style={{top: 40, width:40, height:80, zIndex: 1}} onPress={() => {
+                             <TouchableOpacity disabled={disabled} style={{top: 40, width:40, height:80, alignSelf: 'center', alignItems: 'center'}} onPress={() => {
                                     deleteCard();
                                     }}>
                                     <Feather name="trash-2" size={30} color="black" />
                                 </TouchableOpacity>
                              </View>
                             : <View>
-                                <TouchableOpacity disabled={disabled} style={{top: 20, width:40, height:60, zIndex: 1}} onPress={() => {
+                                <TouchableOpacity disabled={disabled} style={{top: 20, width:40, height:60, alignSelf: 'center', alignItems: 'center'}} onPress={() => {
                                     deleteCard();
                                     }}>
                                     <Feather name="trash-2" size={30} color="black" />

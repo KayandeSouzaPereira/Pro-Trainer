@@ -37,7 +37,6 @@ import { api } from "../Util"
         idTreino: idTreino
      };
 
-    console.log(bodyParameters);
 
     return api.post('treino', bodyParameters, config)
   }
@@ -54,7 +53,6 @@ import { api } from "../Util"
         descricao: descricao
      };
 
-    console.log(bodyParameters);
 
     return api.post('treino', bodyParameters, config)
   }

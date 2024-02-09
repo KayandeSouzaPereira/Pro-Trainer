@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsuarioTreinoRequestEmpty, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos';
-
+import { SYSTEM_MESSAGES } from '../../configs';
 
 
 
@@ -20,8 +20,7 @@ export function CaixaAdd({reload}) {
                 reload();
                }
         } catch (error) {
-            console.log(error);
-            Alert.alert("Aviso: ", "Já existe um formulario de treino disponivel para cadastro na lista");
+            Alert.alert(SYSTEM_MESSAGES.AVISO, SYSTEM_MESSAGES.AVISOADDTREINO);
         }
         
         
@@ -30,7 +29,7 @@ export function CaixaAdd({reload}) {
     
     return(
         <View style={styles.container}>
-            <TouchableOpacity style={{zIndex: 1}} onPress={async () => { setData("'Titulo do treino'", "'Descrição do treino'")}}>
+            <TouchableOpacity style={{zIndex: 1}} onPress={async () => { setData(SYSTEM_MESSAGES.TITULOTREINOPLACEHOLDER, SYSTEM_MESSAGES.DESCRICAOTREINOPLACEHOLDER)}}>
                    
                 <Ionicons name="add" size={40} color="black" />
             </TouchableOpacity>

@@ -6,14 +6,14 @@ import { ModalMacro } from '../ModalMacro';
 import { ModalTreinoRegistro } from '../ModalTreinoRegistro';
 import { Entypo } from '@expo/vector-icons';
 
-export default function Grafico(data) {
+export default function Grafico({data, callback}) {
 
    const [modalMacro, setModalMacro] = useState(false);
    const [modalTreino, setModalTreino] = useState(false);
 
    
 
-  let dados = data.data;
+  let dados = data;
   let tipo = dados.tipo;
   let titulos = dados.titulos;
   let valores = dados.infos;
@@ -67,7 +67,7 @@ export default function Grafico(data) {
                 transparent={true}
                 onRequestClose={() => {setModalTreino(false);}}
             >
-                <ModalTreinoRegistro reload={() => {setModalTreino(false);}}/>
+                <ModalTreinoRegistro reload={() => {setModalTreino(false), callback();}}/>
             </Modal>
             </TouchableOpacity>
         </View>
@@ -103,7 +103,7 @@ export default function Grafico(data) {
                 transparent={true}
                 onRequestClose={() => {setModalMacro(false);}}
             >
-                <ModalMacro reload={() => {setModalMacro(false);}}/>
+                <ModalMacro reload={() => {setModalMacro(false), callback();}}/>
             </Modal>
             </TouchableOpacity>
             </View>)

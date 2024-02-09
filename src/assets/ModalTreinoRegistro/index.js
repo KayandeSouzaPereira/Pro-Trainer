@@ -9,7 +9,7 @@ import { CaixaHistoricoTreino } from '../CaixaHistoricoTreino';
 import { getUserTraining } from '../../servicos/Treinos';
 import { getUserExerciseByTraining } from '../../servicos/Exercicios';
 import { getHistorico, setHistorico, getUsuarioRequest } from '../../servicos/Historico';
-import { GLOBALS } from '../../configs';
+import { GLOBALS, SYSTEM_MESSAGES } from '../../configs';
 
 
 export function ModalTreinoRegistro ({reload}){
@@ -26,6 +26,7 @@ export function ModalTreinoRegistro ({reload}){
     const [disabled, setDisabled] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         getData()
     }, [])
 
@@ -39,6 +40,7 @@ export function ModalTreinoRegistro ({reload}){
     
 
     const getData = async () => {
+        
         let tkk = await AsyncStorage.getItem('Token');
         let dataUser = await getUsuarioRequest(tkk);
         let idUser = GLOBALS.IDUSER
@@ -47,7 +49,6 @@ export function ModalTreinoRegistro ({reload}){
        
         if (dados.data.resultado != null ){
             let dados_ = dados.data.resultado
-            console.log("TREINOS : " + JSON.stringify(dados_))
             if(dados_.length === 0){
                 dados_.push({idRegistro_exercicio: 0})
             }
@@ -67,6 +68,7 @@ export function ModalTreinoRegistro ({reload}){
             setTreinos(dados_);
             getIdsExercicios(dados_[0].idTreinos);
         }
+        setLoading(false);
     }
 
     const getIdsExercicios = async (id) => {
@@ -92,7 +94,7 @@ export function ModalTreinoRegistro ({reload}){
         let data = await setHistorico(idUser, exercicio, peso, repeticoes, observacoes, tkk);
         if (data){
             if(data.data.resultado === "Já existe registro para este exercício e usuário nas ultimas 24 horas, remova o registro ou atualize ele no proxímo treino."){
-                Alert.alert("Atenção !", "O Registro enviado ja existe em nossos bancos, não podemos atualiza-lo")
+                Alert.alert(SYSTEM_MESSAGES.AVISO, "O Registro enviado ja existe em nossos bancos, não podemos atualiza-lo")
                 setLoading(false);
                 setEdit(false);
             }else{

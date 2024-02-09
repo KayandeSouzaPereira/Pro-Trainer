@@ -4,24 +4,31 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUsuarioRequest, setUsuarioExerciseRequestEmpt } from '../../servicos/Exercicios';
+import { LoadingModal } from "react-native-loading-modal";  
+import { SYSTEM_MESSAGES } from '../../configs';
 
 
 
 
 export function CaixaAddExercicio({reload, treino}) {
 
+    const [loading, setLoading] = useState(false);
+
     
     const setData = async (titulo, descricao) => {
+        setLoading(true);
         let tkk = await AsyncStorage.getItem('Token');
         let data = await getUsuarioRequest(tkk);
         let id = data.data.retorno.idAuth;
         try {
-            let ret = await setUsuarioExerciseRequestEmpt(id, titulo, descricao, "", tkk, treino, "");
+            let ret = await setUsuarioExerciseRequestEmpt(id, titulo, descricao, "", tkk, treino, undefined);
             if (ret != null){
+                setLoading(false);
                 reload();
                }
         } catch (error) {
-            Alert.alert("Aviso: ", "Já existe um formulario de Exercicio disponivel para cadastro na lista");
+            setLoading(false);
+            Alert.alert(SYSTEM_MESSAGES.AVISO, SYSTEM_MESSAGES.AVISOADDEXERCICIO);
         }
         
         
@@ -31,7 +38,8 @@ export function CaixaAddExercicio({reload, treino}) {
     return(
         <View> 
                 <View style={styles.container}>
-                    <TouchableOpacity style={{zIndex: 1}} onPress={async () => { setData("'Titulo do exercicio'", "'Descrição do exercicio'")}}>
+                    <LoadingModal modalVisible={loading} />
+                    <TouchableOpacity style={{zIndex: 1}} onPress={async () => { setData(SYSTEM_MESSAGES.TITULOEXERCICIOPLACEHOLDER, SYSTEM_MESSAGES.DESCRICAOEXERCICIOPLACEHOLDER)}}>
                         
                         <Ionicons name="add" size={40} color="black" />
                     </TouchableOpacity>

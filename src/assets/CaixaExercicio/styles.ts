@@ -11,6 +11,15 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         marginBottom: 20
     },
+    touchableActive:{
+        zIndex: 1
+    },
+    touchableInactive:{
+        zIndex: 1,
+        width:200,
+        height: 200
+    },
+
     containerText:{
         backgroundColor:"white", 
         width: 370, 

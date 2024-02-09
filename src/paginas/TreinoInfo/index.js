@@ -55,7 +55,7 @@ export default function TreinoInfo({ navigation}) {
             dadosTreino = await getUserExerciseByTraining(tkk, treino);
             let dados_
             if(dadosTreino.data.resultado != "treinos não encontrado") {
-               
+                console.log(dadosTreino.data.resultado);
                 dados_ = dadosTreino.data.resultado;
                 dados_.push({idExercicios: 0})
             }else if(dadosTreino.data.resultado === "treinos não encontrado"){
@@ -79,7 +79,7 @@ export default function TreinoInfo({ navigation}) {
         <View style={styles.container}>
             <BarraSuperior/>
             <LoadingModal modalVisible={loading} />
-            <View style={{marginHorizontal:5, marginTop: 120, height: Dimensions.get('window').height / 1.05}}>
+            <View style={{marginHorizontal: Dimensions.get('window').width / 20, marginTop: 120, height: Dimensions.get('window').height / 1.05}}>
             { <FlatList
                 data={dados}
                 keyExtractor={item => item.idExercicios}

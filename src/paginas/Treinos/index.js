@@ -48,7 +48,6 @@ export default function Treinos({ navigation }) {
             dados_.push({idTreinos: 0})
             setDados(dados_);
         } catch (err){
-            console.log(err)
             let dados_ = [];
             dados_.push({idTreinos: 0})
             setDados(dados_);
@@ -68,7 +67,7 @@ export default function Treinos({ navigation }) {
         <View style={styles.container}>
             <BarraSuperior/>
             <LoadingModal modalVisible={loading} />
-            <View style={{marginHorizontal:5, marginTop: 120, height: Dimensions.get('window').height / 1.05}}>
+            <View style={{marginHorizontal: Dimensions.get('window').width / 20, marginTop: 120, height: Dimensions.get('window').height / 1.05}}>
             { <FlatList
                 data={dados}
                 keyExtractor={item => item.idTreinos}

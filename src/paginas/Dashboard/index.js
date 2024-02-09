@@ -1,6 +1,6 @@
 import Grafico from "../../assets/Grafico"
 import { useState, useEffect } from "react"
-import {View, FlatList, Text} from "react-native"
+import {View, FlatList, Text, Dimensions} from "react-native"
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
 import { LoadingModal } from "react-native-loading-modal";  
@@ -26,12 +26,11 @@ export default function Dashboard({ navigation }) {
 
   useEffect(() => {
     navigation.addListener('focus', () => {
-      console.log("reloaded");
+      setDataMacro();
     });
   }, [navigation]);
 
   useEffect(() => {
-    setDataMacro();
   }, [])
 
 
@@ -56,6 +55,10 @@ export default function Dashboard({ navigation }) {
   }, [dadosPresenca])
   
 
+  function callback(){
+    setDataMacro();
+  }
+
   const montaMock = () => {
 
     const dadosMock = [];
@@ -68,7 +71,8 @@ export default function Dashboard({ navigation }) {
      let carboidratos = dados.carboidratos;
      
     
-    const dadosMacroMock = {id: 1,
+    const dadosMacroMock = {
+        id: 1,
         tipo: "Pizza",
         infos: [
           {
@@ -93,13 +97,14 @@ export default function Dashboard({ navigation }) {
             legendFontSize: 15
           }
         ],
-        Titulo: "Macros do Dia"
+        Titulo: "Macros do Dia",
        };
 
        dadosMock.push(dadosMacroMock); 
 
        if(treinos > 0 && dadosPresenca.length > 0){
-        const treinos = {id: 2,
+        const treinos = {
+          id: 2,
           tipo: "Linha",
           infos: dadosPresenca,
           titulos: dadosPresencaMeses,
@@ -111,7 +116,8 @@ export default function Dashboard({ navigation }) {
       }
 
       if(treinos > 0 && dadosForca.length > 0){
-        const forca = {id: 3,
+        const forca = {
+          id: 3,
           tipo: "Barra",
           infos:{
           labels: ["1", "2", "3"],
@@ -243,15 +249,12 @@ export default function Dashboard({ navigation }) {
 
     setLoading(true);
     let tkk = await AsyncStorage.getItem('Token');
-    console.log(tkk)
     let dataUser = ""
     try {
        dataUser = await getUsuarioRequest(tkk);
-       console.log(dataUser.data);
     } catch (err){
       try {
         dataUser = await getUsuarioRequest(tkk);
-        console.log(dataUser.data);
       } catch (err){
 
       }
@@ -316,7 +319,7 @@ export default function Dashboard({ navigation }) {
         
         <BarraSuperior/>
        
-        <View style={{flex: 1,marginHorizontal: 20, marginVertical: 20, top: 120}}>
+        <View style={{flex: 1,marginHorizontal: Dimensions.get('window').width / 10, marginVertical: 20, top: 120}}>
         <LoadingModal modalVisible={loading} />
           <FlatList
           data={mock}
@@ -328,7 +331,8 @@ export default function Dashboard({ navigation }) {
                       </View>
                       :
                       <Grafico 
-                          data={item} 
+                          data={item}
+                          callback={callback}
                       />
                   )}
                           contentContainerStyle={{ paddingBottom: 50, height: 1000}}
