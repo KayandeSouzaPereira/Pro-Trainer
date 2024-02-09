@@ -21,7 +21,7 @@ export function CaixaAddExercicio({reload, treino}) {
         let data = await getUsuarioRequest(tkk);
         let id = data.data.retorno.idAuth;
         try {
-            let ret = await setUsuarioExerciseRequestEmpt(id, titulo, descricao, "", tkk, treino, undefined);
+            let ret = await setUsuarioExerciseRequestEmpt(id, treino, titulo, descricao, "", tkk);
             if (ret != null){
                 setLoading(false);
                 reload();

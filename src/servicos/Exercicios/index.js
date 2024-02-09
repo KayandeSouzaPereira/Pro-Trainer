@@ -36,7 +36,7 @@ import { api } from "../Util"
     return api.post('exercise', bodyParameters, config)
   }
 
-  function setUsuarioExerciseRequestEmpt(login, treino, descricao, link, tk) {
+  function setUsuarioExerciseRequestEmpt(login, treino, exercicio, descricao, link, tk) {
 
     const config = {
         headers: { Authorization: `Bearer ${tk}` }
@@ -44,13 +44,13 @@ import { api } from "../Util"
 
     const bodyParameters = {
         usuario: login,
-        exercicio: treino,
+        exercicio: exercicio,
         descricao: descricao,
         treino: treino,
         link: link
      };
 
-     console.log("body : " + bodyParameters)
+     console.log("body : " + JSON.stringify(bodyParameters))
 
     return api.post('exercise', bodyParameters, config)
   }
