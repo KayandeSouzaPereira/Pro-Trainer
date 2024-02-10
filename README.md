@@ -8,7 +8,9 @@ Seu objetivo e ajudar o usuario a ver resultados de seus treinos atraves da apre
 
 ## Demonstração
 
-![Utilização do Dashboard](https://github.com/KayandeSouzaPereira/Pro-Trainer/blob/main/assets/gifDash1.gif?raw=true)
+
+
+<img src='https://github.com/KayandeSouzaPereira/Pro-Trainer/blob/main/assets/gifDash1.gif?raw=true' width='100'>
 
 ![Edição de informações do Usuário](https://github.com/KayandeSouzaPereira/Pro-Trainer/blob/main/assets/GifInfo.gif?raw=true)
 
