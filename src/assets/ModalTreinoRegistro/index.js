@@ -137,7 +137,7 @@ export function ModalTreinoRegistro ({reload}){
 
 
     return(
-        <View style={{backgroundColor:'rgba(52, 52, 52, 0.8)', flex: 1,top: 60}}>
+        <View style={{backgroundColor:'rgba(52, 52, 52, 1)', flex: 1,top: 60}}>
             <View style={styles.container}>
                 <LoadingModal modalVisible={loading} />
                 {edit === true ? 

@@ -78,7 +78,7 @@ export function ModalMacro ({reload}){
     }
 
     return(
-        <TouchableOpacity style={{backgroundColor:'rgba(52, 52, 52, 0.8)', flex: 1}}>
+        <TouchableOpacity style={{flex: -1, position:'absolute'}}>
             <View style={styles.container}>
                 <LoadingModal modalVisible={loading} />
                 {edit === true ? 
