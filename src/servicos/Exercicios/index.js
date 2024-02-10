@@ -50,7 +50,6 @@ import { api } from "../Util"
         link: link
      };
 
-     console.log("body : " + JSON.stringify(bodyParameters))
 
     return api.post('exercise', bodyParameters, config)
   }

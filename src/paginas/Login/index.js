@@ -34,6 +34,7 @@ export default function Login({navigation}) {
         
         if (usuario !== '' && senha !== '') {
             return loginRequest(usuario, senha).then(async res => {
+                GLOBALS.IDUSER = res.data.id
                 await setToken(res.data.token)
                 await AsyncStorage.setItem('Token', res.data.token);
                 navigation.navigate('Home')

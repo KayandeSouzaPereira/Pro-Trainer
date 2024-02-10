@@ -11,6 +11,18 @@ export default function Grafico({data, callback}) {
    const [modalMacro, setModalMacro] = useState(false);
    const [modalTreino, setModalTreino] = useState(false);
 
+   useEffect(() => {
+        if(modalTreino == false){
+            callback();
+        }
+   }, [modalTreino])
+
+   useEffect(() => {
+    if(modalMacro == false){
+        callback();
+    }
+}, [modalMacro])
+
    
 
   let dados = data;
@@ -37,8 +49,8 @@ export default function Grafico({data, callback}) {
                 }
                 ]
             }}
-            width={280}
-            height={150}
+            width={260}
+            height={170}
             yAxisInterval={1}
             chartConfig={{
                 backgroundColor: "#ffffff",
@@ -58,7 +70,7 @@ export default function Grafico({data, callback}) {
             }}
             bezier
             style={{
-                marginVertical: 8,
+                marginVertical: 10,
                 borderRadius: 16
             }}
             />
@@ -67,7 +79,7 @@ export default function Grafico({data, callback}) {
                 transparent={true}
                 onRequestClose={() => {setModalTreino(false);}}
             >
-                <ModalTreinoRegistro reload={() => {setModalTreino(false), callback();}}/>
+                <ModalTreinoRegistro reload={() => {setModalTreino(false);}}/>
             </Modal>
             </TouchableOpacity>
         </View>
@@ -83,7 +95,7 @@ export default function Grafico({data, callback}) {
             <PieChart
                 data={valores}
                 width={280}
-                height={150} 
+                height={170} 
                 hasLegend={true}
                 chartConfig={{
                     backgroundColor: "#ffffff",
@@ -103,7 +115,7 @@ export default function Grafico({data, callback}) {
                 transparent={true}
                 onRequestClose={() => {setModalMacro(false);}}
             >
-                <ModalMacro reload={() => {setModalMacro(false), callback();}}/>
+                <ModalMacro reload={() => {setModalMacro(false); }}/>
             </Modal>
             </TouchableOpacity>
             </View>)
@@ -116,7 +128,7 @@ export default function Grafico({data, callback}) {
             <BarChart
                 data={valores}
                 width={280}
-                height={150}
+                height={170}
                 chartConfig={{
                     backgroundColor: "#ffffff",
                     backgroundGradientFrom: "#ffffff",

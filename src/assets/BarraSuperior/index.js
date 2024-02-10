@@ -9,13 +9,14 @@ import { GLOBALS, theme } from '../../configs';
 
 
 
-export function BarraSuperior() {
+export function BarraSuperior({images}) {
 
     const [image, setImage] = useState(null);
 
     useEffect (() => {
         getImage();
     }, [])
+
 
     const getImage = async () => {
         let tkk = await AsyncStorage.getItem('Token');
@@ -37,12 +38,25 @@ export function BarraSuperior() {
     }
 
     return(
+        <>
+        { 
+        images != undefined ?
         <View style={styles.container}>
-            <View style={styles.imageContainer}>
-                <Avatar urlImage={image} />
-            </View>
+                <View style={styles.imageContainer}>
+                    <Avatar urlImage={images} />
+                </View>
 
-            <Text style={styles.texto}>PRO Trainer</Text>
+                <Text style={styles.texto}>PRO Trainer</Text>
         </View>
+        :
+            <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                    <Avatar urlImage={image} />
+                </View>
+
+                <Text style={styles.texto}>PRO Trainer</Text>
+            </View>
+        }
+        </>
     )
 }

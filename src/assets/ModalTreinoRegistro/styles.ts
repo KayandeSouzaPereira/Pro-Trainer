@@ -1,13 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { theme } from '../../configs';
 
 export const styles = StyleSheet.create({
     container:{
         width: 350,
         height: 600,
-        left: 15,
+        marginHorizontal: Dimensions.get('window').width / 15,
         opacity: 1,
-        top: 200,
+        top: 10,
         flexDirection:"column",
         alignItems: 'center',
         textAlign:"center",

@@ -35,7 +35,6 @@ export default function InfoUser({ navigation }) {
     const [edit, setEdit] = useState(false);
     const [disabled,setDisabled] = useState(false)
     const [loading, setLoading] = useState(true);
-    
 
 
 
@@ -58,9 +57,15 @@ export default function InfoUser({ navigation }) {
 
     useEffect(() => {
         if(imgBS64 != ''){
-            setData();
+            if(altura_ == "..." && peso_ == 0 && idade_ == 0 && altura == "..."){
+                Alert.alert(SYSTEM_MESSAGES.AVISO, "E Necessario cadastrar as informações antes de subir uma imagem.")
+            }else{  
+                setData();
+            }
+            
         }
      },[imgBS64])
+     
 
     
 
@@ -88,7 +93,7 @@ export default function InfoUser({ navigation }) {
        let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
           allowsEditing: true,
-          aspect: [4, 3],
+          aspect: [5, 5],
           quality: 0.3,
         });
 
@@ -138,8 +143,8 @@ export default function InfoUser({ navigation }) {
             }
             
         }
-
-        getData();
+        setLoading(false);
+        navigation.navigate("Home")
     }
     
        
@@ -148,7 +153,12 @@ export default function InfoUser({ navigation }) {
         
         
         <View style={styles.container}>
-            <BarraSuperior/>
+            { image != null?
+                <BarraSuperior />
+                :
+                <BarraSuperior images={image}/>
+
+            }
             <LoadingModal modalVisible={loading} />
             
             <View style={styles.containerUser}>

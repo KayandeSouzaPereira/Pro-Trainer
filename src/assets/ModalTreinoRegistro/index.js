@@ -46,7 +46,7 @@ export function ModalTreinoRegistro ({reload}){
         let idUser = GLOBALS.IDUSER
         
         let dados = await getHistorico(idUser, tkk);
-       
+       console.log(dados.data)
         if (dados.data.resultado != null ){
             let dados_ = dados.data.resultado
             if(dados_.length === 0){
@@ -91,15 +91,19 @@ export function ModalTreinoRegistro ({reload}){
         let tkk = await AsyncStorage.getItem('Token');
         let dataUser = await getUsuarioRequest(tkk);
         let idUser = dataUser.data.retorno.idAuth;
+        console.log("EXERCICIO : " + exercicio)
         let data = await setHistorico(idUser, exercicio, peso, repeticoes, observacoes, tkk);
         if (data){
             if(data.data.resultado === "Já existe registro para este exercício e usuário nas ultimas 24 horas, remova o registro ou atualize ele no proxímo treino."){
                 Alert.alert(SYSTEM_MESSAGES.AVISO, "O Registro enviado ja existe em nossos bancos, não podemos atualiza-lo")
                 setLoading(false);
+                
                 setEdit(false);
+                reload();
             }else{
                 setLoading(false);
                 setEdit(false);
+                reload();
             }
         }else{
             setEdit(false);
@@ -133,7 +137,7 @@ export function ModalTreinoRegistro ({reload}){
 
 
     return(
-        <View style={{backgroundColor:'rgba(52, 52, 52, 0.8)', flex: 1}}>
+        <View style={{backgroundColor:'rgba(52, 52, 52, 0.8)', flex: 1,top: 60}}>
             <View style={styles.container}>
                 <LoadingModal modalVisible={loading} />
                 {edit === true ? 
@@ -225,6 +229,7 @@ export function ModalTreinoRegistro ({reload}){
                         </TouchableOpacity>
                         
                         <View style={{height:430, width: 300}}>
+                            { dadosHistory.length > 0 ?
                             <FlatList
                                 data={dadosHistory}
                                 keyExtractor={item => item.idRegistro_exercicio}
@@ -239,6 +244,9 @@ export function ModalTreinoRegistro ({reload}){
                                 contentContainerStyle={{ paddingBottom: 30}}
                                 showsVerticalScrollIndicator={true}
                                 />   
+                                :
+                                <Text style={{flex: 1, textAlign:"center"}}>Carregando...</Text>
+                            }
                         </View>
                     </View>
                     }

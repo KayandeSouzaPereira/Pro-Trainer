@@ -55,7 +55,6 @@ export default function TreinoInfo({ navigation}) {
             dadosTreino = await getUserExerciseByTraining(tkk, treino);
             let dados_
             if(dadosTreino.data.resultado != "treinos não encontrado") {
-                console.log(dadosTreino.data.resultado);
                 dados_ = dadosTreino.data.resultado;
                 dados_.push({idExercicios: 0})
             }else if(dadosTreino.data.resultado === "treinos não encontrado"){
@@ -100,7 +99,7 @@ export default function TreinoInfo({ navigation}) {
                        
                     ) 
                 }
-                        contentContainerStyle={{ paddingBottom: 60, paddingTop: 30}}
+                        contentContainerStyle={{ paddingBottom: 100, paddingTop: 30}}
                         showsVerticalScrollIndicator={false}
             /> }
             </View>

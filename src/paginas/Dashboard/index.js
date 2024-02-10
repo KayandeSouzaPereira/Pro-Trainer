@@ -7,9 +7,10 @@ import { LoadingModal } from "react-native-loading-modal";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getMacros, getUsuarioRequest, getForca, getPresenca } from '../../servicos/Macros';
 import { getUserTraining } from "../../servicos/Treinos"
+import { getUsuarioInfoIMGRequest } from "../../servicos/Usuario"
 import moment from 'moment';
 import 'moment/locale/pt-br'
-import { GLOBALS } from "../../configs"
+import { GLOBALS } from "../../configs";
 
 export default function Dashboard({ navigation }) {
 
@@ -21,25 +22,16 @@ export default function Dashboard({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [mock, setMock] = useState([]);
   const [recall, setRecall] = useState([false]);
+  const [update, setUpdate] = useState(false);
+  const [image, setImage] = useState(null);
 
-  
 
   useEffect(() => {
-    navigation.addListener('focus', () => {
-      setDataMacro();
+     navigation.addListener('focus', () => {
+       setDataMacro();
     });
   }, [navigation]);
 
-  useEffect(() => {
-  }, [])
-
-
-  useEffect(() => {
-    if(recall === true){
-      setRecall(false);
-      setDataMacro();
-    }
-  }, [recall])
 
 
   useEffect(() => {
@@ -47,17 +39,12 @@ export default function Dashboard({ navigation }) {
   }, [dadosMacro])
 
   useEffect(() => {
-    montaMock();
+    //montaMock();
   }, [dadosForca])
 
   useEffect(() => {
     montaMock();
   }, [dadosPresenca])
-  
-
-  function callback(){
-    setDataMacro();
-  }
 
   const montaMock = () => {
 
@@ -102,7 +89,9 @@ export default function Dashboard({ navigation }) {
 
        dadosMock.push(dadosMacroMock); 
 
+
        if(treinos > 0 && dadosPresenca.length > 0){
+        
         const treinos = {
           id: 2,
           tipo: "Linha",
@@ -144,7 +133,7 @@ export default function Dashboard({ navigation }) {
          const mock2 =  {id: 3,
            tipo: "Barra",
            infos:{
-           labels: ["1", "2", "3"],
+           labels: ["1º", "2º", "3º"],
            datasets: [
              {
                data: [0,0,0]
@@ -205,18 +194,29 @@ export default function Dashboard({ navigation }) {
   function handleForca(dados) {
     const reg = [];
     dados.forEach((i) => reg.push(i.peso))
+
+    if (dados.length === 1){
+      reg.push(0);
+      reg.push(0);
+    }
+    if (dados.length === 2){
+      reg.push(0);
+    }
+
     setDadosForca(reg)
   }
 
   function handleHistorico(dados) {
     const reg = [];
     const data = [];
-    dados.forEach((i) => {
-     data.push(moment(i.Mes).locale('pt-br').format('MMMM').substring(0, 3))
-     reg.push(i.treinos)
-    })
+      dados.forEach((i) => {
+        data.push(moment(i.Mes).locale('pt-br').format('MMMM').substring(0, 3))
+        reg.push(i.treinos)
+      })
+    
 
     if (data.length == 1) {
+      const i = data[0];
       data.push(moment(i.Mes).subtract(1, 'months').format('MMMM').substring(0, 3))
       reg.push(0)
       data.push(moment(i.Mes).subtract(2, 'months').format('MMMM').substring(0, 3))
@@ -224,10 +224,13 @@ export default function Dashboard({ navigation }) {
     }
 
     if (data.length == 2) {
+      const i = data[0];
       data.push(moment(i.Mes).subtract(1, 'months').format('MMMM').substring(0, 3))
       reg.push(0)
     }
     
+    
+
     setDadosPresenca(reg);
     setDadosPresencaMeses(data)
 
@@ -237,12 +240,31 @@ export default function Dashboard({ navigation }) {
   function ultimosMes(){
     const data = [];
 
-    data.push(moment().subtract(1, 'months').format('MMMM').substring(0, 3))
+    data.push(moment().format('MMMM').substring(0, 3))
     data.push(moment().subtract(1, 'months').format('MMMM').substring(0, 3))
     data.push(moment().subtract(2, 'months').format('MMMM').substring(0, 3))
 
     return data;
 
+  }
+
+  const getImage = async () => {
+    let tkk = await AsyncStorage.getItem('Token');
+    let id = GLOBALS.IDUSER;
+    if(id != 0){
+        try {
+        let data = await getUsuarioInfoIMGRequest(id, tkk);
+        if (data.data.resultado != undefined){
+            let image = data.data.resultado.img
+            setImage(`data:image/png;base64,${image}`)
+        }else {
+            setImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZH15XmvGL5ftl3MGXUuUXajy-FGo0jCfwQQZY5sOWNw&s")
+        } } catch (err){
+            setImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZH15XmvGL5ftl3MGXUuUXajy-FGo0jCfwQQZY5sOWNw&s")
+        }
+    }else if(id == 0){
+        setImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZH15XmvGL5ftl3MGXUuUXajy-FGo0jCfwQQZY5sOWNw&s")
+    }
   }
 
   const setDataMacro = async () => {
@@ -262,9 +284,10 @@ export default function Dashboard({ navigation }) {
     
     let idUser = dataUser.data.retorno.idAuth;
     GLOBALS.IDUSER = idUser
+    getImage();
     try {
       let dados = await getUserTraining(idUser, tkk);
-
+      
       if (dados.data != null){
         setTreinos(dados.data.resultado.length)
       }
@@ -286,7 +309,7 @@ export default function Dashboard({ navigation }) {
 
     try {
       let dados = await getForca(idUser, tkk);
-
+      
       if (dados.data.resultado != null){
         handleForca(dados.data.resultado);
       }
@@ -297,13 +320,13 @@ export default function Dashboard({ navigation }) {
 
     try {
       let dados = await getPresenca(idUser, tkk);
-
-      if (dados.data.resultado != null){
+      
+      if (dados.data.resultado != null && dadosPresenca.length === 0){
         handleHistorico(dados.data.resultado);
       }
 
     } catch (err){
-
+      console.log(err);
     }
     
 
@@ -311,13 +334,15 @@ export default function Dashboard({ navigation }) {
 
 
   
-
+  function callback(){
+    setDataMacro();
+  }
 
 
     return(
       <View style={{flex: 1}}>
         
-        <BarraSuperior/>
+        <BarraSuperior images={image}/>
        
         <View style={{flex: 1,marginHorizontal: Dimensions.get('window').width / 10, marginVertical: 20, top: 120}}>
         <LoadingModal modalVisible={loading} />
