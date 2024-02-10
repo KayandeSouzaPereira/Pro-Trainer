@@ -8,7 +8,9 @@ Seu objetivo e ajudar o usuario a ver resultados de seus treinos atraves da apre
 
 ## Demonstração
 
-EM BREVE
+![Utilização do Dashboard](https://github.com/KayandeSouzaPereira/Pro-Trainer/blob/main/assets/gifDash1.gif?raw=true)
+
+![Edição de informações do Usuário](https://github.com/KayandeSouzaPereira/Pro-Trainer/blob/main/assets/GifInfo.gif?raw=true)
 
 
 ## Stack utilizada
@@ -31,7 +33,7 @@ EM BREVE
 - Criação de Usuario.
 - Apresentação de Video com "Embed" do Youtube.
 - Apresentação de parte dos dados coletados em graficos.
-- Criação de Registros.
+- Criação de Regitros.
 
 
 ## Instalação local
