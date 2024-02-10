@@ -8,11 +8,13 @@ Seu objetivo e ajudar o usuario a ver resultados de seus treinos atraves da apre
 
 ## Demonstração
 
+### Utilização dos macros no dashboard
+
+<img src='https://github.com/KayandeSouzaPereira/Pro-Trainer/blob/main/assets/gifDash1.gif?raw=true' width='300'>
 
 
-<img src='https://github.com/KayandeSouzaPereira/Pro-Trainer/blob/main/assets/gifDash1.gif?raw=true' width='100'>
-
-![Edição de informações do Usuário](https://github.com/KayandeSouzaPereira/Pro-Trainer/blob/main/assets/GifInfo.gif?raw=true)
+### Edição de informações do Usuário
+<img src='https://github.com/KayandeSouzaPereira/Pro-Trainer/blob/main/assets/GifInfo.gif?raw=true' width='300'>
 
 
 ## Stack utilizada
