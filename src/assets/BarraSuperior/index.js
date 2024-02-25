@@ -18,6 +18,7 @@ export function BarraSuperior({images, localizacao, navigation}) {
     const [modal, setModal] = useState(false);
 
     useEffect (() => {
+        console.log("DARKMODE:" + GLOBALS.DARKMODE)
         getImage();
     }, [])
 
@@ -89,7 +90,22 @@ export function BarraSuperior({images, localizacao, navigation}) {
                     <Text style={styles.textoSub}>{localizacao}</Text>
                 </View>
                 <View style={styles.containerConfig}>
-                    <FontAwesome name="gear" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
+                <TouchableOpacity style={{width:40, height:40, zIndex: 1}} onPress={() => {
+                            if(modal == true){
+                                setModal(false)
+                            }else{
+                                setModal(true)
+                            }
+                            }}>
+                            <FontAwesome name="gear" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
+                        </TouchableOpacity>
+                        <Modal
+                            visible={modal}
+                            transparent={true}
+                            onRequestClose={() => {setModal(false);}}
+                            >
+                            <ModalPreferencias navigation={navigation} reload={() => {setModal(false);}}/>
+                         </Modal>
                 </View>
             </View>
         }

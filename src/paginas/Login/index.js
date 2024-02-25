@@ -40,9 +40,14 @@ export default function Login({navigation}) {
         let connection = await Network.getNetworkStateAsync();
         let tkk = await SecureStore.getItemAsync("token");
         let user = await SecureStore.getItemAsync("usuario");
-        let darkMode = await AsyncStorage.getItem("Darkmode");
+        let darkMode = await AsyncStorage.getItem("mode");
         GLOBALS.NOME = user
-        GLOBALS.DARKMODE = JSON.parse(darkMode)
+        if(darkMode != null){
+            GLOBALS.DARKMODE = JSON.parse(darkMode)
+        }else{
+            GLOBALS.DARKMODE = 0
+        }
+        
         console.log("TKK : " + tkk);
         console.log("USER : " + user)
         if(connection.isConnected === true){
@@ -118,8 +123,20 @@ export default function Login({navigation}) {
                     setLoading(false);
                     Alert.alert(SYSTEM_MESSAGES.AVISO, "Usuario já cadastrado.")
                 }if (res.data.retorno.includes('ok')){
-                    Alert.alert(SYSTEM_MESSAGES.AVISO, "Usuario cadastrado com sucesso")
-                    loading(false);
+                     loginRequest(usuario, senha).then(async res => {
+                        GLOBALS.IDUSER = res.data.id
+                        GLOBALS.NOME = usuario
+                        await setToken(res.data.token)
+                        await SecureStore.setItemAsync("token", res.data.token);
+                        await SecureStore.setItemAsync("usuario", usuario);
+                        navigation.navigate('Home')
+                        return true
+                    }).catch(err => {
+                        Alert.alert(SYSTEM_MESSAGES.AVISO, "Usuario cadastrado com sucesso")
+                        setLoading(false);
+                    })
+
+                    
                 }
                 
             }).catch(err => {

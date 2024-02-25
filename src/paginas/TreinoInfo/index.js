@@ -77,9 +77,9 @@ export default function TreinoInfo({ navigation}) {
 
     return(
         <View style={styles.container}>
-            <BarraSuperior localizacao={"Seus Exercícios"}/>
+            <BarraSuperior navigation={navigation} localizacao={"Seus Exercícios"}/>
             <LoadingModal modalVisible={loading} />
-            <View style={{marginHorizontal: Dimensions.get('window').width / 20, height: Dimensions.get('window').height / 1.25}}>
+            <View style={{marginHorizontal: Dimensions.get('window').width / 20, height: Dimensions.get('window').height / 1.30}}>
             { <FlatList
                 data={dados}
                 keyExtractor={item => item.idExercicios}

@@ -68,7 +68,7 @@ export function ModalMacro ({reload}){
 
 
         let data = await setMacros(idUser, proteinas_, gorduras_, tkk, carboidratos_);
-        if (data.includes("OFFLINE")){
+        if (JSON.stringify(data).includes("OFFLINE")){
             Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar informações de Macros offline.")
             setLoading(false);
         }

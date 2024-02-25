@@ -268,7 +268,7 @@ export default function Dashboard({ navigation }) {
   }
 
   const setDataMacro = async () => {
-
+    console.log(GLOBALS.DARKMODE)
     setLoading(true);
     let tkk = await SecureStore.getItemAsync("token");
     let dataUser = ""
@@ -341,7 +341,7 @@ export default function Dashboard({ navigation }) {
 
 
     return(
-      <View style={{flex: 1, backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.background : theme.colorsPrimaryDark.background}}>
+      <View style={{flex: 1, backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.background : theme.colorsPrimary.background}}>
         
         <BarraSuperior images={image} localizacao={"Dashboard"} navigation={navigation}/>
        

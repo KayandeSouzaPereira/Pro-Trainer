@@ -1,7 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 import React, { useState, useEffect }  from 'react';
 import { AntDesign, Entypo, Feather  } from '@expo/vector-icons';
-import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, Image, TouchableOpacity, Alert } from 'react-native';
 import { LoadingModal } from "react-native-loading-modal";
 import { styles } from '../InfoUser/styles';
 import { SYSTEM_MESSAGES, GLOBALS } from '../../configs';
@@ -151,6 +151,7 @@ export default function InfoUser({ navigation }) {
             }
             
         }
+        Alert.alert(SYSTEM_MESSAGES.AVISO, "Dados salvos com sucesso.")
         setLoading(false);
         navigation.navigate("Home")
     }
@@ -162,9 +163,9 @@ export default function InfoUser({ navigation }) {
         
         <View style={styles.container}>
             { image != null?
-                <BarraSuperior localizacao={"Seus Dados"} />
+                <BarraSuperior navigation={navigation} localizacao={"Seus Dados"} />
                 :
-                <BarraSuperior images={image} localizacao={"Seus Dados"}/>
+                <BarraSuperior navigation={navigation} images={image} localizacao={"Seus Dados"}/>
 
             }
             <LoadingModal modalVisible={loading} />
@@ -192,7 +193,7 @@ export default function InfoUser({ navigation }) {
                 <Text style={styles.CamposUser}>Olá {nome.substring(0, 10)}</Text>
             </View>
             
-            <View style={styles.containerCampos}>
+            <KeyboardAvoidingView style={styles.containerCampos}>
                 <View style={styles.containerButton}>
                     <TouchableOpacity disabled={disabled} onPress={() => {
                         if(edit == true){
@@ -265,7 +266,7 @@ export default function InfoUser({ navigation }) {
                 
                
                 
-            </View>
+            </KeyboardAvoidingView>
             <BarraInferior {... {navigation}}/>
         </View>
         

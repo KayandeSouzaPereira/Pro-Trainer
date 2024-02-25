@@ -4,7 +4,7 @@ import { theme, GLOBALS } from '../../configs';
 
 export const styles = StyleSheet.create({
     container:{
-        width: 370, 
+        width: 340, 
         flex: 1,
         backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
         borderRadius: 20,
@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
 
     containerText:{
         backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor, 
-        width: 370, 
+        width: 340, 
         height: 200,
         borderRadius: 15, 
         borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border, 
