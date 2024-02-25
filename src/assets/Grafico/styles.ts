@@ -1,19 +1,19 @@
 import { StyleSheet } from 'react-native';
-import { theme } from '../../configs';
+import { theme, GLOBALS } from '../../configs';
 
 
 export const styles = StyleSheet.create({
     container:{
         width: 370, 
         flex: 1,
-        backgroundColor: theme.colorsPrimary.border,
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border,
         alignItems: 'center',
         justifyContent: 'center',
     },
     containerLinha:{
-        backgroundColor: theme.colorsPrimary.primary, 
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary, 
         borderRadius : 10, 
-        borderColor: theme.colorsPrimary.border,
+        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border,
         borderWidth: 2,
         width: 330, 
         height: 230,
@@ -22,10 +22,10 @@ export const styles = StyleSheet.create({
         marginBottom: 20
     },
     containerPizza:{
-        backgroundColor: theme.colorsPrimary.primary, 
-        color: theme.colorsPrimary.cardColor,
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary, 
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
         borderRadius : 10, 
-        borderColor: theme.colorsPrimary.border,
+        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border,
         borderWidth: 2,
         width: 330, 
         height: 230,
@@ -34,9 +34,9 @@ export const styles = StyleSheet.create({
         marginBottom: 20 
     },
     containerBarra:{
-        backgroundColor: theme.colorsPrimary.cardColor, 
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor, 
         borderRadius : 10, 
-        borderColor: theme.colorsPrimary.border,
+        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border,
         borderWidth: 2,
         width: 330, 
         height: 230 ,
@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
         width:35,
         height: 35,
         flexDirection:'column',
-        backgroundColor: theme.colorsPrimary.primary,
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary,
         alignItems: 'center',
         marginLeft:260,
         paddingTop: 8,

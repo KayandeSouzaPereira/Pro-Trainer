@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining, deleteUsuarioTreinoRequest} from '../../servicos/Treinos';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { RectButton } from 'react-native-gesture-handler';
+import { GLOBALS, theme } from '../../configs';
 
 
 export function CaixaTreino({data, reload, navigation}) {
@@ -74,7 +75,7 @@ export function CaixaTreino({data, reload, navigation}) {
                       transform: [{ translateX: trans }],
                     },
                   ]}>
-                <Feather name="trash-2" size={20} color="black" />
+                <Feather name="trash-2" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                 <View style={{width: 20}}></View>
                   Deletar   
                 </Animated.Text>
@@ -99,7 +100,7 @@ export function CaixaTreino({data, reload, navigation}) {
                     },
                   ]}>
                 
-                <AntDesign name="edit" size={20} color="black" />
+                <AntDesign name="edit" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                 <View style={{width: 20}}></View>
                   Editar
                   
@@ -113,7 +114,7 @@ export function CaixaTreino({data, reload, navigation}) {
                     },
                   ]}>
                 
-                <Feather name="send" size={20} color="black" />
+                <Feather name="send" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                 <View style={{width: 20}}></View>
                   Enviar
                 </Animated.Text>
@@ -150,7 +151,7 @@ export function CaixaTreino({data, reload, navigation}) {
                     
                     {
                         edit === true ? 
-                        <View style={{backgroundColor:"white", width: 370, height: 200,borderRadius: 15, borderColor: 'black', borderWidth: 2}}>
+                        <View style={styles.containerEdit}>
                             <TouchableOpacity disabled={disabled} style={{left:320, top: 18, zIndex: 1}} onPress={async () => {
                             if(edit == true){
                                 await setData(titulo_, descricao_);
@@ -159,7 +160,7 @@ export function CaixaTreino({data, reload, navigation}) {
                                 setEdit(true)
                             }
                             }}>
-                            <Feather name="send" size={30} color="black" />
+                            <Feather name="send" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                         </TouchableOpacity>
                         <TextInput style={styles.CamposTituloEdit} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
                         <TextInput style={styles.CamposEdit} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
@@ -171,7 +172,7 @@ export function CaixaTreino({data, reload, navigation}) {
                             <TouchableOpacity disabled={disabled} style={{width: 20, height: 20, top: 10}} onPress={() => {
                                 deleteCard();
                                 }}>
-                                <Feather name="trash-2" size={20} color="black" />
+                                <Feather name="trash-2" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                             </TouchableOpacity>
                             <Text style={styles.CamposTitulo}>{titulo}</Text>
                             <TouchableOpacity disabled={disabled} style={{width: 20, height: 20, top: 10}} onPress={() => {
@@ -181,7 +182,7 @@ export function CaixaTreino({data, reload, navigation}) {
                                     setEdit(true)
                                 }
                                 }}>
-                                <AntDesign name="edit" size={20} color="black" />
+                                <AntDesign name="edit" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.Campos}>{descricao}</Text>

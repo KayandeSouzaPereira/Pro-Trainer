@@ -1,10 +1,10 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { theme } from '../../configs';
+import { theme, GLOBALS } from '../../configs';
 
 export const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: theme.colorsPrimary.background, 
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.background : theme.colorsPrimaryDark.background, 
         flexDirection: 'column'
     },
     avatar:{
@@ -13,13 +13,13 @@ export const styles = StyleSheet.create({
         borderRadius: 160
     },
     containerCampos:{
-        backgroundColor: theme.colorsPrimary.cardColor, 
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor, 
         width: 350, 
         height: Dimensions.get('window').height / 2.15, 
         marginHorizontal: Dimensions.get('window').width / 15, 
         marginTop: 20, 
         borderRadius: 15, 
-        borderColor: theme.colorsPrimary.border, 
+        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border, 
         borderWidth: 2, 
         alignItems: 'center'
     },
@@ -41,9 +41,9 @@ export const styles = StyleSheet.create({
         width:55,
         height: 55,
         flexDirection:'column',
-        backgroundColor: theme.colorsPrimary.primary,
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.cardColor,
         borderRadius: 30,
-        borderColor: theme.colorsPrimary.border, 
+        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border, 
         borderWidth: 2, 
         alignItems: 'center',
         marginLeft:250,
@@ -54,9 +54,9 @@ export const styles = StyleSheet.create({
         width:50,
         height: 50,
         flexDirection:'column',
-        backgroundColor: theme.colorsPrimary.primary,
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.cardColor,
         borderRadius: 30,
-        borderColor: theme.colorsPrimary.border, 
+        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border, 
         borderWidth: 2, 
         alignItems: 'center',
         marginLeft:100,
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
     },
     CamposUser:{
         fontFamily: theme.fonts.tituloDestaque,
-        color: theme.colorsPrimary.fontColor,
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
         width: Dimensions.get('window').width - 20, 
         fontSize: 30,
         marginTop: 10,
@@ -79,21 +79,22 @@ export const styles = StyleSheet.create({
     },
     Campos:{
         fontFamily: theme.fonts.text,
-        color: 'black',
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
         fontSize: 15
     },
     CamposEdit:{
         fontFamily: theme.fonts.text,
-        color: 'black',
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
         fontSize: 15,
         margin: 5,
         height: 20,
         width: 250,
         borderBottomWidth: 2,
+        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.fontColor,
     },
     CampoConfirma:{
         fontFamily: theme.fonts.text,
-        color: theme.colorsPrimary.cardColor,
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
         fontSize: 12,
         margin: 5
     }

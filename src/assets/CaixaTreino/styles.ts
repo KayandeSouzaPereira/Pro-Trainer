@@ -1,24 +1,32 @@
 import { StyleSheet } from 'react-native';
-import { theme } from '../../configs';
+import { theme, GLOBALS } from '../../configs';
 
 export const styles = StyleSheet.create({
     container:{
         width: 370, 
         flex: 1,
-        backgroundColor: theme.colorsPrimary.cardColor,
-        borderColor: theme.colorsPrimary.border,
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
+        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border,
         borderWidth: 2,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 20
     },
-    containerbox:{
-        backgroundColor:theme.colorsPrimary.cardColor, 
+    containerEdit:{
+        backgroundColor:GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor, 
         width: 370, 
         height: 200,
         borderRadius: 15, 
-        borderColor: theme.colorsPrimary.border,
+        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border, 
+        borderWidth: 2
+    },
+    containerbox:{
+        backgroundColor:GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor, 
+        width: 370, 
+        height: 200,
+        borderRadius: 15, 
+        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border,
         borderWidth: 2
     },
     containerHeader:{
@@ -30,13 +38,13 @@ export const styles = StyleSheet.create({
     },
     CamposTitulo:{
         fontFamily: theme.fonts.textDestaque,
-        color: 'black',
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
         fontSize: 30,
         textAlign:"center"
     },
     CamposTituloEdit:{
         fontFamily: theme.fonts.textDestaque,
-        color: 'black',
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
         fontSize: 25,
         bottom: 20,
         marginLeft: 20,
@@ -48,14 +56,14 @@ export const styles = StyleSheet.create({
     },
     Campos:{
         fontFamily: theme.fonts.text,
-        color: 'rgba(0, 0, 0, 0.5)',
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.overlay : theme.colorsPrimaryDark.fontColor,
         fontSize: 20,
         top: 10,
         marginLeft: 20
     },
     CamposEdit:{
         fontFamily: theme.fonts.text,
-        color: 'black',
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
         fontSize: 18,
         marginLeft: 20,
         borderRadius: 20,

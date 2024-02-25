@@ -11,6 +11,18 @@ export const theme = {
       fontColor: '#222222'
     },
 
+    colorsPrimaryDark: {
+      background: '#081B33',
+      primary: '#50A0FF',
+      overlay: 'rgba(0,0,0,0.7)',
+      border: '#0f1a2e',
+      highlight: '#5A3920',
+      heading: '#80512e',
+      line: '#991F36',
+      cardColor:'#152642',
+      fontColor: '#CAF0F8'
+    },
+
   
     fonts: {
       text: 'Poppins_400Regular',

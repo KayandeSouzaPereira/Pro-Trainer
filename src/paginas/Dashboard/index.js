@@ -166,21 +166,21 @@ export default function Dashboard({ navigation }) {
             name: "Prot",
             macros: 0,
             color: "#83a7ea",
-            legendFontColor: theme.colorsPrimary.cardColor,
+            legendFontColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor ,
             legendFontSize: 15
           },
           {
             name: "Gord",
             macros: 0,
             color: "#1b5a76",
-            legendFontColor: theme.colorsPrimary.cardColor,
+            legendFontColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor ,
             legendFontSize: 15
           },
           {
             name: "Carb",
             macros: 0,
             color: "#2e6c80",
-            legendFontColor: theme.colorsPrimary.cardColor,
+            legendFontColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor ,
             legendFontSize: 15
           }
         ],
@@ -342,7 +342,7 @@ export default function Dashboard({ navigation }) {
 
 
     return(
-      <View style={{flex: 1, backgroundColor: theme.colorsPrimary.background}}>
+      <View style={{flex: 1, backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.background : theme.colorsPrimaryDark.background}}>
         
         <BarraSuperior images={image} localizacao={"Dashboard"}/>
        

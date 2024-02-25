@@ -7,7 +7,7 @@ import { getUsuarioRequest } from '../../servicos/Usuario';
 import {setUsuarioExerciseRequest, deleteUsuarioExerciseRequest } from '../../servicos/Exercicios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoadingModal } from "react-native-loading-modal";
-
+import { GLOBALS, theme } from '../../configs';
 
 
 
@@ -148,7 +148,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
                             setEdit(true)
                         }
                         }}>
-                        <AntDesign name="edit" size={30} color="black" />
+                        <AntDesign name="edit" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                     </TouchableOpacity> :
                    
                         <TouchableOpacity disabled={disabled} style={{left:270, top: 20, width:40, height:40, zIndex: 1}} onPress={() => {
@@ -158,13 +158,13 @@ export function ModalExercicio({data, edition, treino, reload}) {
                                 setEdit(true)
                             }
                             }}>
-                            <AntDesign name="edit" size={30} color="black" />
+                            <AntDesign name="edit" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                         </TouchableOpacity>}
                         <TouchableOpacity disabled={disabled} style={{left:0, top: -20, width:40, height:40,  zIndex: 1}} onPress={() => {
                             
                             reload();
                             }}>
-                            <AntDesign name="leftcircleo" size={30} color="black" />
+                            <AntDesign name="leftcircleo" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                         </TouchableOpacity>
                     <Text style={styles.CamposTitulo}>{titulo}</Text>
                     <Text style={styles.Campos}>{descricao}</Text>
@@ -180,14 +180,14 @@ export function ModalExercicio({data, edition, treino, reload}) {
                              <TouchableOpacity disabled={disabled} style={{top: 40, width:40, height:80, alignSelf: 'center', alignItems: 'center'}} onPress={() => {
                                     deleteCard();
                                     }}>
-                                    <Feather name="trash-2" size={30} color="black" />
+                                    <Feather name="trash-2" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                                 </TouchableOpacity>
                              </View>
                             : <View>
                                 <TouchableOpacity disabled={disabled} style={{top: 20, width:40, height:60, alignSelf: 'center', alignItems: 'center'}} onPress={() => {
                                     deleteCard();
                                     }}>
-                                    <Feather name="trash-2" size={30} color="black" />
+                                    <Feather name="trash-2" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                                 </TouchableOpacity>
                                 </View>}
                     

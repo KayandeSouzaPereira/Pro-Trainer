@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { theme } from '../../configs';
+import { theme, GLOBALS } from '../../configs';
 
 
 export const styles = StyleSheet.create({
     container:{
         width: 370, 
         flex: 1,
-        backgroundColor: theme.colorsPrimary.cardColor,
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
@@ -22,23 +22,23 @@ export const styles = StyleSheet.create({
     },
 
     containerText:{
-        backgroundColor: theme.colorsPrimary.cardColor, 
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor, 
         width: 370, 
         height: 200,
         borderRadius: 15, 
-        borderColor: theme.colorsPrimary.border, 
+        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border, 
         borderWidth: 2
     },
     CamposTitulo:{
         fontFamily: theme.fonts.textDestaque,
-        color: 'black',
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
         fontSize: 30,
         top: 10,
         marginLeft: 20
     },
     CamposTituloEdit:{
         fontFamily: theme.fonts.textDestaque,
-        color: theme.colorsPrimary.cardColor,
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
         backgroundColor: theme.colorsPrimary.border,
         fontSize: 30,
         bottom: 30,
@@ -49,14 +49,14 @@ export const styles = StyleSheet.create({
     },
     Campos:{
         fontFamily: theme.fonts.text,
-        color: 'rgba(0, 0, 0, 0.5)',
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.overlay : theme.colorsPrimaryDark.fontColor,
         fontSize: 20,
         top: 40,
         marginLeft: 20
     },
     CamposEdit:{
         fontFamily: theme.fonts.text,
-        color: theme.colorsPrimary.cardColor,
+        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
         backgroundColor: theme.colorsPrimary.border,
         fontSize: 20,
         marginLeft: 20,

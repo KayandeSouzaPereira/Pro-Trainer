@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { theme } from '../../configs';
+import { theme, GLOBALS } from '../../configs';
 
 
 export const styles = StyleSheet.create({
@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 2,
         height: 120,
         flexDirection: 'row',
-        backgroundColor: theme.colorsPrimary.background,
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.background : theme.colorsPrimaryDark.cardColor,
         alignContent: 'center',
         alignItems: 'center'
     },
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     texto:{
         fontSize: 20, 
         fontFamily: theme.fonts.tituloDestaque,
-        color: theme.colorsPrimary.fontColor,
+        color:  GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
     },
     textoSub:{
         fontSize: 15, 

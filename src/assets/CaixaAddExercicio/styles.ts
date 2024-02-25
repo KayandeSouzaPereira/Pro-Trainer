@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { theme } from '../../configs';
+import { theme, GLOBALS } from '../../configs';
 
 export const styles = StyleSheet.create({
     container:{
         width: 370, 
         flex: 1,
-        backgroundColor: theme.colorsPrimary.cardColor,
+        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',

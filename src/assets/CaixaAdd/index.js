@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsuarioTreinoRequestEmpty, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos';
-import { SYSTEM_MESSAGES } from '../../configs';
+import { SYSTEM_MESSAGES, GLOBALS, theme } from '../../configs';
 
 
 
@@ -31,7 +31,7 @@ export function CaixaAdd({reload}) {
         <View style={styles.container}>
             <TouchableOpacity style={{zIndex: 1}} onPress={async () => { setData(SYSTEM_MESSAGES.TITULOTREINOPLACEHOLDER, SYSTEM_MESSAGES.DESCRICAOTREINOPLACEHOLDER)}}>
                    
-                <Ionicons name="add" size={40} color="black" />
+                <Ionicons name="add" size={40} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
             </TouchableOpacity>
         </View>
     )

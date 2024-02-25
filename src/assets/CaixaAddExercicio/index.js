@@ -5,7 +5,7 @@ import React, { useState, useEffect }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUsuarioRequest, setUsuarioExerciseRequestEmpt } from '../../servicos/Exercicios';
 import { LoadingModal } from "react-native-loading-modal";  
-import { SYSTEM_MESSAGES } from '../../configs';
+import { SYSTEM_MESSAGES, GLOBALS, theme } from '../../configs';
 
 
 
@@ -41,7 +41,7 @@ export function CaixaAddExercicio({reload, treino}) {
                     <LoadingModal modalVisible={loading} />
                     <TouchableOpacity style={{zIndex: 1}} onPress={async () => { setData(SYSTEM_MESSAGES.TITULOEXERCICIOPLACEHOLDER, SYSTEM_MESSAGES.DESCRICAOEXERCICIOPLACEHOLDER)}}>
                         
-                        <Ionicons name="add" size={40} color="black" />
+                    <Ionicons name="add" size={40} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                     </TouchableOpacity>
                 </View> 
         </View>
