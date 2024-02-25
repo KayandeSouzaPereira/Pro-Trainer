@@ -1,5 +1,6 @@
 import { api } from "../Util"
-
+import { GLOBALS } from '../../configs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
   function getUsuarioRequest(tk) {
     const config = {
@@ -9,22 +10,31 @@ import { api } from "../Util"
     return api.get('userTK', config)
   }
 
-  function getUsuarioInfoRequest(login, tk) {
-    const config = {
-        headers: { Authorization: `Bearer ${tk}` }
-    };
-    return api.get('userInfo?user=' + login, config)
+  async function getUsuarioInfoRequest(login, tk) {
+    if(GLOBALS.OFFLINE === 0) {
+      const config = {
+          headers: { Authorization: `Bearer ${tk}` }
+      };
+      const ret = await api.get('userInfo?user=' + login, config);
+      await AsyncStorage.setItem("userInfo", JSON.stringify(ret));
+      return ret;
+      }else if(GLOBALS.OFFLINE === 1){
+        return JSON.parse(await AsyncStorage.getItem("userInfo"))
+      }
   }
 
-  function getUsuarioInfoIMGRequest(login, tk) {
-    const config = {
-        headers: { Authorization: `Bearer ${tk}` }
-    };
+  async function getUsuarioInfoIMGRequest(login, tk) {
 
-    
-
-
-    return api.get('userInfo?user=' + login, config)
+    if(GLOBALS.OFFLINE === 0) {
+      const config = {
+          headers: { Authorization: `Bearer ${tk}` }
+      };
+      const ret = await api.get('userInfo?user=' + login, config);
+      await AsyncStorage.setItem("userInfo", JSON.stringify(ret));
+      return ret;
+      }else if(GLOBALS.OFFLINE === 1){
+        return JSON.parse(await AsyncStorage.getItem("userInfo"))
+      }
   }
 
 

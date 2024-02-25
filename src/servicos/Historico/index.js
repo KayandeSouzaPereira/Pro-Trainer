@@ -1,4 +1,6 @@
 import { api } from '../Util'
+import { GLOBALS } from '../../configs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function getUsuarioRequest(tk) {
     const config = {
@@ -8,18 +10,21 @@ function getUsuarioRequest(tk) {
     return api.get('userTK', config)
 }
 
-function getHistorico(login, tk) {
-    const config = {
-        headers: { Authorization: `Bearer ${tk}` ,
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
-        'Expires': '0',
+async function getHistorico(login, tk) {
+  if(GLOBALS.OFFLINE === 0) {
+      const config = {
+          headers: { Authorization: `Bearer ${tk}` ,
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        }
+      };
+      const ret = await api.get('exerciseHistory?usuario='+login, config);
+      await AsyncStorage.setItem("exerciseHistory", JSON.stringify(ret));
+      return ret;
+      }else if(GLOBALS.OFFLINE === 1){
+        return JSON.parse(await AsyncStorage.getItem("exerciseHistory"))
       }
-    };
-
-
-
-    return api.get('exerciseHistory?usuario='+login, config)
   }
 
   function setHistorico(login, exercicio, peso, repeticoes, observacoes, tk) {

@@ -7,7 +7,7 @@ import { getUsuarioRequest } from '../../servicos/Usuario';
 import {setUsuarioExerciseRequest, deleteUsuarioExerciseRequest } from '../../servicos/Exercicios';
 import * as SecureStore from 'expo-secure-store';
 import { LoadingModal } from "react-native-loading-modal";
-import { GLOBALS, theme } from '../../configs';
+import { GLOBALS, theme, SYSTEM_MESSAGES } from '../../configs';
 
 
 
@@ -123,7 +123,11 @@ export function ModalExercicio({data, edition, treino, reload}) {
                 <View style = {{paddingTop: 40, paddingVertical: 30}}>
                     <TouchableOpacity disabled={disabled} style={{left:290, top: -10, zIndex: 1}} onPress={async () => {
                         if(edit == true){
-                            await setData();
+                            if (GLOBALS.OFFLINE === 0) {
+                                await setData();
+                            }else{
+                                Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
+                            }
                             setEdit(false)
                         }else{
                             setEdit(true)
@@ -178,14 +182,22 @@ export function ModalExercicio({data, edition, treino, reload}) {
                             />
                              </View>
                              <TouchableOpacity disabled={disabled} style={{top: 40, width:40, height:80, alignSelf: 'center', alignItems: 'center'}} onPress={() => {
-                                    deleteCard();
+                                    if (GLOBALS.OFFLINE === 0) {    
+                                        deleteCard();
+                                    }else{
+                                        Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
+                                    }
                                     }}>
                                     <Feather name="trash-2" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                                 </TouchableOpacity>
                              </View>
                             : <View>
                                 <TouchableOpacity disabled={disabled} style={{top: 20, width:40, height:60, alignSelf: 'center', alignItems: 'center'}} onPress={() => {
-                                    deleteCard();
+                                    if (GLOBALS.OFFLINE === 0) {     
+                                        deleteCard();
+                                    }else{
+                                        Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
+                                    }
                                     }}>
                                     <Feather name="trash-2" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                                 </TouchableOpacity>

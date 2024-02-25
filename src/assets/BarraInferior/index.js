@@ -3,6 +3,7 @@ import { styles } from "./styles";
 import { AntDesign, MaterialIcons, Feather, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { theme } from '../../configs';
 import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export function BarraInferior({navigation}) {
@@ -11,6 +12,7 @@ export function BarraInferior({navigation}) {
     async function logout(){
         await SecureStore.deleteItemAsync("token");
         await SecureStore.deleteItemAsync("usuario");
+        await AsyncStorage.clear();
         navigation.navigate("Login");
     }
     

@@ -28,7 +28,7 @@ export default function Dashboard({ navigation }) {
 
   useEffect(() => {
      navigation.addListener('focus', () => {
-       setDataMacro();
+          setDataMacro();
     });
   }, [navigation]);
 
@@ -306,7 +306,6 @@ export default function Dashboard({ navigation }) {
           
       }
     } catch (err){
-      
     }
 
     try {

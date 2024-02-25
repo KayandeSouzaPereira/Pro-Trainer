@@ -4,7 +4,7 @@ import { AntDesign, Entypo, Feather  } from '@expo/vector-icons';
 import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity, Alert } from 'react-native';
 import { LoadingModal } from "react-native-loading-modal";
 import { styles } from '../InfoUser/styles';
-import { SYSTEM_MESSAGES } from '../../configs';
+import { SYSTEM_MESSAGES, GLOBALS } from '../../configs';
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
 import { getUsuarioInfoRequest, getUsuarioRequest, setUsuarioInfoRequest} from "../../servicos/Usuario"
@@ -60,7 +60,11 @@ export default function InfoUser({ navigation }) {
             if(altura_ == "..." && peso_ == 0 && idade_ == 0 && altura == "..."){
                 Alert.alert(SYSTEM_MESSAGES.AVISO, "E Necessario cadastrar as informações antes de subir uma imagem.")
             }else{  
-                setData();
+                if (GLOBALS.OFFLINE === 0){
+                    setData();  
+                }else{
+                    Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
+                }
             }
             
         }
@@ -102,7 +106,11 @@ export default function InfoUser({ navigation }) {
           setImage(result.assets[0].uri);
           const base64 = await FileSystem.readAsStringAsync(result.assets[0].uri, { encoding: 'base64' })
           setImgBS64(base64);
-          setData();
+          if (GLOBALS.OFFLINE === 0){
+            setData();  
+        }else{
+            Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
+        }
         }
       };
 
@@ -224,7 +232,11 @@ export default function InfoUser({ navigation }) {
 
                         <TouchableOpacity disabled={disabled} style={{backgroundColor:"#1b5a76", color:"white", borderRadius: 20, alignItems:"center"}} onPress={ async () => {
                            setDisabled(true);
-                           await setData();
+                           if (GLOBALS.OFFLINE === 0){
+                            await setData();
+                            }else{
+                             Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
+                            }
                            setDisabled(false);
                            setEdit(false);
                         }}>

@@ -29,7 +29,13 @@ export function CaixaAdd({reload}) {
     
     return(
         <View style={styles.container}>
-            <TouchableOpacity style={{zIndex: 1}} onPress={async () => { setData(SYSTEM_MESSAGES.TITULOTREINOPLACEHOLDER, SYSTEM_MESSAGES.DESCRICAOTREINOPLACEHOLDER)}}>
+            <TouchableOpacity style={{zIndex: 1}} onPress={async () => { 
+                if (GLOBALS.OFFLINE === 0) {
+                setData(SYSTEM_MESSAGES.TITULOTREINOPLACEHOLDER, SYSTEM_MESSAGES.DESCRICAOTREINOPLACEHOLDER)
+                }else{
+                    Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
+                }
+                }}>
                    
                 <Ionicons name="add" size={40} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
             </TouchableOpacity>

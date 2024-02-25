@@ -1,12 +1,13 @@
-import { Text, View, TouchableOpacity,TextInput, Animated } from 'react-native';
+import { Text, View, TouchableOpacity,TextInput, Animated, Alert } from 'react-native';
 import { styles } from '../CaixaTreino/styles';
 import { AntDesign, Feather  } from '@expo/vector-icons';
 import React, { useState, useEffect, useRef }  from 'react';
 import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining, deleteUsuarioTreinoRequest} from '../../servicos/Treinos';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { RectButton } from 'react-native-gesture-handler';
-import { GLOBALS, theme } from '../../configs';
+import { GLOBALS, theme, SYSTEM_MESSAGES } from '../../configs';
 
 
 export function CaixaTreino({data, reload, navigation}) {
@@ -133,7 +134,12 @@ export function CaixaTreino({data, reload, navigation}) {
           if(direction === "left"){
             if(edit == true){
               swipeableRef.current.close();
-              await setData(titulo_, descricao_)
+              if (GLOBALS.OFFLINE === 0){
+                await setData(titulo_, descricao_)
+              }else{
+                Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
+              }
+              
               setEdit(false)
             }else{
               swipeableRef.current.close();
@@ -141,7 +147,11 @@ export function CaixaTreino({data, reload, navigation}) {
             }
           }else if(direction === "right"){
             swipeableRef.current.close();
-            deleteCard()
+            if (GLOBALS.OFFLINE === 0) {
+              deleteCard()
+            }else{
+              Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível remover informações offline.")
+            }
           }}
         }
         >
@@ -154,7 +164,11 @@ export function CaixaTreino({data, reload, navigation}) {
                         <View style={styles.containerEdit}>
                             <TouchableOpacity disabled={disabled} style={{left:320, top: 18, zIndex: 1}} onPress={async () => {
                             if(edit == true){
+                                if (GLOBALS.OFFLINE === 0 ) {
                                 await setData(titulo_, descricao_);
+                                }else{
+                                  Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
+                                }
                                 setEdit(false)
                             }else{
                                 setEdit(true)
@@ -170,7 +184,11 @@ export function CaixaTreino({data, reload, navigation}) {
                     <View style={styles.containerbox}>
                         <View style={styles.containerHeader}>
                             <TouchableOpacity disabled={disabled} style={{width: 20, height: 20, top: 10}} onPress={() => {
-                                deleteCard();
+                                if (GLOBALS.OFFLINE === 0) {
+                                  deleteCard();
+                                }else{
+                                  Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível remover informações offline.")
+                                }
                                 }}>
                                 <Feather name="trash-2" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                             </TouchableOpacity>

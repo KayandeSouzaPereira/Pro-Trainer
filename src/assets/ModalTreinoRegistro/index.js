@@ -123,7 +123,13 @@ export function ModalTreinoRegistro ({reload}){
           text: 'Não'
         },{
             text: 'Sim',
-            onPress: () => setRegistro()
+            onPress: () => {
+                if (GLOBALS.OFFLINE === 0) { 
+                setRegistro()
+                }else{
+                    Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
+                }
+            }
         }
       ],
       {

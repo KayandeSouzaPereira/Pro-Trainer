@@ -8,6 +8,7 @@ import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
 import { getUserExerciseByTraining } from '../../servicos/Exercicios'
 import { CaixaExercicio } from '../../assets/CaixaExercicio';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function TreinoInfo({ navigation}) {

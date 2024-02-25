@@ -36,7 +36,7 @@ export default function Grafico({data, callback}) {
     if (tipo == "Linha"){
         return(
             <View style={styles.containerLinha}>
-            <Text style={{top: 20,  fontFamily: theme.fonts.titulo, color:  GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor }}>{titulo}</Text>
+            <Text style={{top: 20,  fontFamily: theme.fonts.titulo, color:  GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.fontColor }}>{titulo}</Text>
             <TouchableOpacity onPress={() => setModalTreino(true) }>
             <View style={styles.containerButtonIcons}>
                 <Entypo name="add-to-list" size={20} color="white" />

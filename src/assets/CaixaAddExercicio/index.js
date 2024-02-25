@@ -39,7 +39,13 @@ export function CaixaAddExercicio({reload, treino}) {
         <View> 
                 <View style={styles.container}>
                     <LoadingModal modalVisible={loading} />
-                    <TouchableOpacity style={{zIndex: 1}} onPress={async () => { setData(SYSTEM_MESSAGES.TITULOEXERCICIOPLACEHOLDER, SYSTEM_MESSAGES.DESCRICAOEXERCICIOPLACEHOLDER)}}>
+                    <TouchableOpacity style={{zIndex: 1}} onPress={async () => { 
+                        if (GLOBALS.OFFLINE === 0) {
+                            setData(SYSTEM_MESSAGES.TITULOEXERCICIOPLACEHOLDER, SYSTEM_MESSAGES.DESCRICAOEXERCICIOPLACEHOLDER)
+                        }else{
+                            Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
+                        }
+                        }}>
                         
                     <Ionicons name="add" size={40} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                     </TouchableOpacity>

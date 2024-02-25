@@ -5,7 +5,7 @@ import { AntDesign, Feather, Entypo  } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 import { LoadingModal } from "react-native-loading-modal";
 import { getMacros, setMacros, getUsuarioRequest } from '../../servicos/Macros';
-import { GLOBALS } from '../../configs';
+import { GLOBALS, SYSTEM_MESSAGES } from '../../configs';
 
 
 export function ModalMacro ({reload}){
@@ -68,6 +68,10 @@ export function ModalMacro ({reload}){
 
 
         let data = await setMacros(idUser, proteinas_, gorduras_, tkk, carboidratos_);
+        if (data.includes("OFFLINE")){
+            Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar informações de Macros offline.")
+            setLoading(false);
+        }
         if (data){
             setLoading(false);
             reload();

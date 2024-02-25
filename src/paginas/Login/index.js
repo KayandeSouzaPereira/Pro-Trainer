@@ -7,7 +7,7 @@ import { Audio, Video } from 'expo-av';
 import { useAssets } from 'expo-asset';
 import { GLOBALS,SYSTEM_MESSAGES } from "../../configs";
 import * as SecureStore from 'expo-secure-store';
-
+import * as Network from 'expo-network';
 
 
 
@@ -36,11 +36,13 @@ export default function Login({navigation}) {
     const mensagemErro = "Não foi possível realizar sua solicitação.\nVerifique sua conexão com a Internet."
 
     const getAutoLogin = async () => {
+        let connection = await Network.getNetworkStateAsync();
         let tkk = await SecureStore.getItemAsync("token");
         let user = await SecureStore.getItemAsync("usuario");
         GLOBALS.NOME = user
         console.log("TKK : " + tkk);
         console.log("USER : " + user)
+        if(connection.isConnected === true){
         if(tkk != undefined && user != undefined){
             autologinRequest(user, tkk).then(
                 async res => {
@@ -49,6 +51,10 @@ export default function Login({navigation}) {
                     setLoading(false);
                     console.log("ERRO : " + err)
                 });
+        }}else if(connection.isConnected === false && tkk != undefined && user != undefined){
+            GLOBALS.OFFLINE = 1
+            console.log("OFFLINE")
+            navigation.navigate('Home')
         }
         setLoading(false);
     }
