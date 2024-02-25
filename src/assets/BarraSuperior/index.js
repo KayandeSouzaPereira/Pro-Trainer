@@ -9,9 +9,10 @@ import { GLOBALS, theme } from '../../configs';
 
 
 
-export function BarraSuperior({images}) {
+export function BarraSuperior({images, localizacao}) {
 
     const [image, setImage] = useState(null);
+    const [nome, setNome] = useState("PRO-Trainer");
 
     useEffect (() => {
         getImage();
@@ -21,6 +22,11 @@ export function BarraSuperior({images}) {
     const getImage = async () => {
         let tkk = await AsyncStorage.getItem('Token');
         let id = GLOBALS.IDUSER;
+        let nomeG = GLOBALS.NOME;
+        if (nomeG != "PRO-Trainer"){
+            console.log(nomeG)
+            setNome(nomeG);
+        }
         if(id != 0){
             try {
             let data = await getUsuarioInfoIMGRequest(id, tkk);
@@ -46,15 +52,20 @@ export function BarraSuperior({images}) {
                     <Avatar urlImage={images} />
                 </View>
 
-                <Text style={styles.texto}>PRO Trainer</Text>
+                <View style={styles.containerText}>
+                    <Text style={styles.texto}>{nome}</Text>
+                    <Text style={styles.textoSub}>{localizacao}</Text>
+                </View>
         </View>
         :
             <View style={styles.container}>
                 <View style={styles.imageContainer}>
                     <Avatar urlImage={image} />
                 </View>
-
-                <Text style={styles.texto}>PRO Trainer</Text>
+                <View style={styles.containerText}>
+                    <Text style={styles.texto}>{nome}</Text>
+                    <Text style={styles.textoSub}>{localizacao}</Text>
+                </View>
             </View>
         }
         </>

@@ -3,18 +3,17 @@ import { theme } from '../../configs';
 
 export const styles = StyleSheet.create({
     container:{
-        width: 600,
-        height: 100,
-        bottom:120,
-        right: 10,
-        backgroundColor: theme.colorsPrimary.cardColor,
+        width: 400,
+        height: 75,
+        backgroundColor: theme.colorsPrimary.primary,
         alignContent: 'flex-start',
-        borderColor: theme.border,
-        borderWidth: 5
+        borderColor: theme.colorsPrimary.background,
+        borderWidth: 2,
+        borderRadius: 35
     },
     containerIcones:{
         left:0, 
-        top: 10, 
+        top: 12, 
         display: 'flex', 
         flexDirection: "row"
     },

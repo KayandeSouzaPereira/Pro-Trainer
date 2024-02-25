@@ -35,15 +35,18 @@ export default function Login({navigation}) {
         if (usuario !== '' && senha !== '') {
             return loginRequest(usuario, senha).then(async res => {
                 GLOBALS.IDUSER = res.data.id
+                GLOBALS.NOME = usuario
                 await setToken(res.data.token)
                 await AsyncStorage.setItem('Token', res.data.token);
                 navigation.navigate('Home')
                 return true
             }).catch(err => {
-                if(JSON.stringify(err).includes('403')){
+                console.log(JSON.stringify(err))
+                if(JSON.stringify(err).includes('code 403')){
                     return "incorreto";
-                }
-            });
+                }else if(JSON.stringify(err).includes('code 404')){
+                    return "sem resposta";
+                }});
         }else {
             return false;
         }
@@ -60,8 +63,11 @@ export default function Login({navigation}) {
         } else if(_ret == "incorreto") {
             Alert.alert(SYSTEM_MESSAGES.AVISO, "Usuario ou Senha incorretos.")
             setLoading(false);
-        } else if(_ret == false) {
-           
+        } else if(_ret == "sem resposta") {
+            Alert.alert(SYSTEM_MESSAGES.AVISO, "Estamos sem serviço no momento.")
+            setLoading(false);
+        }
+         else if(_ret == false) {
             Alert.alert(SYSTEM_MESSAGES.AVISO, "E Necessario preencher todos os campos do Login para acessar.")
             setLoading(false);
         }else {

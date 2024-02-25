@@ -6,6 +6,8 @@ export const styles = StyleSheet.create({
         width: 370, 
         flex: 1,
         backgroundColor: theme.colorsPrimary.cardColor,
+        borderColor: theme.colorsPrimary.border,
+        borderWidth: 2,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
@@ -27,13 +29,13 @@ export const styles = StyleSheet.create({
         top: 10
     },
     CamposTitulo:{
-        fontFamily: theme.fonts.text,
+        fontFamily: theme.fonts.textDestaque,
         color: 'black',
         fontSize: 30,
         textAlign:"center"
     },
     CamposTituloEdit:{
-        fontFamily: theme.fonts.text,
+        fontFamily: theme.fonts.textDestaque,
         color: 'black',
         fontSize: 25,
         bottom: 20,

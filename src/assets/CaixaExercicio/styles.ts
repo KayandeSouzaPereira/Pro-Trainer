@@ -30,14 +30,14 @@ export const styles = StyleSheet.create({
         borderWidth: 2
     },
     CamposTitulo:{
-        fontFamily: theme.fonts.text,
+        fontFamily: theme.fonts.textDestaque,
         color: 'black',
         fontSize: 30,
         top: 10,
         marginLeft: 20
     },
     CamposTituloEdit:{
-        fontFamily: theme.fonts.text,
+        fontFamily: theme.fonts.textDestaque,
         color: theme.colorsPrimary.cardColor,
         backgroundColor: theme.colorsPrimary.border,
         fontSize: 30,
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     },
     Campos:{
         fontFamily: theme.fonts.text,
-        color: theme.colorsPrimary.overlay,
+        color: 'rgba(0, 0, 0, 0.5)',
         fontSize: 20,
         top: 40,
         marginLeft: 20

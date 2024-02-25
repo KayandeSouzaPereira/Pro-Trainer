@@ -4,30 +4,29 @@ import { theme } from '../../configs';
 export const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: theme.colorsPrimary.primary, 
+        backgroundColor: theme.colorsPrimary.background, 
         flexDirection: 'column'
     },
     avatar:{
-        width: 140,
-        height: 140,
-        borderRadius: 160,
-        marginTop: 20
+        width: 160,
+        height: 160,
+        borderRadius: 160
     },
     containerCampos:{
-        backgroundColor:"white", 
+        backgroundColor: theme.colorsPrimary.cardColor, 
         width: 350, 
-        height: Dimensions.get('window').height / 1.55, 
+        height: Dimensions.get('window').height / 2.15, 
         marginHorizontal: Dimensions.get('window').width / 15, 
         marginTop: 20, 
         borderRadius: 15, 
-        borderColor: 'black', 
+        borderColor: theme.colorsPrimary.border, 
         borderWidth: 2, 
         alignItems: 'center'
     },
     containerUser:{
         width: Dimensions.get('window').width,
         height:240,
-        marginTop: 120,
+        marginTop: 20,
         flexDirection: 'column',
         alignItems: 'center',
         textAlign:'center'
@@ -35,7 +34,7 @@ export const styles = StyleSheet.create({
     containerAvatar:{
         width: 160,
         height:160,
-        marginLeft: 30,
+        marginLeft: 5,
         flexDirection: 'column'
     },
     containerButton:{
@@ -43,27 +42,30 @@ export const styles = StyleSheet.create({
         height: 55,
         flexDirection:'column',
         backgroundColor: theme.colorsPrimary.primary,
-        borderRadius: 160,
+        borderRadius: 30,
+        borderColor: theme.colorsPrimary.border, 
+        borderWidth: 2, 
         alignItems: 'center',
         marginLeft:250,
         marginTop:18,
         paddingTop:10,
-        borderWidth: 2
     },
     containerButtonIMG:{
-        width:35,
-        height: 35,
+        width:50,
+        height: 50,
         flexDirection:'column',
         backgroundColor: theme.colorsPrimary.primary,
-        borderRadius: 160,
+        borderRadius: 30,
+        borderColor: theme.colorsPrimary.border, 
+        borderWidth: 2, 
         alignItems: 'center',
         marginLeft:100,
-        paddingTop: 8,
+        paddingTop: 10,
         bottom: 60
     },
     CamposUser:{
-        fontFamily: theme.fonts.text,
-        color: theme.colorsPrimary.cardColor,
+        fontFamily: theme.fonts.tituloDestaque,
+        color: theme.colorsPrimary.fontColor,
         width: Dimensions.get('window').width - 20, 
         fontSize: 30,
         marginTop: 10,

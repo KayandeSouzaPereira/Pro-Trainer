@@ -1,7 +1,7 @@
 import { Text, View, TouchableOpacity,TextInput, Animated } from 'react-native';
 import { styles } from '../CaixaTreino/styles';
 import { AntDesign, Feather  } from '@expo/vector-icons';
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useRef }  from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining, deleteUsuarioTreinoRequest} from '../../servicos/Treinos';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -18,7 +18,7 @@ export function CaixaTreino({data, reload, navigation}) {
     const [titulo_, setTitulo_] = useState("");
     const [descricao_, setDescricao_] = useState("");
     
-    
+    const swipeableRef = useRef(null);
     
     
 
@@ -125,15 +125,21 @@ export function CaixaTreino({data, reload, navigation}) {
     return(
         <View style={styles.container}>
         <Swipeable 
-        renderLeftActions={renderLeftActions} renderRightActions={renderRightActions} onSwipeableOpen={async (direction) => {
+        ref={swipeableRef}
+        renderLeftActions={renderLeftActions} 
+        renderRightActions={renderRightActions}
+         onSwipeableOpen={async (direction) => {
           if(direction === "left"){
             if(edit == true){
+              swipeableRef.current.close();
               await setData(titulo_, descricao_)
               setEdit(false)
-              }else{
-                  setEdit(true)
-              }
+            }else{
+              swipeableRef.current.close();
+              setEdit(true)
+            }
           }else if(direction === "right"){
+            swipeableRef.current.close();
             deleteCard()
           }}
         }

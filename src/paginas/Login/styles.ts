@@ -4,10 +4,11 @@ import { theme } from '../../configs';
 export const styles = StyleSheet.create({
     container:{
         flex: 1, 
-        backgroundColor: theme.colorsPrimary.primary,
+        backgroundColor: theme.colorsPrimary.background,
         alignItems: 'center',
         justifyContent: 'center'
     },
+   
     video:{
         flex: 1,
         height:  Dimensions.get('window').height + 300,
@@ -24,13 +25,13 @@ export const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     Titulo:{
-        fontFamily: theme.fonts.text,
+        fontFamily: theme.fonts.titulo,
          color: theme.colorsPrimary.cardColor, 
-         fontSize: 30, 
-         right: 70
+         fontSize: 40, 
+         right: 55
     },
     Titulo2:{
-        fontFamily: theme.fonts.text, 
+        fontFamily: theme.fonts.textDestaque, 
         color: theme.colorsPrimary.cardColor, 
         fontSize: 30, 
         right: 120
@@ -64,7 +65,7 @@ export const styles = StyleSheet.create({
         top: 100
     },
     BotaoLogin:{
-        backgroundColor: "white", 
+        backgroundColor: theme.colorsPrimary.cardColor, 
         width: 150, 
         height: 40,
         borderColor: "black", 

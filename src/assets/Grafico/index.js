@@ -5,6 +5,7 @@ import { styles } from './styles';
 import { ModalMacro } from '../ModalMacro';
 import { ModalTreinoRegistro } from '../ModalTreinoRegistro';
 import { Entypo } from '@expo/vector-icons';
+import { theme } from '../../configs';
 
 export default function Grafico({data, callback}) {
 
@@ -35,7 +36,7 @@ export default function Grafico({data, callback}) {
     if (tipo == "Linha"){
         return(
             <View style={styles.containerLinha}>
-            <Text style={{top: 20}}>{titulo}</Text>
+            <Text style={{top: 20,  fontFamily: theme.fonts.titulo, color: theme.colorsPrimary.cardColor}}>{titulo}</Text>
             <TouchableOpacity onPress={() => setModalTreino(true) }>
             <View style={styles.containerButtonIcons}>
                 <Entypo name="add-to-list" size={20} color="white" />
@@ -53,25 +54,26 @@ export default function Grafico({data, callback}) {
             height={170}
             yAxisInterval={1}
             chartConfig={{
-                backgroundColor: "#ffffff",
-                backgroundGradientFrom: "#ffffff",
-                backgroundGradientTo: "#ffffff",
+                backgroundColor: theme.colorsPrimary.primary,
+                backgroundGradientFrom: theme.colorsPrimary.primary,
+                backgroundGradientTo: theme.colorsPrimary.primary,
                 decimalPlaces: 2,
-                color: (opacity = 1) => `#1b5a76`,
-                labelColor: (opacity = 1) => `#1b5a76`,
+                color: (opacity = 1) => theme.colorsPrimary.cardColor,
+                labelColor: (opacity = 1) => theme.colorsPrimary.cardColor,
                 style: {
                 borderRadius: 16
                 },
                 propsForDots: {
-                r: "6",
-                strokeWidth: "2",
-                stroke: "#1b5a76"
+                r: "4",
+                strokeWidth: "1",
+                stroke: theme.colorsPrimary.cardColor
                 }
             }}
             bezier
             style={{
                 marginVertical: 10,
-                borderRadius: 16
+                borderRadius: 16,
+                fontFamily: theme.fonts.titulo
             }}
             />
             <Modal
@@ -88,26 +90,25 @@ export default function Grafico({data, callback}) {
           return (
             <View style={styles.containerPizza}>
             <TouchableOpacity onPress={() => setModalMacro(true) }>
-            <Text style={{top: 20, left: 20}}>{titulo}</Text>
+            <Text style={{top: 20, left: 20,fontFamily: theme.fonts.titulo, color: theme.colorsPrimary.cardColor}}>{titulo}</Text>
             <View style={styles.containerButtonIcons}>
                 <Entypo name="add-to-list" size={20} color="white" />
             </View>
             <PieChart
                 data={valores}
                 width={280}
-                height={170} 
+                height={160} 
                 hasLegend={true}
                 chartConfig={{
-                    backgroundColor: "#ffffff",
-                    backgroundGradientFrom: "#ffffff",
-                    backgroundGradientTo: "#ffffff",
-                    color: (opacity = 1) => `#1b5a76`,
-                    labelColor: (opacity = 1) => `#1b5a76`,
+                    color: (opacity = 0) => theme.colorsPrimary.cardColor,
+                    labelColor: (opacity = 0) => theme.colorsPrimary.cardColor,
+                    fontColor: (opacity = 0) => theme.colorsPrimary.cardColor,
                 }}
-                backgroundColor={"#ffffff"}
+                backgroundColor={theme.colorsPrimary.primary}
                 accessor={"macros"}
                 paddingLeft={"5"}
                 center={[10, 10]}
+                color={theme.colorsPrimary.cardColor}
                 absolut
             />
             <Modal
@@ -124,15 +125,15 @@ export default function Grafico({data, callback}) {
         
           return (
             <View style={styles.containerBarra}>
-            <Text>{titulo}</Text>
+            <Text style={{fontFamily: theme.fonts.titulo, color: theme.colorsPrimary.fontColor}}>{titulo}</Text>
             <BarChart
                 data={valores}
                 width={280}
                 height={170}
                 chartConfig={{
-                    backgroundColor: "#ffffff",
-                    backgroundGradientFrom: "#ffffff",
-                    backgroundGradientTo: "#ffffff",
+                    backgroundColor: theme.colorsPrimary.cardColor,
+                    backgroundGradientFrom: theme.colorsPrimary.cardColor,
+                    backgroundGradientTo: theme.colorsPrimary.cardColor,
                     color: (opacity = 1) => `#1b5a76`,
                     labelColor: (opacity = 1) => `#1b5a76`,
                 }}

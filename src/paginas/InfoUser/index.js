@@ -154,9 +154,9 @@ export default function InfoUser({ navigation }) {
         
         <View style={styles.container}>
             { image != null?
-                <BarraSuperior />
+                <BarraSuperior localizacao={"Seus Dados"} />
                 :
-                <BarraSuperior images={image}/>
+                <BarraSuperior images={image} localizacao={"Seus Dados"}/>
 
             }
             <LoadingModal modalVisible={loading} />
@@ -177,7 +177,7 @@ export default function InfoUser({ navigation }) {
                     />
                     }
                     <View style={styles.containerButtonIMG}>
-                    <Feather name="image" size={20} color="white" />
+                    <Feather name="image" size={25} color="white" />
                     </View>
                 </TouchableOpacity>
                 </View>

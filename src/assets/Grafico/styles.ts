@@ -11,9 +11,9 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     containerLinha:{
-        backgroundColor: theme.colorsPrimary.cardColor, 
+        backgroundColor: theme.colorsPrimary.primary, 
         borderRadius : 10, 
-        borderColor: 'black',
+        borderColor: theme.colorsPrimary.border,
         borderWidth: 2,
         width: 330, 
         height: 230,
@@ -22,10 +22,10 @@ export const styles = StyleSheet.create({
         marginBottom: 20
     },
     containerPizza:{
-        backgroundColor: theme.colorsPrimary.cardColor, 
+        backgroundColor: theme.colorsPrimary.primary, 
         color: theme.colorsPrimary.cardColor,
         borderRadius : 10, 
-        borderColor: 'black',
+        borderColor: theme.colorsPrimary.border,
         borderWidth: 2,
         width: 330, 
         height: 230,
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     containerBarra:{
         backgroundColor: theme.colorsPrimary.cardColor, 
         borderRadius : 10, 
-        borderColor: 'black',
+        borderColor: theme.colorsPrimary.border,
         borderWidth: 2,
         width: 330, 
         height: 230 ,
@@ -49,7 +49,6 @@ export const styles = StyleSheet.create({
         height: 35,
         flexDirection:'column',
         backgroundColor: theme.colorsPrimary.primary,
-        borderRadius: 160,
         alignItems: 'center',
         marginLeft:260,
         paddingTop: 8,

@@ -6,19 +6,37 @@ export const styles = StyleSheet.create({
     container:{
         width: Dimensions.get('window').width * 2,
         height: 120,
-        right: 80,
-        top: 120,
-        backgroundColor: theme.colorsPrimary.cardColor,
+        flexDirection: 'row',
+        backgroundColor: theme.colorsPrimary.background,
         alignContent: 'center',
-        flexDirection: 'column'
+        alignItems: 'center'
+    },
+    containerText: {
+        flex: 1,
+        flexDirection: 'column',
+        textAlign:'left',
+        top: 23,
+        left: 20
     },
     texto:{
-        left: 210, 
-        fontSize: 30, 
-        fontFamily: theme.fonts.text
+        fontSize: 20, 
+        fontFamily: theme.fonts.tituloDestaque,
+        color: theme.colorsPrimary.fontColor,
+    },
+    textoSub:{
+        fontSize: 15, 
+        fontFamily: theme.fonts.textDestaque,
+        color: theme.colorsPrimary.border,
+    },
+    textoSubNome:{
+        right: 18, 
+        fontSize: 15, 
+        fontFamily: theme.fonts.textDestaque,
+        color: theme.colorsPrimary.border,
+        top: 35
     },
     imageContainer:{
-        left: 120,
-        top: 50
+        left: 30,
+        top: 20
     }
 });

@@ -1,30 +1,22 @@
 export const theme = {
     colorsPrimary: {
-      primary: '#2e6c80',
-      secondary100: '#0A1033',
-      secondary90: '#0D133D',  
+      background: '#F5FFFA',
+      primary: '#0077B6',
       overlay: 'rgba(0,0,0,0.7)',
-      border: '#1b5a76',
-      highlight: '#ABB1CC',
-      heading: '#DDE3F0',
+      border: '#DDD6E1',
+      highlight: '#5A3920',
+      heading: '#80512e',
       line: '#991F36',
-      on: '#32BD50',
-      cardColor:"white"
+      cardColor:'#CAF0F8',
+      fontColor: '#222222'
     },
 
-    colorsPrimaryDarkMode: {
-      primary: '#2e6c80',
-      secondary100: '#0A1033',
-      secondary90: '#0D133D',  
-      overlay: 'rgba(0,0,0,0.7)',
-      highlight: '#ABB1CC',
-      heading: '#DDE3F0',
-      line: '#991F36',
-      on: '#32BD50',
-    },
   
     fonts: {
       text: 'Poppins_400Regular',
+      textDestaque : "Poppins_500Medium", 
+      titulo : 'Bitter_600SemiBold', 
+      tituloDestaque : "Bitter_700Bold"
     }
   };
 
@@ -33,6 +25,7 @@ export const theme = {
 export const GLOBALS = {
   IDUSER: 0,
   IMG: "",
+  NOME: "",
   DARKMODE: 0
 }
 

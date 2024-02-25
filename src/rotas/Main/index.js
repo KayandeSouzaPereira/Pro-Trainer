@@ -19,13 +19,7 @@ export default function StackMainNavigation(props){
 
     return(
       <Stack.Navigator screenOptions={{
-        headerShown: false,
-        headerStyle: {
-          backgroundColor: '#1A1C29',
-          height: '12%',
-          elevation: 0,
-          shadowOpacity: 0
-        },
+        headerShown: false
       }}>
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Home" component={Home} />

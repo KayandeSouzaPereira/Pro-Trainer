@@ -10,7 +10,7 @@ import { getUserTraining } from "../../servicos/Treinos"
 import { getUsuarioInfoIMGRequest } from "../../servicos/Usuario"
 import moment from 'moment';
 import 'moment/locale/pt-br'
-import { GLOBALS } from "../../configs";
+import { GLOBALS, theme } from "../../configs";
 
 export default function Dashboard({ navigation }) {
 
@@ -65,22 +65,22 @@ export default function Dashboard({ navigation }) {
           {
             name: "Prot",
             macros: proteinas,
-            color: "#83a7ea",
-            legendFontColor: "#7F7F7F",
+            color: "#EC6B56",
+            legendFontColor: theme.colorsPrimary.cardColor,
             legendFontSize: 15
           },
           {
             name: "Gord",
             macros: gorduras,
-            color: "#1b5a76",
-            legendFontColor: "#7F7F7F",
+            color: "#FFC154",
+            legendFontColor: theme.colorsPrimary.cardColor,
             legendFontSize: 15
           },
           {
             name: "Carb",
             macros: carboidratos,
-            color: "#2e6c80",
-            legendFontColor: "#7F7F7F",
+            color: "#47B39C",
+            legendFontColor: theme.colorsPrimary.cardColor,
             legendFontSize: 15
           }
         ],
@@ -166,21 +166,21 @@ export default function Dashboard({ navigation }) {
             name: "Prot",
             macros: 0,
             color: "#83a7ea",
-            legendFontColor: "#7F7F7F",
+            legendFontColor: theme.colorsPrimary.cardColor,
             legendFontSize: 15
           },
           {
             name: "Gord",
             macros: 0,
             color: "#1b5a76",
-            legendFontColor: "#7F7F7F",
+            legendFontColor: theme.colorsPrimary.cardColor,
             legendFontSize: 15
           },
           {
             name: "Carb",
             macros: 0,
             color: "#2e6c80",
-            legendFontColor: "#7F7F7F",
+            legendFontColor: theme.colorsPrimary.cardColor,
             legendFontSize: 15
           }
         ],
@@ -283,7 +283,9 @@ export default function Dashboard({ navigation }) {
     }
     
     let idUser = dataUser.data.retorno.idAuth;
+    let nome = dataUser.data.retorno.user;
     GLOBALS.IDUSER = idUser
+    GLOBALS.NOME = nome
     getImage();
     try {
       let dados = await getUserTraining(idUser, tkk);
@@ -340,11 +342,11 @@ export default function Dashboard({ navigation }) {
 
 
     return(
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: theme.colorsPrimary.background}}>
         
-        <BarraSuperior images={image}/>
+        <BarraSuperior images={image} localizacao={"Dashboard"}/>
        
-        <View style={{flex: 1,marginHorizontal: Dimensions.get('window').width / 10, marginVertical: 20, top: 120}}>
+        <View style={{flex: 1,marginHorizontal: Dimensions.get('window').width / 15, marginVertical: 10}}>
         <LoadingModal modalVisible={loading} />
           <FlatList
           data={mock}
@@ -360,13 +362,13 @@ export default function Dashboard({ navigation }) {
                           callback={callback}
                       />
                   )}
-                          contentContainerStyle={{ paddingBottom: 50, height: 1000}}
+                          contentContainerStyle={{ paddingBottom: 50, height: 750}}
                           showsVerticalScrollIndicator={true}
               />   
             </View>
-        <View style={{bottom: 0}}>
-          <BarraInferior {... {navigation}}/>    
-        </View>
+            <View style={{bottom: 25}}>
+            <BarraInferior {... {navigation}}/>
+          </View>   
         </View>
     )
 }

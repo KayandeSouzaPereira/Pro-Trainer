@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import { createStackNavigator } from '@react-navigation/stack';
-import MainRoute from './Main';
+import StackMainNavigation from './Main';
 
 
 
@@ -12,7 +11,7 @@ export default function AppNavigacao({navigation, stateApp}) {
     return(
         <Stack.Navigator>
             {
-                <Stack.Screen name="Main" component={MainRoute}  options={{headerShown:false}} />
+                <Stack.Screen name="Main" component={StackMainNavigation}  options={{headerShown:false}} />
             }
             
          </Stack.Navigator>
