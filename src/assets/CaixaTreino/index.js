@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity,TextInput, Animated } from 'react-native';
 import { styles } from '../CaixaTreino/styles';
 import { AntDesign, Feather  } from '@expo/vector-icons';
 import React, { useState, useEffect, useRef }  from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining, deleteUsuarioTreinoRequest} from '../../servicos/Treinos';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { RectButton } from 'react-native-gesture-handler';
@@ -30,7 +30,7 @@ export function CaixaTreino({data, reload, navigation}) {
         },[])
 
         const deleteCard = async () => {
-            let tkk = await AsyncStorage.getItem('Token');
+            let tkk = await SecureStore.getItemAsync("token");
             let ret = await deleteUsuarioTreinoRequest(tkk, idTreino);
             if (ret){
                  reload();
@@ -39,7 +39,7 @@ export function CaixaTreino({data, reload, navigation}) {
 
 
         const setData = async (titulo_, descricao_) => {
-            let tkk = await AsyncStorage.getItem('Token');
+            let tkk = await SecureStore.getItemAsync("token");
             let data = await getUsuarioRequest(tkk);
             let id = data.data.retorno.idAuth;
             let tituloEnv = "";

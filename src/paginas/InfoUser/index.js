@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import React, { useState, useEffect }  from 'react';
 import { AntDesign, Entypo, Feather  } from '@expo/vector-icons';
 import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity, Alert } from 'react-native';
@@ -72,7 +72,7 @@ export default function InfoUser({ navigation }) {
     let urlImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZH15XmvGL5ftl3MGXUuUXajy-FGo0jCfwQQZY5sOWNw&s"
    
     const getData = async () => {
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let idata = await getUsuarioRequest(tkk);
         let idd = idata.data.retorno.idAuth;
         setNome(idata.data.retorno.user);
@@ -108,7 +108,7 @@ export default function InfoUser({ navigation }) {
 
     const setData = async () => {
         setLoading(true);
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let alturaS
         let pesoS
         let idadeS

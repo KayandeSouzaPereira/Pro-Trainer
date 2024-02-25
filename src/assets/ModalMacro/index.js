@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity, Alert, TextInput } from 'react-native';
 import { styles } from './styles'
 import React, { useState, useEffect }  from 'react';
 import { AntDesign, Feather, Entypo  } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { LoadingModal } from "react-native-loading-modal";
 import { getMacros, setMacros, getUsuarioRequest } from '../../servicos/Macros';
 import { GLOBALS } from '../../configs';
@@ -24,7 +24,7 @@ export function ModalMacro ({reload}){
     }, [])
 
     const getData = async () => {
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let dataUser = await getUsuarioRequest(tkk);
         let idUser = dataUser.data.retorno.idAuth
         
@@ -41,7 +41,7 @@ export function ModalMacro ({reload}){
 
     const setData = async () => {
         setLoading(true);
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let dataUser = await getUsuarioRequest(tkk);
         let idUser = dataUser.data.retorno.idAuth;
         let proteinas_ = "";

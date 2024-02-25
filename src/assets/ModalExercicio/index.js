@@ -5,7 +5,7 @@ import { Video } from '../Video';
 import { AntDesign, Feather   } from '@expo/vector-icons';
 import { getUsuarioRequest } from '../../servicos/Usuario';
 import {setUsuarioExerciseRequest, deleteUsuarioExerciseRequest } from '../../servicos/Exercicios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { LoadingModal } from "react-native-loading-modal";
 import { GLOBALS, theme } from '../../configs';
 
@@ -72,7 +72,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
         let tituloEnv = "";
         let descricaoEnv = "";
         let videourlEnv = "";
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let data = await getUsuarioRequest(tkk);
         
         let id = data.data.retorno.idAuth;
@@ -105,7 +105,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
     }
     
     const deleteCard = async () => {
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let ret = await deleteUsuarioExerciseRequest(tkk, idExercicio);
         if (ret){
              reload();

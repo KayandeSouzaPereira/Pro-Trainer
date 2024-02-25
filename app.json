@@ -15,9 +15,16 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to let you share them with your friends."
+          "photosPermission": "O app acessa suas imagens para atualizar o ser perfil. Gostaria de permitir esse uso ? "
         }
-      ]
+      ],
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "Para melhor proteger seus dados o app pode usar informações de Biometria como recurso de segurança. Gostaria de permitir esse uso ?"
+        }
+      ],
+      "expo-font"
     ],
     "assetBundlePatterns": [
       "**/*"

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
-import { cadRequest, loginRequest, setToken } from "../../servicos/Login";
+import { cadRequest, loginRequest, setToken, autologinRequest } from "../../servicos/Login";
 import { ProgressBar } from 'react-native-paper';
 import { styles } from "./styles";
 import { Audio, Video } from 'expo-av';
 import { useAssets } from 'expo-asset';
 import { GLOBALS,SYSTEM_MESSAGES } from "../../configs";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from 'expo-secure-store';
 
 
 
@@ -25,10 +25,33 @@ export default function Login({navigation}) {
     useEffect(() => {
         navigation.addListener('focus', () => {
             setLoading(false)
+            getAutoLogin();
         });
       }, [navigation]);
+    
+    useEffect(() => {
+        getAutoLogin();
+    }, [])
 
     const mensagemErro = "Não foi possível realizar sua solicitação.\nVerifique sua conexão com a Internet."
+
+    const getAutoLogin = async () => {
+        let tkk = await SecureStore.getItemAsync("token");
+        let user = await SecureStore.getItemAsync("usuario");
+        GLOBALS.NOME = user
+        console.log("TKK : " + tkk);
+        console.log("USER : " + user)
+        if(tkk != undefined && user != undefined){
+            autologinRequest(user, tkk).then(
+                async res => {
+                    navigation.navigate('Home')
+                }).catch(err => {
+                    setLoading(false);
+                    console.log("ERRO : " + err)
+                });
+        }
+        setLoading(false);
+    }
 
     const loginFunction = async () => {
         
@@ -37,7 +60,8 @@ export default function Login({navigation}) {
                 GLOBALS.IDUSER = res.data.id
                 GLOBALS.NOME = usuario
                 await setToken(res.data.token)
-                await AsyncStorage.setItem('Token', res.data.token);
+                await SecureStore.setItemAsync("token", res.data.token);
+                await SecureStore.setItemAsync("usuario", usuario);
                 navigation.navigate('Home')
                 return true
             }).catch(err => {
@@ -55,7 +79,6 @@ export default function Login({navigation}) {
 
     const loginBtn = async () => {
         setLoading(true);
-        await AsyncStorage.clear();
         GLOBALS.IDUSER = 0;
         GLOBALS.IMG = "";
         let _ret = await loginFunction();
@@ -80,7 +103,6 @@ export default function Login({navigation}) {
         setLoading(true);
         GLOBALS.IDUSER = 0;
         GLOBALS.IMG = "";
-        await AsyncStorage.clear();
         if (usuario !== '' && senha !== '') {
             let _ret = cadRequest(usuario, senha).then(async res => {
                 if(res.data.retorno.includes('Usuário já cadastrado')){

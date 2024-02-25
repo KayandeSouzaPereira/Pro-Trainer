@@ -4,7 +4,7 @@ import {View, FlatList, Text, Dimensions} from "react-native"
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
 import { LoadingModal } from "react-native-loading-modal";  
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { getMacros, getUsuarioRequest, getForca, getPresenca } from '../../servicos/Macros';
 import { getUserTraining } from "../../servicos/Treinos"
 import { getUsuarioInfoIMGRequest } from "../../servicos/Usuario"
@@ -249,7 +249,7 @@ export default function Dashboard({ navigation }) {
   }
 
   const getImage = async () => {
-    let tkk = await AsyncStorage.getItem('Token');
+    let tkk = await SecureStore.getItemAsync("token");
     let id = GLOBALS.IDUSER;
     if(id != 0){
         try {
@@ -270,7 +270,7 @@ export default function Dashboard({ navigation }) {
   const setDataMacro = async () => {
 
     setLoading(true);
-    let tkk = await AsyncStorage.getItem('Token');
+    let tkk = await SecureStore.getItemAsync("token");
     let dataUser = ""
     try {
        dataUser = await getUsuarioRequest(tkk);

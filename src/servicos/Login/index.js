@@ -7,6 +7,13 @@ function loginRequest(login, senha) {
         password: senha
       })
   }
+
+  function autologinRequest(login, token) {
+    return api.post('auth', {
+        usuario: login,
+        token: token
+      })
+  }
   function cadRequest(login, senha) {
 
     return api.post('cad', {
@@ -30,4 +37,4 @@ async function setToken(_token){
 
 
 
-export { cadRequest, loginRequest, setToken }
+export { cadRequest, loginRequest, setToken, autologinRequest }

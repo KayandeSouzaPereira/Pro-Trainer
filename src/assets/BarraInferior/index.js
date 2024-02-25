@@ -1,15 +1,16 @@
 import { Text, View, TouchableOpacity } from 'react-native';
 import { styles } from "./styles";
 import { AntDesign, MaterialIcons, Feather, MaterialCommunityIcons } from '@expo/vector-icons'; 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { theme } from '../../configs';
+import * as SecureStore from 'expo-secure-store';
 
 
 export function BarraInferior({navigation}) {
 
 
     async function logout(){
-        await AsyncStorage.clear();
+        await SecureStore.deleteItemAsync("token");
+        await SecureStore.deleteItemAsync("usuario");
         navigation.navigate("Login");
     }
     

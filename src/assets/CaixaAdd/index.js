@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { styles } from '../CaixaTreino/styles';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { setUsuarioTreinoRequestEmpty, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos';
 import { SYSTEM_MESSAGES, GLOBALS, theme } from '../../configs';
 
@@ -11,7 +11,7 @@ import { SYSTEM_MESSAGES, GLOBALS, theme } from '../../configs';
 export function CaixaAdd({reload}) {
 
     const setData = async (titulo, descricao) => {
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let data = await getUsuarioRequest(tkk);
         let id = data.data.retorno.idAuth;
         try {

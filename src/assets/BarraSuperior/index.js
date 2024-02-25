@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { styles } from "./styles";
 import { Avatar } from '../Avatar';
 import { getUsuarioInfoIMGRequest } from '../../servicos/Usuario';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { GLOBALS, theme } from '../../configs';
 
 
@@ -20,7 +20,7 @@ export function BarraSuperior({images, localizacao}) {
 
 
     const getImage = async () => {
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let id = GLOBALS.IDUSER;
         let nomeG = GLOBALS.NOME;
         if (nomeG != "PRO-Trainer"){

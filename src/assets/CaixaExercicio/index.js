@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity,TextInput } from 'react-native';
 import { styles } from '../CaixaExercicio/styles';
 import { AntDesign, Feather   } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos';
 import { ModalExercicio } from '../ModalExercicio';
 import { SYSTEM_MESSAGES } from '../../configs';

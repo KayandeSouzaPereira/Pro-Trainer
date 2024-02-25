@@ -1,6 +1,6 @@
 import { View, FlatList, Dimensions} from 'react-native';
 import React, { useState, useEffect, useRef }  from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { LoadingModal } from "react-native-loading-modal";
 import { CaixaAddExercicio } from '../../assets/CaixaAddExercicio';
 import { styles } from '../Treinos/styles';
@@ -50,7 +50,7 @@ export default function TreinoInfo({ navigation}) {
         if (treino != 0 && treino != undefined){
             setDados([]);
             setIdTreino(treino)
-            let tkk = await AsyncStorage.getItem('Token');
+            let tkk = await SecureStore.getItemAsync("token");
             let dadosTreino = "";
             dadosTreino = await getUserExerciseByTraining(tkk, treino);
             let dados_

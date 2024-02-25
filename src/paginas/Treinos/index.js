@@ -1,6 +1,6 @@
 import { View, FlatList, Dimensions} from 'react-native';
 import React, { useState, useEffect, useRef }  from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { LoadingModal } from "react-native-loading-modal";
 import { CaixaTreino } from '../../assets/CaixaTreino';
 import { CaixaAdd } from '../../assets/CaixaAdd';
@@ -34,7 +34,7 @@ export default function Treinos({ navigation }) {
 
     const getData = async () => {
         setLoading(true);
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let id = GLOBALS.IDUSER;
         setId(id);
         try {

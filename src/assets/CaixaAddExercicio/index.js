@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { styles } from '../CaixaAddExercicio/styles';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { getUsuarioRequest, setUsuarioExerciseRequestEmpt } from '../../servicos/Exercicios';
 import { LoadingModal } from "react-native-loading-modal";  
 import { SYSTEM_MESSAGES, GLOBALS, theme } from '../../configs';
@@ -17,7 +17,7 @@ export function CaixaAddExercicio({reload, treino}) {
     
     const setData = async (titulo, descricao) => {
         setLoading(true);
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let data = await getUsuarioRequest(tkk);
         let id = data.data.retorno.idAuth;
         try {

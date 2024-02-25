@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity, Alert, TextInput, FlatList } from 'react-
 import { styles } from './styles'
 import React, { useState, useEffect, useRef }  from 'react';
 import { AntDesign, Feather, Entypo  } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { LoadingModal } from "react-native-loading-modal";
 import {Picker} from '@react-native-picker/picker';
 import { CaixaHistoricoTreino } from '../CaixaHistoricoTreino';
@@ -41,7 +41,7 @@ export function ModalTreinoRegistro ({reload}){
 
     const getData = async () => {
         
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let dataUser = await getUsuarioRequest(tkk);
         let idUser = GLOBALS.IDUSER
         
@@ -58,7 +58,7 @@ export function ModalTreinoRegistro ({reload}){
     }
 
     const getIdsTreinos = async () => {
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let dataUser = await getUsuarioRequest(tkk);
         let idUser = dataUser.data.retorno.idAuth;
         let dados = await getUserTraining(idUser, tkk);
@@ -72,7 +72,7 @@ export function ModalTreinoRegistro ({reload}){
     }
 
     const getIdsExercicios = async (id) => {
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let dados = await getUserExerciseByTraining(tkk, id);
         
         if (dados.data.resultado != null ){
@@ -88,7 +88,7 @@ export function ModalTreinoRegistro ({reload}){
 
     const setRegistro = async () => {
         setLoading(true);
-        let tkk = await AsyncStorage.getItem('Token');
+        let tkk = await SecureStore.getItemAsync("token");
         let dataUser = await getUsuarioRequest(tkk);
         let idUser = dataUser.data.retorno.idAuth;
         console.log("EXERCICIO : " + exercicio)
