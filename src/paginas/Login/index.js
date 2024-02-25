@@ -8,6 +8,7 @@ import { useAssets } from 'expo-asset';
 import { GLOBALS,SYSTEM_MESSAGES } from "../../configs";
 import * as SecureStore from 'expo-secure-store';
 import * as Network from 'expo-network';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
@@ -39,7 +40,9 @@ export default function Login({navigation}) {
         let connection = await Network.getNetworkStateAsync();
         let tkk = await SecureStore.getItemAsync("token");
         let user = await SecureStore.getItemAsync("usuario");
+        let darkMode = await AsyncStorage.getItem("Darkmode");
         GLOBALS.NOME = user
+        GLOBALS.DARKMODE = JSON.parse(darkMode)
         console.log("TKK : " + tkk);
         console.log("USER : " + user)
         if(connection.isConnected === true){

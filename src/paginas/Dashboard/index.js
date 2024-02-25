@@ -343,7 +343,7 @@ export default function Dashboard({ navigation }) {
     return(
       <View style={{flex: 1, backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.background : theme.colorsPrimaryDark.background}}>
         
-        <BarraSuperior images={image} localizacao={"Dashboard"}/>
+        <BarraSuperior images={image} localizacao={"Dashboard"} navigation={navigation}/>
        
         <View style={{flex: 1,marginHorizontal: Dimensions.get('window').width / 15, marginVertical: 10}}>
         <LoadingModal modalVisible={loading} />

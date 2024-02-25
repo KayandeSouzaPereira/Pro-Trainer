@@ -1,18 +1,21 @@
-import { Text, View } from 'react-native';
+import { Text, View, Modal, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import { styles } from "./styles";
 import { Avatar } from '../Avatar';
 import { getUsuarioInfoIMGRequest } from '../../servicos/Usuario';
 import * as SecureStore from 'expo-secure-store';
 import { GLOBALS, theme } from '../../configs';
+import { FontAwesome } from '@expo/vector-icons';
+import { ModalPreferencias } from '../ModalPreferencias';
 
 
 
 
-export function BarraSuperior({images, localizacao}) {
+export function BarraSuperior({images, localizacao, navigation}) {
 
     const [image, setImage] = useState(null);
     const [nome, setNome] = useState("PRO-Trainer");
+    const [modal, setModal] = useState(false);
 
     useEffect (() => {
         getImage();
@@ -56,6 +59,25 @@ export function BarraSuperior({images, localizacao}) {
                     <Text style={styles.texto}>{nome}</Text>
                     <Text style={styles.textoSub}>{localizacao}</Text>
                 </View>
+
+                <View style={styles.containerConfig}>
+                        <TouchableOpacity style={{width:40, height:40, zIndex: 1}} onPress={() => {
+                            if(modal == true){
+                                setModal(false)
+                            }else{
+                                setModal(true)
+                            }
+                            }}>
+                            <FontAwesome name="gear" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
+                        </TouchableOpacity>
+                        <Modal
+                            visible={modal}
+                            transparent={true}
+                            onRequestClose={() => {setModal(false);}}
+                            >
+                            <ModalPreferencias navigation={navigation} reload={() => {setModal(false);}}/>
+                         </Modal>
+                </View>
         </View>
         :
             <View style={styles.container}>
@@ -65,6 +87,9 @@ export function BarraSuperior({images, localizacao}) {
                 <View style={styles.containerText}>
                     <Text style={styles.texto}>{nome}</Text>
                     <Text style={styles.textoSub}>{localizacao}</Text>
+                </View>
+                <View style={styles.containerConfig}>
+                    <FontAwesome name="gear" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
                 </View>
             </View>
         }

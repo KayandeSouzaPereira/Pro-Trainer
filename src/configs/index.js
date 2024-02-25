@@ -39,7 +39,7 @@ export const GLOBALS = {
   IMG: "",
   NOME: "",
   DARKMODE: 0,
-  OFFLINE: 1
+  OFFLINE: 0
 }
 
 export const SYSTEM_MESSAGES = {

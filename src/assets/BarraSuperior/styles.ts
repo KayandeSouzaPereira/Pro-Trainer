@@ -18,6 +18,13 @@ export const styles = StyleSheet.create({
         top: 23,
         left: 20
     },
+    containerConfig: {
+        flex: 1,
+        flexDirection: 'column',
+        textAlign:'left',
+        top: 20,
+        right: 80
+    },
     texto:{
         fontSize: 20, 
         fontFamily: theme.fonts.tituloDestaque,
