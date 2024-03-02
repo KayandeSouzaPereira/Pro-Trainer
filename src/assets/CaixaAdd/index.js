@@ -4,12 +4,12 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect }  from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { setUsuarioTreinoRequestEmpty, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos';
-import { SYSTEM_MESSAGES, GLOBALS, theme } from '../../configs';
+import { SYSTEM_MESSAGES, GLOBALS, theme, useContextC } from '../../configs';
 
 
 
 export function CaixaAdd({reload}) {
-
+    const { state, dispatch } = useContextC();
     const setData = async (titulo, descricao) => {
         let tkk = await SecureStore.getItemAsync("token");
         let data = await getUsuarioRequest(tkk);
@@ -28,7 +28,7 @@ export function CaixaAdd({reload}) {
     }
     
     return(
-        <View style={styles.container}>
+        <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
             <TouchableOpacity style={{zIndex: 1}} onPress={async () => { 
                 if (GLOBALS.OFFLINE === 0) {
                 setData(SYSTEM_MESSAGES.TITULOTREINOPLACEHOLDER, SYSTEM_MESSAGES.DESCRICAOTREINOPLACEHOLDER)
@@ -37,7 +37,7 @@ export function CaixaAdd({reload}) {
                 }
                 }}>
                    
-                <Ionicons name="add" size={40} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                <Ionicons name="add" size={40} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
             </TouchableOpacity>
         </View>
     )

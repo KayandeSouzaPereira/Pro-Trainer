@@ -6,7 +6,16 @@ export const styles = StyleSheet.create({
     container:{
         width: 340, 
         flex: 1,
-        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
+        backgroundColor: theme.colorsPrimary.cardColor,
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20
+    },
+    containerDark:{
+        width: 340, 
+        flex: 1,
+        backgroundColor: theme.colorsPrimaryDark.cardColor,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
@@ -22,16 +31,31 @@ export const styles = StyleSheet.create({
     },
 
     containerText:{
-        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor, 
+        backgroundColor: theme.colorsPrimary.cardColor, 
         width: 340, 
         height: 200,
         borderRadius: 15, 
-        borderColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.border : theme.colorsPrimaryDark.border, 
+        borderColor: theme.colorsPrimary.border, 
+        borderWidth: 2
+    },
+    containerTextDark:{
+        backgroundColor: theme.colorsPrimaryDark.cardColor, 
+        width: 340, 
+        height: 200,
+        borderRadius: 15, 
+        borderColor: theme.colorsPrimaryDark.border, 
         borderWidth: 2
     },
     CamposTitulo:{
         fontFamily: theme.fonts.textDestaque,
-        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
+        color: theme.colorsPrimary.fontColor,
+        fontSize: 30,
+        top: 10,
+        marginLeft: 20
+    },
+    CamposTituloDark:{
+        fontFamily: theme.fonts.textDestaque,
+        color: theme.colorsPrimaryDark.fontColor,
         fontSize: 30,
         top: 10,
         marginLeft: 20
@@ -49,7 +73,14 @@ export const styles = StyleSheet.create({
     },
     Campos:{
         fontFamily: theme.fonts.text,
-        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.overlay : theme.colorsPrimaryDark.fontColor,
+        color: theme.colorsPrimary.overlay,
+        fontSize: 20,
+        top: 40,
+        marginLeft: 20
+    },
+    CamposDark:{
+        fontFamily: theme.fonts.text,
+        color: theme.colorsPrimaryDark.fontColor,
         fontSize: 20,
         top: 40,
         marginLeft: 20

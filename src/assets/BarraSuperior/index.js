@@ -4,7 +4,7 @@ import { styles } from "./styles";
 import { Avatar } from '../Avatar';
 import { getUsuarioInfoIMGRequest } from '../../servicos/Usuario';
 import * as SecureStore from 'expo-secure-store';
-import { GLOBALS, theme } from '../../configs';
+import { GLOBALS, theme, useContextC } from '../../configs';
 import { FontAwesome } from '@expo/vector-icons';
 import { ModalPreferencias } from '../ModalPreferencias';
 
@@ -17,8 +17,9 @@ export function BarraSuperior({images, localizacao, navigation}) {
     const [nome, setNome] = useState("PRO-Trainer");
     const [modal, setModal] = useState(false);
 
+    const { state, dispatch } = useContextC();
+
     useEffect (() => {
-        console.log("DARKMODE:" + GLOBALS.DARKMODE)
         getImage();
     }, [])
 
@@ -28,7 +29,6 @@ export function BarraSuperior({images, localizacao, navigation}) {
         let id = GLOBALS.IDUSER;
         let nomeG = GLOBALS.NOME;
         if (nomeG != "PRO-Trainer"){
-            console.log(nomeG)
             setNome(nomeG);
         }
         if(id != 0){
@@ -51,13 +51,13 @@ export function BarraSuperior({images, localizacao, navigation}) {
         <>
         { 
         images != undefined ?
-        <View style={styles.container}>
+        <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
                 <View style={styles.imageContainer}>
                     <Avatar urlImage={images} />
                 </View>
 
                 <View style={styles.containerText}>
-                    <Text style={styles.texto}>{nome}</Text>
+                    <Text style={state.DARKMODE != true ? styles.texto : styles.textoDark}>{nome}</Text>
                     <Text style={styles.textoSub}>{localizacao}</Text>
                 </View>
 
@@ -69,7 +69,7 @@ export function BarraSuperior({images, localizacao, navigation}) {
                                 setModal(true)
                             }
                             }}>
-                            <FontAwesome name="gear" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
+                            <FontAwesome name="gear" size={30} color={state.DARKMODE != true ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
                         </TouchableOpacity>
                         <Modal
                             visible={modal}
@@ -81,12 +81,12 @@ export function BarraSuperior({images, localizacao, navigation}) {
                 </View>
         </View>
         :
-            <View style={styles.container}>
+            <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
                 <View style={styles.imageContainer}>
                     <Avatar urlImage={image} />
                 </View>
                 <View style={styles.containerText}>
-                    <Text style={styles.texto}>{nome}</Text>
+                    <Text style={state.DARKMODE != true ? styles.texto : styles.textoDark}>{nome}</Text>
                     <Text style={styles.textoSub}>{localizacao}</Text>
                 </View>
                 <View style={styles.containerConfig}>
@@ -97,7 +97,7 @@ export function BarraSuperior({images, localizacao, navigation}) {
                                 setModal(true)
                             }
                             }}>
-                            <FontAwesome name="gear" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
+                            <FontAwesome name="gear" size={30} color={state.DARKMODE != true ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
                         </TouchableOpacity>
                         <Modal
                             visible={modal}

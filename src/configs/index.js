@@ -1,3 +1,42 @@
+import React, { createContext, useContext, useReducer } from 'react';
+
+const cContext = createContext();
+
+const initialState = {
+  DARKMODE: false,
+  OFFLINE: false
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'TOGGLE_DARKMODE':
+    return {
+        ...state,
+        DARKMODE: !state.DARKMODE
+    }
+    case 'TOGGLE_OFFLINE':
+      return {
+          ...state,
+          OFFLINE: !state.OFFLINE
+      }
+    default:
+      return state;
+  }
+};
+
+export const Provider = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <cContext.Provider value={{ state, dispatch }}>
+      {children}
+    </cContext.Provider>
+  );
+};
+
+export const useContextC = () => useContext(cContext);
+
+
 export const theme = {
     colorsPrimary: {
       background: '#F5FFFA',
@@ -38,8 +77,8 @@ export const GLOBALS = {
   IDUSER: 0,
   IMG: "",
   NOME: "",
-  DARKMODE: 0,
-  OFFLINE: 0
+  OFFLINE: 0,
+  DARKMODE: 0
 }
 
 export const SYSTEM_MESSAGES = {
@@ -52,3 +91,4 @@ export const SYSTEM_MESSAGES = {
   DESCRICAOEXERCICIOPLACEHOLDER: "'Descrição do exercicio'",
   EXERCICIODESCRICAOSAIBAMAIS: "Toque para saber mais...",
 }
+

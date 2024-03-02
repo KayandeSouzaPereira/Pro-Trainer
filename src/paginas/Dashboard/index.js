@@ -10,10 +10,10 @@ import { getUserTraining } from "../../servicos/Treinos"
 import { getUsuarioInfoIMGRequest } from "../../servicos/Usuario"
 import moment from 'moment';
 import 'moment/locale/pt-br'
-import { GLOBALS, theme } from "../../configs";
+import { GLOBALS, theme, useContextC } from "../../configs";
 
 export default function Dashboard({ navigation }) {
-
+  const { state, dispatch } = useContextC();
   const [dadosMacro, setDadosMacro] = useState([]);
   const [dadosForca, setDadosForca] = useState([]);
   const [dadosPresenca, setDadosPresenca] = useState([]);
@@ -21,14 +21,16 @@ export default function Dashboard({ navigation }) {
   const [treinos, setTreinos] = useState(0)
   const [loading, setLoading] = useState(true);
   const [mock, setMock] = useState([]);
-  const [recall, setRecall] = useState([false]);
-  const [update, setUpdate] = useState(false);
+  const [darkmode, setDarkmode] = useState(state.DARKMODE);
   const [image, setImage] = useState(null);
 
+  
 
   useEffect(() => {
      navigation.addListener('focus', () => {
-          setDataMacro();
+        console.log(state.DARKMODE)
+        setDarkmode(state.DARKMODE)
+        setDataMacro();
     });
   }, [navigation]);
 
@@ -166,21 +168,21 @@ export default function Dashboard({ navigation }) {
             name: "Prot",
             macros: 0,
             color: "#83a7ea",
-            legendFontColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor ,
+            legendFontColor: darkmode === false ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor ,
             legendFontSize: 15
           },
           {
             name: "Gord",
             macros: 0,
             color: "#1b5a76",
-            legendFontColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor ,
+            legendFontColor: darkmode === false ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor ,
             legendFontSize: 15
           },
           {
             name: "Carb",
             macros: 0,
             color: "#2e6c80",
-            legendFontColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor ,
+            legendFontColor: darkmode === false ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor ,
             legendFontSize: 15
           }
         ],
@@ -268,7 +270,7 @@ export default function Dashboard({ navigation }) {
   }
 
   const setDataMacro = async () => {
-    console.log(GLOBALS.DARKMODE)
+    console.log(darkmode)
     setLoading(true);
     let tkk = await SecureStore.getItemAsync("token");
     let dataUser = ""
@@ -341,7 +343,7 @@ export default function Dashboard({ navigation }) {
 
 
     return(
-      <View style={{flex: 1, backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.background : theme.colorsPrimary.background}}>
+      <View style={{flex: 1, backgroundColor: state.DARKMODE != true ? theme.colorsPrimary.background : theme.colorsPrimaryDark.background}}>
         
         <BarraSuperior images={image} localizacao={"Dashboard"} navigation={navigation}/>
        

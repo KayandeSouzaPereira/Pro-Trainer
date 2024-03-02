@@ -1,13 +1,13 @@
 import { Text, View, TouchableOpacity } from 'react-native';
 import { styles } from "./styles";
 import { AntDesign, MaterialIcons, Feather, MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { theme } from '../../configs';
+import { theme, useContextC } from '../../configs';
 import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export function BarraInferior({navigation}) {
-
+    const { state, dispatch } = useContextC();
 
     async function logout(){
         await SecureStore.deleteItemAsync("token");
@@ -17,7 +17,7 @@ export function BarraInferior({navigation}) {
     }
     
     return(
-        <View style={styles.container}>
+        <View style={state.DARKMODE != true ? styles.container : styles.containerDarkmode}>
             <View style={styles.containerIcones}>
                 <TouchableOpacity onPress={() => {navigation.navigate("Home")}}>
                     <AntDesign style={styles.Icones} name="barschart" size={40} color={theme.colorsPrimary.background}  />

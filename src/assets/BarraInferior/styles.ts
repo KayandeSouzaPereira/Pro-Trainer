@@ -5,9 +5,19 @@ export const styles = StyleSheet.create({
     container:{
         width: 380,
         height: 75,
-        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.cardColor,
+        backgroundColor: theme.colorsPrimary.primary,
         alignContent: 'flex-start',
-        borderColor:  GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.background : theme.colorsPrimaryDark.border,
+        borderColor:  theme.colorsPrimary.background,
+        borderWidth: 2,
+        borderRadius: 35,
+        alignItems: 'center'
+    },
+    containerDarkmode:{
+        width: 380,
+        height: 75,
+        backgroundColor: theme.colorsPrimaryDark.cardColor,
+        alignContent: 'flex-start',
+        borderColor:  theme.colorsPrimaryDark.border,
         borderWidth: 2,
         borderRadius: 35,
         alignItems: 'center'

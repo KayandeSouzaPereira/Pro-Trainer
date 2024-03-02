@@ -5,7 +5,16 @@ export const styles = StyleSheet.create({
     container:{
         width: 340, 
         flex: 1,
-        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
+        backgroundColor: theme.colorsPrimary.cardColor,
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20
+    },
+    containerDark:{
+        width: 340, 
+        flex: 1,
+        backgroundColor: theme.colorsPrimaryDark.cardColor,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',

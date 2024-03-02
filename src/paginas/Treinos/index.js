@@ -7,10 +7,11 @@ import { CaixaAdd } from '../../assets/CaixaAdd';
 import { styles } from '../Treinos/styles';
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
-import { GLOBALS } from '../../configs';
+import { GLOBALS, useContextC } from '../../configs';
 import { getUserTraining } from '../../servicos/Treinos';
 
 export default function Treinos({ navigation }) {
+    const { state, dispatch } = useContextC();
     const [dados, setDados] = useState([]);
     const [id, setId] = useState(0);
     const [loadingData, setLoadingData] = useState(false);
@@ -64,10 +65,10 @@ export default function Treinos({ navigation }) {
     
 
     return(
-        <View style={styles.container}>
+        <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
             <BarraSuperior navigation={navigation} localizacao={"Seus Treinos"}/>
             <LoadingModal modalVisible={loading} />
-            <View style={{marginHorizontal: Dimensions.get('window').width / 20, height: Dimensions.get('window').height / 1.3, alignContent: 'center', alignItems: 'center'}}>
+            <View style={{marginHorizontal: Dimensions.get('window').width / 20, height: Dimensions.get('window').height / 1.33, alignContent: 'center', alignItems: 'center'}}>
             { <FlatList
                 data={dados}
                 keyExtractor={item => item.idTreinos}

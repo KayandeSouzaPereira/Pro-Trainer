@@ -5,10 +5,11 @@ import { ProgressBar } from 'react-native-paper';
 import { styles } from "./styles";
 import { Audio, Video } from 'expo-av';
 import { useAssets } from 'expo-asset';
-import { GLOBALS,SYSTEM_MESSAGES } from "../../configs";
+import { GLOBALS,SYSTEM_MESSAGES, useContextC } from "../../configs";
 import * as SecureStore from 'expo-secure-store';
 import * as Network from 'expo-network';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 
 
@@ -22,6 +23,7 @@ export default function Login({navigation}) {
     
 
     const video = React.useRef(null);
+
 
     useEffect(() => {
         navigation.addListener('focus', () => {

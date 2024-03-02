@@ -9,9 +9,10 @@ import { BarraSuperior } from "../../assets/BarraSuperior"
 import { getUserExerciseByTraining } from '../../servicos/Exercicios'
 import { CaixaExercicio } from '../../assets/CaixaExercicio';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { useContextC } from '../../configs';
 
 export default function TreinoInfo({ navigation}) {
+    const { state, dispatch } = useContextC();
     const [dados, setDados] = useState([]);
     const [id, setId] = useState(0);
     const [loadingData, setLoadingData] = useState(false);
@@ -76,10 +77,10 @@ export default function TreinoInfo({ navigation}) {
     
 
     return(
-        <View style={styles.container}>
+        <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
             <BarraSuperior navigation={navigation} localizacao={"Seus Exercícios"}/>
             <LoadingModal modalVisible={loading} />
-            <View style={{marginHorizontal: Dimensions.get('window').width / 20, height: Dimensions.get('window').height / 1.30}}>
+            <View style={{marginHorizontal: Dimensions.get('window').width / 20, height: Dimensions.get('window').height / 1.33}}>
             { <FlatList
                 data={dados}
                 keyExtractor={item => item.idExercicios}

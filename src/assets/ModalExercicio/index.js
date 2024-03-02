@@ -7,13 +7,13 @@ import { getUsuarioRequest } from '../../servicos/Usuario';
 import {setUsuarioExerciseRequest, deleteUsuarioExerciseRequest } from '../../servicos/Exercicios';
 import * as SecureStore from 'expo-secure-store';
 import { LoadingModal } from "react-native-loading-modal";
-import { GLOBALS, theme, SYSTEM_MESSAGES } from '../../configs';
+import { GLOBALS, theme, SYSTEM_MESSAGES, useContextC } from '../../configs';
 
 
 
 export function ModalExercicio({data, edition, treino, reload}) {
 
-
+    const { state, dispatch } = useContextC();
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
     const [video, setVideo] = useState("");
@@ -115,7 +115,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
 
     return(
         <View style={{height: 800}}>
-        <View style={styles.container}>
+        <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
         <LoadingModal modalVisible={loading} />
             <ScrollView style={{flex:1, alignContent:"center"}}>
             { 
@@ -133,11 +133,11 @@ export function ModalExercicio({data, edition, treino, reload}) {
                             setEdit(true)
                         }
                         }}>
-                        <Feather name="send" size={40} color="black" />
+                        <Feather name="send" size={40} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                     </TouchableOpacity>
-                    <TextInput style={styles.CamposEdit} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
-                    <TextInput style={styles.CamposEdit} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
-                    <TextInput style={styles.CamposEdit} onChangeText={text => setVideoUrl_(text)} >{videourl}</TextInput>
+                    <TextInput style={state.DARKMODE != true ? styles.CamposEdit : styles.CamposEditDark} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
+                    <TextInput style={state.DARKMODE != true ? styles.CamposEdit : styles.CamposEditDark} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
+                    <TextInput style={state.DARKMODE != true ? styles.CamposEdit : styles.CamposEditDark} onChangeText={text => setVideoUrl_(text)} >{videourl}</TextInput>
                     <View style={{top:10, height: 300,flex: 1,
                     alignSelf:"center",}}>
                     </View>   
@@ -152,7 +152,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
                             setEdit(true)
                         }
                         }}>
-                        <AntDesign name="edit" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                        <AntDesign name="edit" size={30} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                     </TouchableOpacity> :
                    
                         <TouchableOpacity disabled={disabled} style={{left:270, top: 20, width:40, height:40, zIndex: 1}} onPress={() => {
@@ -162,19 +162,19 @@ export function ModalExercicio({data, edition, treino, reload}) {
                                 setEdit(true)
                             }
                             }}>
-                            <AntDesign name="edit" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                            <AntDesign name="edit" size={30} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                         </TouchableOpacity>}
                         <TouchableOpacity disabled={disabled} style={{left:0, top: -20, width:40, height:40,  zIndex: 1}} onPress={() => {
                             
                             reload();
                             }}>
-                            <AntDesign name="leftcircleo" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                            <AntDesign name="leftcircleo" size={30} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                         </TouchableOpacity>
-                    <Text style={styles.CamposTitulo}>{titulo}</Text>
-                    <Text style={styles.Campos}>{descricao}</Text>
+                    <Text style={state.DARKMODE != true ? styles.CamposTitulo : styles.CamposTituloDark}>{titulo}</Text>
+                    <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>{descricao}</Text>
                     {videourl.includes("youtu") ?
                     <View>
-                        <Text style={styles.CamposSubTitulo}>Video</Text>
+                        <Text style={state.DARKMODE != true ? styles.CamposSubTitulo : styles.CamposSubTituloDark}>Video</Text>
                         <View style={{top:10, height: 300, flex: 1,
                         alignSelf:"center",alignItems:'center', flexDirection:'column'}}>
                             <Video
@@ -188,7 +188,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
                                         Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
                                     }
                                     }}>
-                                    <Feather name="trash-2" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                                    <Feather name="trash-2" size={30} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                                 </TouchableOpacity>
                              </View>
                             : <View>
@@ -199,7 +199,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
                                         Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
                                     }
                                     }}>
-                                    <Feather name="trash-2" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                                    <Feather name="trash-2" size={30} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                                 </TouchableOpacity>
                                 </View>}
                     

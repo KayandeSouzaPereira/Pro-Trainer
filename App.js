@@ -6,6 +6,7 @@ import { Poppins_400Regular, Poppins_500Medium } from '@expo-google-fonts/poppin
 import { Bitter_600SemiBold, Bitter_700Bold } from '@expo-google-fonts/bitter'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Provider } from './src/configs';
  
 
 import AppNavigacao from './src/rotas';
@@ -19,9 +20,11 @@ export default function App() {
   } else {
   SplashScreen.hideAsync();
   return (
-          <NavigationContainer>
-              <AppNavigacao />
-          </NavigationContainer>
+          <Provider>
+                <NavigationContainer>
+                    <AppNavigacao />
+                </NavigationContainer>
+          </Provider>
     
   );
 }}

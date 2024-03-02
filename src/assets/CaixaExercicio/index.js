@@ -5,12 +5,12 @@ import React, { useState, useEffect }  from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining} from '../../servicos/Treinos';
 import { ModalExercicio } from '../ModalExercicio';
-import { SYSTEM_MESSAGES } from '../../configs';
+import { SYSTEM_MESSAGES, useContextC } from '../../configs';
 
 
 
 export function CaixaExercicio({data, editionFunction, treino, reload}) {
-
+    const { state, dispatch } = useContextC();
     const [edit, setEdit] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [titulo, setTitulo] = useState("");
@@ -40,7 +40,7 @@ export function CaixaExercicio({data, editionFunction, treino, reload}) {
        
     
     return(
-        <View style={styles.container}>
+        <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
              <TouchableOpacity disabled={edit} style={[edit ? styles.touchableActive : styles.touchableActive]} onPress={() => {
                 if(edit == true){
                     //setEdit(false)
@@ -59,9 +59,9 @@ export function CaixaExercicio({data, editionFunction, treino, reload}) {
                 />
                : 
               
-               <View style={styles.containerText}>
-                        <Text style={styles.CamposTitulo}>{titulo}</Text>
-                        <Text style={styles.Campos}>{SYSTEM_MESSAGES.EXERCICIODESCRICAOSAIBAMAIS}</Text>
+               <View style={state.DARKMODE != true ? styles.containerText : styles.containerTextDark}>
+                        <Text style={state.DARKMODE != true ? styles.CamposTitulo : styles.CamposTituloDark}>{titulo}</Text>
+                        <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>{SYSTEM_MESSAGES.EXERCICIODESCRICAOSAIBAMAIS}</Text>
                 </View>
             }
             </TouchableOpacity>

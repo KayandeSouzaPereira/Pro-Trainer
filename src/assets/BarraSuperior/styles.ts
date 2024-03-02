@@ -7,7 +7,15 @@ export const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 2,
         height: 120,
         flexDirection: 'row',
-        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.background : theme.colorsPrimaryDark.cardColor,
+        backgroundColor: theme.colorsPrimary.background,
+        alignContent: 'center',
+        alignItems: 'center'
+    },
+    containerDark:{
+        width: Dimensions.get('window').width * 2,
+        height: 120,
+        flexDirection: 'row',
+        backgroundColor:  theme.colorsPrimaryDark.cardColor,
         alignContent: 'center',
         alignItems: 'center'
     },
@@ -28,7 +36,12 @@ export const styles = StyleSheet.create({
     texto:{
         fontSize: 20, 
         fontFamily: theme.fonts.tituloDestaque,
-        color:  GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
+        color:  theme.colorsPrimary.fontColor,
+    },
+    textoDark:{
+        fontSize: 20, 
+        fontFamily: theme.fonts.tituloDestaque,
+        color:  theme.colorsPrimaryDark.fontColor,
     },
     textoSub:{
         fontSize: 15, 

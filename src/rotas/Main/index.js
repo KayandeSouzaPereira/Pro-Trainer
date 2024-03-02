@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { BarraInferior } from "../../assets/BarraInferior"
-import { BarraSuperior } from "../../assets/BarraSuperior"
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from '../../paginas/Login';
 import Home from '../../paginas/Dashboard';

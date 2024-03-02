@@ -7,11 +7,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setUsuarioTreinoRequest, getUsuarioRequest, getUserTraining, deleteUsuarioTreinoRequest} from '../../servicos/Treinos';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { RectButton } from 'react-native-gesture-handler';
-import { GLOBALS, theme, SYSTEM_MESSAGES } from '../../configs';
+import { GLOBALS, theme, SYSTEM_MESSAGES, useContextC } from '../../configs';
 
 
 export function CaixaTreino({data, reload, navigation}) {
-
+    const { state, dispatch } = useContextC();
     const [edit, setEdit] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [titulo, setTitulo] = useState("");
@@ -71,13 +71,13 @@ export function CaixaTreino({data, reload, navigation}) {
               <RectButton style={styles.rightAction} onPress={this.close}>
                 <Animated.Text
                   style={[
-                    styles.actionText,
+                    state.DARKMODE != true ? styles.actionText : styles.actionTextDark,
                     {
                       transform: [{ translateX: trans }],
                     },
                   ]}>
-                <Feather name="trash-2" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
-                <View style={{width: 20}}></View>
+                <Feather name="trash-2" size={20} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                <View style={{width: 20, fontColor: state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor}}></View>
                   Deletar   
                 </Animated.Text>
                 
@@ -95,28 +95,28 @@ export function CaixaTreino({data, reload, navigation}) {
                 { edit == false ?
                 <Animated.Text
                   style={[
-                    styles.actionText,
+                    state.DARKMODE != true ? styles.actionText : styles.actionTextDark,
                     {
                       transform: [{ translateX: trans }],
                     },
                   ]}>
                 
-                <AntDesign name="edit" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
-                <View style={{width: 20}}></View>
+                <AntDesign name="edit" size={20} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                <View style={{width: 20, color: state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor}}></View>
                   Editar
                   
                 </Animated.Text>
                 :
                 <Animated.Text
                   style={[
-                    styles.actionText,
+                    state.DARKMODE != true ? styles.actionText : styles.actionTextDark,
                     {
                       transform: [{ translateX: trans }],
                     },
                   ]}>
                 
-                <Feather name="send" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
-                <View style={{width: 20}}></View>
+                <Feather name="send" size={20} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                <View style={{width: 20, fontColor: state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor}}></View>
                   Enviar
                 </Animated.Text>
                 }
@@ -125,7 +125,7 @@ export function CaixaTreino({data, reload, navigation}) {
           };
     
     return(
-        <View style={styles.container}>
+        <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
         <Swipeable 
         ref={swipeableRef}
         renderLeftActions={renderLeftActions} 
@@ -161,7 +161,7 @@ export function CaixaTreino({data, reload, navigation}) {
                     
                     {
                         edit === true ? 
-                        <View style={styles.containerEdit}>
+                        <View style={state.DARKMODE != true ? styles.containerEdit : styles.containerEditDark}>
                             <TouchableOpacity disabled={disabled} style={{left:320, top: 18, zIndex: 1}} onPress={async () => {
                             if(edit == true){
                                 if (GLOBALS.OFFLINE === 0 ) {
@@ -174,14 +174,14 @@ export function CaixaTreino({data, reload, navigation}) {
                                 setEdit(true)
                             }
                             }}>
-                            <Feather name="send" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                            <Feather name="send" size={30} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                         </TouchableOpacity>
-                        <TextInput style={styles.CamposTituloEdit} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
-                        <TextInput style={styles.CamposEdit} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
+                        <TextInput style={state.DARKMODE != true ? styles.CamposTituloEdit : styles.CamposTituloDark} onChangeText={text => setTitulo_(text)} >{titulo}</TextInput>
+                        <TextInput style={state.DARKMODE != true ? styles.CamposEdit : styles.CamposEditDark} onChangeText={text => setDescricao_(text)} >{descricao}</TextInput>
                         </View>
                     : 
                     
-                    <View style={styles.containerbox}>
+                    <View style={state.DARKMODE != true ? styles.containerbox : styles.containerboxDark}>
                         <View style={styles.containerHeader}>
                             <TouchableOpacity disabled={disabled} style={{width: 20, height: 20, top: 10}} onPress={() => {
                                 if (GLOBALS.OFFLINE === 0) {
@@ -190,9 +190,9 @@ export function CaixaTreino({data, reload, navigation}) {
                                   Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível remover informações offline.")
                                 }
                                 }}>
-                                <Feather name="trash-2" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                                <Feather name="trash-2" size={20} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                             </TouchableOpacity>
-                            <Text style={styles.CamposTitulo}>{titulo}</Text>
+                            <Text style={state.DARKMODE != true ? styles.CamposTitulo : styles.CamposTituloDark}>{titulo}</Text>
                             <TouchableOpacity disabled={disabled} style={{width: 20, height: 20, top: 10}} onPress={() => {
                                 if(edit == true){
                                     setEdit(false)
@@ -200,10 +200,10 @@ export function CaixaTreino({data, reload, navigation}) {
                                     setEdit(true)
                                 }
                                 }}>
-                                <AntDesign name="edit" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                                <AntDesign name="edit" size={20} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                             </TouchableOpacity>
                         </View>
-                        <Text style={styles.Campos}>{descricao}</Text>
+                        <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>{descricao}</Text>
                     </View>
                     }
                 </TouchableOpacity>

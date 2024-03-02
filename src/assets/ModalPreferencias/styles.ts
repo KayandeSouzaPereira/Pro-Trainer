@@ -11,7 +11,21 @@ export const styles = StyleSheet.create({
         flexDirection:"column",
         alignItems: 'flex-start',
         textAlign:"left",
-        backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
+        backgroundColor: theme.colorsPrimary.cardColor,
+        borderRadius: 20,
+        paddingTop: 50,
+        paddingHorizontal: 40
+    },
+    containerDark:{
+        width: 350,
+        height: 800,
+        left: 100,
+        opacity: 1,
+        top: 50,
+        flexDirection:"column",
+        alignItems: 'flex-start',
+        textAlign:"left",
+        backgroundColor: theme.colorsPrimaryDark.cardColor,
         borderRadius: 20,
         paddingTop: 50,
         paddingHorizontal: 40
@@ -23,9 +37,24 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignSelf:"flex-start",
     },
+    CamposTituloDark:{
+        fontFamily: theme.fonts.text,
+        color: theme.colorsPrimaryDark.fontColor,
+        fontSize: 30,
+        flex: 1,
+        alignSelf:"flex-start",
+    },
     CamposSubTitle:{
         fontFamily: theme.fonts.text,
-        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
+        color: theme.colorsPrimary.fontColor,
+        fontSize: 22,
+        alignSelf:"center",
+        marginHorizontal:10,
+        paddingBottom: 60
+    },
+    CamposSubTitleDark:{
+        fontFamily: theme.fonts.text,
+        color: theme.colorsPrimaryDark.fontColor,
         fontSize: 22,
         alignSelf:"center",
         marginHorizontal:10,
@@ -42,7 +71,14 @@ export const styles = StyleSheet.create({
     },
     Campos:{
         fontFamily: theme.fonts.text,
-        color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor,
+        color: theme.colorsPrimary.fontColor,
+        fontSize: 18,
+        paddingBottom: 5,
+        right: 5
+    },
+    CamposDark:{
+        fontFamily: theme.fonts.text,
+        color: theme.colorsPrimaryDark.fontColor,
         fontSize: 18,
         paddingBottom: 5,
         right: 5

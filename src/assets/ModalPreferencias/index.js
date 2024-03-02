@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity, Alert, TextInput } from 'react-native';
 import { styles } from './styles'
 import React, { useState, useEffect }  from 'react';
 import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
-import { GLOBALS, SYSTEM_MESSAGES, theme } from '../../configs';
+import { GLOBALS, SYSTEM_MESSAGES, theme, useContextC } from '../../configs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from 'expo-secure-store';
 import { LoadingModal } from "react-native-loading-modal";
@@ -15,6 +15,12 @@ import { getUsuarioRequest } from '../../servicos/Usuario';
 
 export function ModalPreferencias ({reload, navigation}){
     const [loading, setLoading] = useState(false);
+
+    const { state, dispatch } = useContextC();
+
+    const toggleD = id => {
+        dispatch({ type: 'TOGGLE_DARKMODE'});
+    };
 
     async function sincronizarDados(){
         let tkk = await SecureStore.getItemAsync("token");
@@ -45,33 +51,36 @@ export function ModalPreferencias ({reload, navigation}){
 
     return(
         <TouchableOpacity onPress={() => {reload()}} style={{flex: -30, width: 'auto', height: 1500, position:'absolute'}}>
-            <View style={styles.container}>
+            <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
             <LoadingModal modalVisible={loading} />
                     <View>
-                            <Text style={styles.CamposSubTitle}>Preferencias</Text>
+                            <Text style={state.DARKMODE != true ? styles.CamposSubTitle : styles.CamposSubTitleDark}>Preferencias</Text>
                             <View style={styles.ContainerCampos}>
-                                <Text style={styles.Campos}>Aparência</Text>
-                                <TouchableOpacity style={{width:60, height:40, zIndex: 1, left: 80}} onPress={async () => {
-                                if(GLOBALS.DARKMODE === 0){
+                                <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>Aparência</Text>
+                                <TouchableOpacity style={{width:60, height:40, zIndex: 1, left: 80}} onPress={() => {
+                                console.log("DARKMODE : " + state.DARKMODE);
+                                toggleD();  
+                                //navigation.navigate("Login")
+                                /* if(GLOBALS.DARKMODE === 0){
                                     Alert.alert(SYSTEM_MESSAGES.AVISO, "função em fase de implementação")
-                                    /* await AsyncStorage.setItem("mode", "1")
-                                    navigation.navigate("Login") */
+                                    await AsyncStorage.setItem("mode", "1")
+                                    navigation.navigate("Login")
                                 } else {
                                     Alert.alert(SYSTEM_MESSAGES.AVISO, "função em fase de implementação")
-                                    /* await AsyncStorage.setItem("mode", "0")
-                                    navigation.navigate("Login") */
-                                }
+                                    await AsyncStorage.setItem("mode", "0")
+                                    navigation.navigate("Login")
+                                } */
                             }}>
-                                <MaterialCommunityIcons name="theme-light-dark" size={30} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
+                                <MaterialCommunityIcons name="theme-light-dark" size={30} color={state.DARKMODE === false ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
                             </TouchableOpacity>
                             </View>
                             <View style={styles.ContainerCampos}>
-                                <Text style={styles.Campos}>Sincronizar Dados</Text>
+                                <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>Sincronizar Dados</Text>
                                 <TouchableOpacity style={{width:60, height:40, zIndex: 1, left: 15, top: 5}} onPress={async () => {
                                     setLoading(true);
                                     sincronizarDados();
                                 }}>
-                                    <FontAwesome5 name="sync" size={20} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
+                                    <FontAwesome5 name="sync" size={20} color={state.DARKMODE === false ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
                                 </TouchableOpacity>
                             </View>
                         </View>

@@ -5,13 +5,13 @@ import React, { useState, useEffect }  from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { getUsuarioRequest, setUsuarioExerciseRequestEmpt } from '../../servicos/Exercicios';
 import { LoadingModal } from "react-native-loading-modal";  
-import { SYSTEM_MESSAGES, GLOBALS, theme } from '../../configs';
+import { SYSTEM_MESSAGES, GLOBALS, theme, useContextC } from '../../configs';
 
 
 
 
 export function CaixaAddExercicio({reload, treino}) {
-
+    const { state, dispatch } = useContextC();
     const [loading, setLoading] = useState(false);
 
     
@@ -37,7 +37,7 @@ export function CaixaAddExercicio({reload, treino}) {
     
     return(
         <View> 
-                <View style={styles.container}>
+                <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
                     <LoadingModal modalVisible={loading} />
                     <TouchableOpacity style={{zIndex: 1}} onPress={async () => { 
                         if (GLOBALS.OFFLINE === 0) {
@@ -47,7 +47,7 @@ export function CaixaAddExercicio({reload, treino}) {
                         }
                         }}>
                         
-                    <Ionicons name="add" size={40} color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
+                    <Ionicons name="add" size={40} color={state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.fontColor} />
                     </TouchableOpacity>
                 </View> 
         </View>

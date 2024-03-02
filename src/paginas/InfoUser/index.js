@@ -4,7 +4,7 @@ import { AntDesign, Entypo, Feather  } from '@expo/vector-icons';
 import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, Image, TouchableOpacity, Alert } from 'react-native';
 import { LoadingModal } from "react-native-loading-modal";
 import { styles } from '../InfoUser/styles';
-import { SYSTEM_MESSAGES, GLOBALS } from '../../configs';
+import { SYSTEM_MESSAGES, GLOBALS, useContextC  } from '../../configs';
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
 import { getUsuarioInfoRequest, getUsuarioRequest, setUsuarioInfoRequest} from "../../servicos/Usuario"
@@ -14,7 +14,7 @@ import * as FileSystem from 'expo-file-system';
 
 
 export default function InfoUser({ navigation }) {
-
+    const { state, dispatch } = useContextC();
     const [token, setToken] = useState(null); 
     const [id, setId] = useState('');
     const [image, setImage] = useState(null);
@@ -161,7 +161,7 @@ export default function InfoUser({ navigation }) {
     return(
         
         
-        <View style={styles.container}>
+        <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
             { image != null?
                 <BarraSuperior navigation={navigation} localizacao={"Seus Dados"} />
                 :
@@ -185,16 +185,16 @@ export default function InfoUser({ navigation }) {
                             style={styles.avatar}
                     />
                     }
-                    <View style={styles.containerButtonIMG}>
+                    <View style={state.DARKMODE != true ? styles.containerButtonIMG : styles.containerButtonIMGDark}>
                     <Feather name="image" size={25} color="white" />
                     </View>
                 </TouchableOpacity>
                 </View>
-                <Text style={styles.CamposUser}>Olá {nome.substring(0, 10)}</Text>
+                <Text style={state.DARKMODE != true ? styles.CamposUser : styles.CamposUserDark}>Olá {nome.substring(0, 10)}</Text>
             </View>
             
-            <KeyboardAvoidingView style={styles.containerCampos}>
-                <View style={styles.containerButton}>
+            <KeyboardAvoidingView style={state.DARKMODE != true ? styles.containerCampos : styles.containerCamposDark}>
+                <View style={state.DARKMODE != true ? styles.containerButton : styles.containerButtonDark}>
                     <TouchableOpacity disabled={disabled} onPress={() => {
                         if(edit == true){
                             setEdit(false)
@@ -211,23 +211,23 @@ export default function InfoUser({ navigation }) {
                     </TouchableOpacity>
                 </View>
                 
-                <Text style={styles.Campos}>Seus Dados:</Text>
+                <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>Seus Dados:</Text>
                 <View style={{height: 30}}></View>
                 { edit == true ? 
                     <View>
                         <View style={styles.containerCamposForm}>
-                            <Text style={styles.Campos}>Altura (em Metros):</Text>
-                            <TextInput keyboardType='phone-pad' style={styles.CamposEdit} onChangeText={text => setAltura_(text)} >{altura}</TextInput>
+                            <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>Altura (em Metros):</Text>
+                            <TextInput keyboardType='phone-pad' style={state.DARKMODE != true ? styles.CamposEdit : styles.CamposEditDark} onChangeText={text => setAltura_(text)} >{altura}</TextInput>
                             
                         </View>
                         <View style={styles.containerCamposForm}>
-                            <Text style={styles.Campos}>Peso  (em Kilogramas):</Text>
-                            <TextInput keyboardType='numeric' style={styles.CamposEdit} onChangeText={text => setPeso_(text)} >{peso}</TextInput>
+                            <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>Peso  (em Kilogramas):</Text>
+                            <TextInput keyboardType='numeric' style={state.DARKMODE != true ? styles.CamposEdit : styles.CamposEditDark} onChangeText={text => setPeso_(text)} >{peso}</TextInput>
                             
                         </View>
                         <View style={styles.containerCamposForm}>
-                            <Text style={styles.Campos}>Idade  (em Anos):</Text>
-                            <TextInput keyboardType='numeric' style={styles.CamposEdit} onChangeText={text => setIdade_(text)} >{idade}</TextInput>
+                            <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>Idade  (em Anos):</Text>
+                            <TextInput keyboardType='numeric' style={state.DARKMODE != true ? styles.CamposEdit : styles.CamposEditDark} onChangeText={text => setIdade_(text)} >{idade}</TextInput>
                             
                         </View>
 
@@ -241,7 +241,7 @@ export default function InfoUser({ navigation }) {
                            setDisabled(false);
                            setEdit(false);
                         }}>
-                        <Text style={styles.CampoConfirma}> Enviar Atualização </Text>
+                        <Text style={state.DARKMODE != true ? styles.CampoConfirma : styles.CampoConfirmaDark}> Enviar Atualização </Text>
                     </TouchableOpacity>
                    
 
@@ -250,16 +250,16 @@ export default function InfoUser({ navigation }) {
                     :
                     <View>
                         <View style={styles.containerCamposForm}>
-                            <Text style={styles.Campos}>Altura:</Text>
-                            <Text style={styles.CamposEdit}> {altura+ " m"}</Text>
+                            <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>Altura:</Text>
+                            <Text style={state.DARKMODE != true ? styles.CamposEdit : styles.CamposEditDark}> {altura+ " m"}</Text>
                         </View>
                         <View style={styles.containerCamposForm}>
-                        <Text style={styles.Campos}>Peso: </Text>
-                            <Text style={styles.CamposEdit}> {peso+ " kg"}</Text>
+                        <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>Peso: </Text>
+                            <Text style={state.DARKMODE != true ? styles.CamposEdit : styles.CamposEditDark}> {peso+ " kg"}</Text>
                         </View>
                         <View style={styles.containerCamposForm}>
-                        <Text style={styles.Campos}>Idade: </Text>
-                            <Text style={styles.CamposEdit}> {idade+ " Anos"}</Text>
+                        <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>Idade: </Text>
+                            <Text style={state.DARKMODE != true ? styles.CamposEdit : styles.CamposEditDark}> {idade+ " Anos"}</Text>
                         </View>
                    </View>
                 }

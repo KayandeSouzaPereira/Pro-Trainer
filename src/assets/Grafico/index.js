@@ -5,9 +5,11 @@ import { styles } from './styles';
 import { ModalMacro } from '../ModalMacro';
 import { ModalTreinoRegistro } from '../ModalTreinoRegistro';
 import { Entypo } from '@expo/vector-icons';
-import { theme, GLOBALS } from '../../configs';
+import { theme, GLOBALS, useContextC } from '../../configs';
 
 export default function Grafico({data, callback}) {
+
+    const { state, dispatch } = useContextC();
 
    const [modalMacro, setModalMacro] = useState(false);
    const [modalTreino, setModalTreino] = useState(false);
@@ -35,10 +37,10 @@ export default function Grafico({data, callback}) {
   
     if (tipo == "Linha"){
         return(
-            <View style={styles.containerLinha}>
-            <Text style={{top: 20,  fontFamily: theme.fonts.titulo, color:  GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.fontColor }}>{titulo}</Text>
+            <View style={state.DARKMODE != true ? styles.containerLinha : styles.containerLinhaDark}>
+            <Text style={{top: 20,  fontFamily: theme.fonts.titulo, color:  state.DARKMODE != true ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.fontColor }}>{titulo}</Text>
             <TouchableOpacity onPress={() => setModalTreino(true) }>
-            <View style={styles.containerButtonIcons}>
+            <View style={state.DARKMODE != true ? styles.containerButtonIcons : styles.containerButtonIconsDark}>
                 <Entypo name="add-to-list" size={20} color="white" />
             </View>
             <LineChart
@@ -54,18 +56,18 @@ export default function Grafico({data, callback}) {
             height={170}
             yAxisInterval={1}
             chartConfig={{
-                backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary,
-                backgroundGradientFrom: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary,
-                backgroundGradientTo: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary,
+                backgroundColor: state.DARKMODE != true ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary,
+                backgroundGradientFrom: state.DARKMODE != true ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary,
+                backgroundGradientTo: state.DARKMODE != true ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary,
                 decimalPlaces: 2,
-                color: (opacity = 1) =>  GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.fontColor,
-                labelColor: (opacity = 1) =>  GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.fontColor,
+                color: (opacity = 1) =>  state.DARKMODE != true ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.fontColor,
+                labelColor: (opacity = 1) =>  state.DARKMODE != true ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.fontColor,
                 style: {
                 borderRadius: 16
                 },
                 propsForDots: {
                 strokeWidth: "1",
-                stroke: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.fontColor
+                stroke: state.DARKMODE != true ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.fontColor
                 }
             }}
             bezier
@@ -87,10 +89,10 @@ export default function Grafico({data, callback}) {
         )
     }else if(tipo == "Pizza"){
           return (
-            <View style={styles.containerPizza}>
+            <View style={state.DARKMODE != true ? styles.containerPizza : styles.containerPizzaDark}>
             <TouchableOpacity onPress={() => setModalMacro(true) }>
             <Text style={{top: 20, left: 20,fontFamily: theme.fonts.titulo, color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.fontColor}}>{titulo}</Text>
-            <View style={styles.containerButtonIcons}>
+            <View style={state.DARKMODE != true ? styles.containerButtonIcons : styles.containerButtonIconsDark}>
                 <Entypo name="add-to-list" size={20} color="white" />
             </View>
             <PieChart
@@ -99,15 +101,15 @@ export default function Grafico({data, callback}) {
                 height={160} 
                 hasLegend={true}
                 chartConfig={{
-                    color: (opacity = 0) => GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
-                    labelColor: (opacity = 0) => GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
-                    fontColor: (opacity = 0) => GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
+                    color: (opacity = 0) => state.DARKMODE != true ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
+                    labelColor: (opacity = 0) => state.DARKMODE != true ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
+                    fontColor: (opacity = 0) => state.DARKMODE != true ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
                 }}
-                backgroundColor={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary}
+                backgroundColor={state.DARKMODE != true ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary}
                 accessor={"macros"}
                 paddingLeft={"5"}
                 center={[10, 10]}
-                color={GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor}
+                color={state.DARKMODE != true ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor}
                 absolut
             />
             <Modal
@@ -123,18 +125,18 @@ export default function Grafico({data, callback}) {
     }else if(tipo == "Barra"){
         
           return (
-            <View style={styles.containerBarra}>
-            <Text style={{fontFamily: theme.fonts.titulo, color: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.primary}}>{titulo}</Text>
+            <View style={state.DARKMODE != true ? styles.containerBarra : styles.containerBarraDark}>
+            <Text style={{fontFamily: theme.fonts.titulo, color: state.DARKMODE != true ? theme.colorsPrimary.fontColor : theme.colorsPrimaryDark.primary}}>{titulo}</Text>
             <BarChart
                 data={valores}
                 width={280}
                 height={170}
                 chartConfig={{
-                    backgroundColor: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
-                    backgroundGradientFrom: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
-                    backgroundGradientTo: GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
-                    color: (opacity = 1) => GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary,
-                    labelColor: (opacity = 1) => GLOBALS.DARKMODE === 0 ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary,
+                    backgroundColor: state.DARKMODE != true ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
+                    backgroundGradientFrom: state.DARKMODE != true ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
+                    backgroundGradientTo: state.DARKMODE != true ? theme.colorsPrimary.cardColor : theme.colorsPrimaryDark.cardColor,
+                    color: (opacity = 1) => state.DARKMODE != true ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary,
+                    labelColor: (opacity = 1) => state.DARKMODE != true ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.primary,
                 }}
             />
             </View>)
