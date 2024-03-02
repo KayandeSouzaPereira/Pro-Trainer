@@ -5,9 +5,9 @@ export const styles = StyleSheet.create({
     container:{
         width: 350,
         height: 300,
-        left: 25,
+        left: 10,
         opacity: 1,
-        top: 200,
+        top: 20,
         flexDirection:"column",
         alignItems: 'center',
         textAlign:"center",

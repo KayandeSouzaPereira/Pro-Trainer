@@ -54,7 +54,7 @@ export default function TreinoInfo({ navigation}) {
             setIdTreino(treino)
             let tkk = await SecureStore.getItemAsync("token");
             let dadosTreino = "";
-            dadosTreino = await getUserExerciseByTraining(tkk, treino);
+            dadosTreino = await getUserExerciseByTraining(tkk, treino, state.OFFLINE);
             let dados_
             if(dadosTreino.data.resultado != "treinos não encontrado") {
                 dados_ = dadosTreino.data.resultado;

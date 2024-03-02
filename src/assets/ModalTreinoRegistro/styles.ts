@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
         marginHorizontal: Dimensions.get('window').width / 15,
         opacity: 1,
         top: 10,
+        right: 10,
         flexDirection:"column",
         alignItems: 'center',
         textAlign:"center",

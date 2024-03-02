@@ -9,7 +9,7 @@ import { CaixaHistoricoTreino } from '../CaixaHistoricoTreino';
 import { getUserTraining } from '../../servicos/Treinos';
 import { getUserExerciseByTraining } from '../../servicos/Exercicios';
 import { getHistorico, setHistorico, getUsuarioRequest } from '../../servicos/Historico';
-import { GLOBALS, SYSTEM_MESSAGES } from '../../configs';
+import { GLOBALS, SYSTEM_MESSAGES, useContextC } from '../../configs';
 
 
 export function ModalTreinoRegistro ({reload}){
@@ -24,6 +24,8 @@ export function ModalTreinoRegistro ({reload}){
     const [loading, setLoading] = useState(true);
     const [edit, setEdit] = useState(false);
     const [disabled, setDisabled] = useState(false);
+
+    const { state, dispatch } = useContextC();
 
     useEffect(() => {
         setLoading(true);
@@ -45,7 +47,7 @@ export function ModalTreinoRegistro ({reload}){
         let dataUser = await getUsuarioRequest(tkk);
         let idUser = GLOBALS.IDUSER
         
-        let dados = await getHistorico(idUser, tkk);
+        let dados = await getHistorico(idUser, tkk, state.OFFLINE);
        console.log(dados.data)
         if (dados.data.resultado != null ){
             let dados_ = dados.data.resultado
@@ -61,7 +63,7 @@ export function ModalTreinoRegistro ({reload}){
         let tkk = await SecureStore.getItemAsync("token");
         let dataUser = await getUsuarioRequest(tkk);
         let idUser = dataUser.data.retorno.idAuth;
-        let dados = await getUserTraining(idUser, tkk);
+        let dados = await getUserTraining(idUser, tkk, state.OFFLINE);
         
         if (dados.data.resultado != null ){
             let dados_ = dados.data.resultado
@@ -73,7 +75,7 @@ export function ModalTreinoRegistro ({reload}){
 
     const getIdsExercicios = async (id) => {
         let tkk = await SecureStore.getItemAsync("token");
-        let dados = await getUserExerciseByTraining(tkk, id);
+        let dados = await getUserExerciseByTraining(tkk, id, state.OFFLINE);
         
         if (dados.data.resultado != null ){
             let dados_ = dados.data.resultado
@@ -124,7 +126,7 @@ export function ModalTreinoRegistro ({reload}){
         },{
             text: 'Sim',
             onPress: () => {
-                if (GLOBALS.OFFLINE === 0) { 
+                if (state.OFFLINE === false) { 
                 setRegistro()
                 }else{
                     Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
@@ -143,7 +145,7 @@ export function ModalTreinoRegistro ({reload}){
 
 
     return(
-        <View style={{backgroundColor:'rgba(52, 52, 52, 1)', flex: 1,top: 60}}>
+        <View style={{backgroundColor:'rgba(52, 52, 52, 0.7)', flex: 1,top: 0}}>
             <View style={styles.container}>
                 <LoadingModal modalVisible={loading} />
                 {edit === true ? 

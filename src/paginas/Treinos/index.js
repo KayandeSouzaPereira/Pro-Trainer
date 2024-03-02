@@ -39,7 +39,7 @@ export default function Treinos({ navigation }) {
         let id = GLOBALS.IDUSER;
         setId(id);
         try {
-            let dadosTreino = await getUserTraining(id, tkk);
+            let dadosTreino = await getUserTraining(id, tkk, state.OFFLINE);
             let dados_ = [];
             
             if(dadosTreino.data.resultado != "Vazio") {

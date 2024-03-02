@@ -60,7 +60,7 @@ export default function InfoUser({ navigation }) {
             if(altura_ == "..." && peso_ == 0 && idade_ == 0 && altura == "..."){
                 Alert.alert(SYSTEM_MESSAGES.AVISO, "E Necessario cadastrar as informações antes de subir uma imagem.")
             }else{  
-                if (GLOBALS.OFFLINE === 0){
+                if (state.OFFLINE === false){
                     setData();  
                 }else{
                     Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
@@ -83,7 +83,7 @@ export default function InfoUser({ navigation }) {
         setId(idd);
 
         try {
-            let info = await getUsuarioInfoRequest(idd, tkk)
+            let info = await getUsuarioInfoRequest(idd, tkk, state.OFFLINE)
             setInfos(info.data.resultado)
             setLoading(false);
         }catch (err){
@@ -106,7 +106,7 @@ export default function InfoUser({ navigation }) {
           setImage(result.assets[0].uri);
           const base64 = await FileSystem.readAsStringAsync(result.assets[0].uri, { encoding: 'base64' })
           setImgBS64(base64);
-          if (GLOBALS.OFFLINE === 0){
+          if (state.OFFLINE === false){
             setData();  
         }else{
             Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
@@ -233,7 +233,7 @@ export default function InfoUser({ navigation }) {
 
                         <TouchableOpacity disabled={disabled} style={{backgroundColor:"#1b5a76", color:"white", borderRadius: 20, alignItems:"center"}} onPress={ async () => {
                            setDisabled(true);
-                           if (GLOBALS.OFFLINE === 0){
+                           if (state.OFFLINE === false){
                             await setData();
                             }else{
                              Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")

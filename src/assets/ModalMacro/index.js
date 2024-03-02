@@ -5,7 +5,7 @@ import { AntDesign, Feather, Entypo  } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 import { LoadingModal } from "react-native-loading-modal";
 import { getMacros, setMacros, getUsuarioRequest } from '../../servicos/Macros';
-import { GLOBALS, SYSTEM_MESSAGES } from '../../configs';
+import { GLOBALS, SYSTEM_MESSAGES, useContextC } from '../../configs';
 
 
 export function ModalMacro ({reload}){
@@ -19,6 +19,8 @@ export function ModalMacro ({reload}){
     const [edit, setEdit] = useState(false);
     const [disabled, setDisabled] = useState(false);
 
+    const { state, dispatch } = useContextC();
+
     useEffect(() => {
         getData();
     }, [])
@@ -28,7 +30,7 @@ export function ModalMacro ({reload}){
         let dataUser = await getUsuarioRequest(tkk);
         let idUser = dataUser.data.retorno.idAuth
         
-        let dados = await getMacros(idUser, tkk);
+        let dados = await getMacros(idUser, tkk, state.OFFLINE);
        
         if (dados.data.resultado != null ){
             let dados_ = dados.data.resultado[0]
@@ -67,7 +69,7 @@ export function ModalMacro ({reload}){
         }
 
 
-        let data = await setMacros(idUser, proteinas_, gorduras_, tkk, carboidratos_);
+        let data = await setMacros(idUser, proteinas_, gorduras_, tkk, carboidratos_, state.OFFLINE);
         if (JSON.stringify(data).includes("OFFLINE")){
             Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar informações de Macros offline.")
             setLoading(false);
@@ -82,7 +84,7 @@ export function ModalMacro ({reload}){
     }
 
     return(
-        <TouchableOpacity style={{flex: -1, position:'absolute'}}>
+        <TouchableOpacity style={{backgroundColor:'rgba(52, 52, 52, 0.7)',flex: 1}}>
             <View style={styles.container}>
                 <LoadingModal modalVisible={loading} />
                 {edit === true ? 

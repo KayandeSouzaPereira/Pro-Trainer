@@ -12,6 +12,7 @@ import { getHistorico } from '../../servicos/Historico';
 import { getUsuarioInfoRequest } from '../../servicos/Usuario';
 import { getUserTraining } from '../../servicos/Treinos';
 import { getUsuarioRequest } from '../../servicos/Usuario';
+import { getUserExerciseByTraining } from '../../servicos/Exercicios';
 
 export function ModalPreferencias ({reload, navigation}){
     const [loading, setLoading] = useState(false);
@@ -37,12 +38,18 @@ export function ModalPreferencias ({reload, navigation}){
          }
         let nome = dataUser.data.retorno.user;
         let idUser = dataUser.data.retorno.idAuth;
-        await getMacros(nome, tkk);
-        await getForca(nome, tkk);
-        await getPresenca(idUser, tkk);
-        await getHistorico(nome, tkk);
-        await getUsuarioInfoRequest(idUser, tkk);
-        await getUserTraining(nome, tkk); 
+        await getMacros(nome, tkk, false);
+        await getForca(nome, tkk, false);
+        await getPresenca(idUser, tkk, false);
+        await getHistorico(nome, tkk, false);
+        await getUsuarioInfoRequest(idUser, tkk, false);
+        let trainings = await getUserTraining(nome, tkk, false); 
+        
+        for (var treino in trainings.data.resultado){
+            console.log(treino) 
+            await getUserExerciseByTraining(tkk, treino.idTreinos, false)
+        }
+
         Alert.alert(SYSTEM_MESSAGES.AVISO, "Sincronização feita com sucesso.")
         setLoading(false);
         reload()
@@ -50,7 +57,7 @@ export function ModalPreferencias ({reload, navigation}){
 
 
     return(
-        <TouchableOpacity onPress={() => {reload()}} style={{flex: -30, width: 'auto', height: 1500, position:'absolute'}}>
+        <TouchableOpacity onPress={() => {reload()}} style={{backgroundColor:'rgba(52, 52, 52, 0.7)',flex: 1, width: 'auto', height: 1500}}>
             <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
             <LoadingModal modalVisible={loading} />
                     <View>
@@ -58,18 +65,10 @@ export function ModalPreferencias ({reload, navigation}){
                             <View style={styles.ContainerCampos}>
                                 <Text style={state.DARKMODE != true ? styles.Campos : styles.CamposDark}>Aparência</Text>
                                 <TouchableOpacity style={{width:60, height:40, zIndex: 1, left: 80}} onPress={() => {
-                                console.log("DARKMODE : " + state.DARKMODE);
+                                console.log("DARKMODE : " + !state.DARKMODE);
+                                AsyncStorage.setItem("darkmode", JSON.stringify(!state.DARKMODE))
                                 toggleD();  
-                                //navigation.navigate("Login")
-                                /* if(GLOBALS.DARKMODE === 0){
-                                    Alert.alert(SYSTEM_MESSAGES.AVISO, "função em fase de implementação")
-                                    await AsyncStorage.setItem("mode", "1")
-                                    navigation.navigate("Login")
-                                } else {
-                                    Alert.alert(SYSTEM_MESSAGES.AVISO, "função em fase de implementação")
-                                    await AsyncStorage.setItem("mode", "0")
-                                    navigation.navigate("Login")
-                                } */
+                                
                             }}>
                                 <MaterialCommunityIcons name="theme-light-dark" size={30} color={state.DARKMODE === false ? theme.colorsPrimary.primary : theme.colorsPrimaryDark.fontColor} />
                             </TouchableOpacity>

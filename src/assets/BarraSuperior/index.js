@@ -33,7 +33,7 @@ export function BarraSuperior({images, localizacao, navigation}) {
         }
         if(id != 0){
             try {
-            let data = await getUsuarioInfoIMGRequest(id, tkk);
+            let data = await getUsuarioInfoIMGRequest(id, tkk, state.OFFLINE);
             if (data.data.resultado != undefined){
                 let image = data.data.resultado.img
                 setImage(`data:image/png;base64,${image}`)

@@ -40,7 +40,7 @@ export function CaixaAddExercicio({reload, treino}) {
                 <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
                     <LoadingModal modalVisible={loading} />
                     <TouchableOpacity style={{zIndex: 1}} onPress={async () => { 
-                        if (GLOBALS.OFFLINE === 0) {
+                        if (state.OFFLINE === false) {
                             setData(SYSTEM_MESSAGES.TITULOEXERCICIOPLACEHOLDER, SYSTEM_MESSAGES.DESCRICAOEXERCICIOPLACEHOLDER)
                         }else{
                             Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")

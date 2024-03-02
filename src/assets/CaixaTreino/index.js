@@ -134,7 +134,7 @@ export function CaixaTreino({data, reload, navigation}) {
           if(direction === "left"){
             if(edit == true){
               swipeableRef.current.close();
-              if (GLOBALS.OFFLINE === 0){
+              if (state.OFFLINE === false){
                 await setData(titulo_, descricao_)
               }else{
                 Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
@@ -147,7 +147,7 @@ export function CaixaTreino({data, reload, navigation}) {
             }
           }else if(direction === "right"){
             swipeableRef.current.close();
-            if (GLOBALS.OFFLINE === 0) {
+            if (state.OFFLINE === false) {
               deleteCard()
             }else{
               Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível remover informações offline.")
@@ -164,7 +164,7 @@ export function CaixaTreino({data, reload, navigation}) {
                         <View style={state.DARKMODE != true ? styles.containerEdit : styles.containerEditDark}>
                             <TouchableOpacity disabled={disabled} style={{left:320, top: 18, zIndex: 1}} onPress={async () => {
                             if(edit == true){
-                                if (GLOBALS.OFFLINE === 0 ) {
+                                if (state.OFFLINE === false ) {
                                 await setData(titulo_, descricao_);
                                 }else{
                                   Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
@@ -184,7 +184,7 @@ export function CaixaTreino({data, reload, navigation}) {
                     <View style={state.DARKMODE != true ? styles.containerbox : styles.containerboxDark}>
                         <View style={styles.containerHeader}>
                             <TouchableOpacity disabled={disabled} style={{width: 20, height: 20, top: 10}} onPress={() => {
-                                if (GLOBALS.OFFLINE === 0) {
+                                if (state.OFFLINE === false) {
                                   deleteCard();
                                 }else{
                                   Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível remover informações offline.")

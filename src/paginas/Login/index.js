@@ -20,10 +20,17 @@ export default function Login({navigation}) {
     const [senha, setSenha] = useState('');
     const [loading, setLoading] = useState(false);
     const [url, setUrl] = useAssets([require('../../../assets/video.mp4')]);
-    
+    const { state, dispatch } = useContextC();
 
     const video = React.useRef(null);
 
+    const toggleD = id => {
+        dispatch({ type: 'TOGGLE_DARKMODE'});
+    };
+
+    const toggleN = id => {
+        dispatch({ type: 'TOGGLE_OFFLINE'});
+    };
 
     useEffect(() => {
         navigation.addListener('focus', () => {
@@ -42,16 +49,14 @@ export default function Login({navigation}) {
         let connection = await Network.getNetworkStateAsync();
         let tkk = await SecureStore.getItemAsync("token");
         let user = await SecureStore.getItemAsync("usuario");
-        let darkMode = await AsyncStorage.getItem("mode");
+        let darkMode = JSON.parse(await AsyncStorage.getItem("darkmode"));
         GLOBALS.NOME = user
         if(darkMode != null){
-            GLOBALS.DARKMODE = JSON.parse(darkMode)
-        }else{
-            GLOBALS.DARKMODE = 0
+            if (darkMode === true && state.DARKMODE != true){
+                console.log("DARKMODE : " + true);
+                toggleD();
+            }
         }
-        
-        console.log("TKK : " + tkk);
-        console.log("USER : " + user)
         if(connection.isConnected === true){
         if(tkk != undefined && user != undefined){
             autologinRequest(user, tkk).then(
@@ -62,8 +67,7 @@ export default function Login({navigation}) {
                     console.log("ERRO : " + err)
                 });
         }}else if(connection.isConnected === false && tkk != undefined && user != undefined){
-            GLOBALS.OFFLINE = 1
-            console.log("OFFLINE")
+            toggleN();
             navigation.navigate('Home')
         }
         setLoading(false);

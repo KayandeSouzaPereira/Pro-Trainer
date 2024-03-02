@@ -12,7 +12,6 @@ export const styles = StyleSheet.create({
         alignItems: 'flex-start',
         textAlign:"left",
         backgroundColor: theme.colorsPrimary.cardColor,
-        borderRadius: 20,
         paddingTop: 50,
         paddingHorizontal: 40
     },
@@ -26,7 +25,6 @@ export const styles = StyleSheet.create({
         alignItems: 'flex-start',
         textAlign:"left",
         backgroundColor: theme.colorsPrimaryDark.cardColor,
-        borderRadius: 20,
         paddingTop: 50,
         paddingHorizontal: 40
     },

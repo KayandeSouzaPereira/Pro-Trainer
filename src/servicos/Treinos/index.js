@@ -1,5 +1,4 @@
 import { api } from "../Util"
-import { GLOBALS } from '../../configs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -13,8 +12,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
   }
 
 
-  async function getUserTraining(login, tk) {
-    if(GLOBALS.OFFLINE === 0) {
+  async function getUserTraining(login, tk, OFFLINE) {
+    if(OFFLINE === false) {
       const config = {
           headers: { Authorization: `Bearer ${tk}` }
       };
@@ -24,7 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
       const ret = await api.post('treino', bodyParameters, config);
       await AsyncStorage.setItem("treino", JSON.stringify(ret));
       return ret;
-      }else if(GLOBALS.OFFLINE === 1){
+      }else if(OFFLINE === true){
         return JSON.parse(await AsyncStorage.getItem("treino"))
       }
   }

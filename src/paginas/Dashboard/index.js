@@ -28,7 +28,6 @@ export default function Dashboard({ navigation }) {
 
   useEffect(() => {
      navigation.addListener('focus', () => {
-        console.log(state.DARKMODE)
         setDarkmode(state.DARKMODE)
         setDataMacro();
     });
@@ -255,7 +254,7 @@ export default function Dashboard({ navigation }) {
     let id = GLOBALS.IDUSER;
     if(id != 0){
         try {
-        let data = await getUsuarioInfoIMGRequest(id, tkk);
+        let data = await getUsuarioInfoIMGRequest(id, tkk, state.OFFLINE);
         if (data.data.resultado != undefined){
             let image = data.data.resultado.img
             setImage(`data:image/png;base64,${image}`)
@@ -270,7 +269,6 @@ export default function Dashboard({ navigation }) {
   }
 
   const setDataMacro = async () => {
-    console.log(darkmode)
     setLoading(true);
     let tkk = await SecureStore.getItemAsync("token");
     let dataUser = ""
@@ -290,7 +288,7 @@ export default function Dashboard({ navigation }) {
     GLOBALS.NOME = nome
     getImage();
     try {
-      let dados = await getUserTraining(idUser, tkk);
+      let dados = await getUserTraining(idUser, tkk, state.OFFLINE);
       
       if (dados.data != null){
         setTreinos(dados.data.resultado.length)
@@ -300,7 +298,7 @@ export default function Dashboard({ navigation }) {
 
     }
     try { 
-      let dados = await getMacros(idUser, tkk);
+      let dados = await getMacros(idUser, tkk, state.OFFLINE);
       
       if (dados.data.resultado != null ){
           let dados_ = dados.data.resultado[0]
@@ -311,7 +309,7 @@ export default function Dashboard({ navigation }) {
     }
 
     try {
-      let dados = await getForca(idUser, tkk);
+      let dados = await getForca(idUser, tkk, state.OFFLINE);
       
       if (dados.data.resultado != null){
         handleForca(dados.data.resultado);
@@ -322,7 +320,7 @@ export default function Dashboard({ navigation }) {
     }
 
     try {
-      let dados = await getPresenca(idUser, tkk);
+      let dados = await getPresenca(idUser, tkk, state.OFFLINE);
       
       if (dados.data.resultado != null && dadosPresenca.length === 0){
         handleHistorico(dados.data.resultado);

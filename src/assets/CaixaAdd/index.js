@@ -30,7 +30,7 @@ export function CaixaAdd({reload}) {
     return(
         <View style={state.DARKMODE != true ? styles.container : styles.containerDark}>
             <TouchableOpacity style={{zIndex: 1}} onPress={async () => { 
-                if (GLOBALS.OFFLINE === 0) {
+                if (state.OFFLINE === false) {
                 setData(SYSTEM_MESSAGES.TITULOTREINOPLACEHOLDER, SYSTEM_MESSAGES.DESCRICAOTREINOPLACEHOLDER)
                 }else{
                     Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")

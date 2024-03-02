@@ -123,7 +123,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
                 <View style = {{paddingTop: 40, paddingVertical: 30}}>
                     <TouchableOpacity disabled={disabled} style={{left:290, top: -10, zIndex: 1}} onPress={async () => {
                         if(edit == true){
-                            if (GLOBALS.OFFLINE === 0) {
+                            if (state.OFFLINE === false) {
                                 await setData();
                             }else{
                                 Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
@@ -182,7 +182,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
                             />
                              </View>
                              <TouchableOpacity disabled={disabled} style={{top: 40, width:40, height:80, alignSelf: 'center', alignItems: 'center'}} onPress={() => {
-                                    if (GLOBALS.OFFLINE === 0) {    
+                                    if (state.OFFLINE === false) {    
                                         deleteCard();
                                     }else{
                                         Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
@@ -193,7 +193,7 @@ export function ModalExercicio({data, edition, treino, reload}) {
                              </View>
                             : <View>
                                 <TouchableOpacity disabled={disabled} style={{top: 20, width:40, height:60, alignSelf: 'center', alignItems: 'center'}} onPress={() => {
-                                    if (GLOBALS.OFFLINE === 0) {     
+                                    if (state.OFFLINE === false) {     
                                         deleteCard();
                                     }else{
                                         Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta offline, não e possível cadastrar ou editar informações offline.")
