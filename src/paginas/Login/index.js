@@ -67,6 +67,8 @@ export default function Login({navigation}) {
                     console.log("ERRO : " + err)
                 });
         }}else if(connection.isConnected === false && tkk != undefined && user != undefined){
+            Alert.alert(SYSTEM_MESSAGES.AVISO, "Você esta iniciando no modo offline, Alguns dos recursos príncipais dos sistema não poderam ser utilizados")
+            //Alert.alert(SYSTEM_MESSAGES.AVISO, "NETWORK : " + connection.isConnected)
             toggleN();
             navigation.navigate('Home')
         }

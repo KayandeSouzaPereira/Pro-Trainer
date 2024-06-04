@@ -43,12 +43,12 @@ export function ModalPreferencias ({reload, navigation}){
         await getPresenca(idUser, tkk, false);
         await getHistorico(nome, tkk, false);
         await getUsuarioInfoRequest(idUser, tkk, false);
-        let trainings = await getUserTraining(nome, tkk, false); 
+        let trainings = await getUserTraining(idUser, tkk, false); 
         
-        for (var treino in trainings.data.resultado){
-            console.log(treino) 
-            await getUserExerciseByTraining(tkk, treino.idTreinos, false)
-        }
+        trainings.data.resultado.map(item => {
+            console.log(item) 
+            getUserExerciseByTraining(tkk, item.idTreinos, false)
+        })
 
         Alert.alert(SYSTEM_MESSAGES.AVISO, "Sincronização feita com sucesso.")
         setLoading(false);

@@ -1,6 +1,6 @@
 import Grafico from "../../assets/Grafico"
 import { useState, useEffect } from "react"
-import {View, FlatList, Text, Dimensions} from "react-native"
+import {View, FlatList, Text, Dimensions, Alert} from "react-native"
 import { BarraInferior } from "../../assets/BarraInferior"
 import { BarraSuperior } from "../../assets/BarraSuperior"
 import { LoadingModal } from "react-native-loading-modal";  
@@ -10,7 +10,7 @@ import { getUserTraining } from "../../servicos/Treinos"
 import { getUsuarioInfoIMGRequest } from "../../servicos/Usuario"
 import moment from 'moment';
 import 'moment/locale/pt-br'
-import { GLOBALS, theme, useContextC } from "../../configs";
+import { GLOBALS, SYSTEM_MESSAGES, theme, useContextC } from "../../configs";
 
 export default function Dashboard({ navigation }) {
   const { state, dispatch } = useContextC();
@@ -269,14 +269,18 @@ export default function Dashboard({ navigation }) {
   }
 
   const setDataMacro = async () => {
+    //Alert.alert(SYSTEM_MESSAGES.AVISO, "NETWORK : " + state.OFFLINE)
     setLoading(true);
+
     let tkk = await SecureStore.getItemAsync("token");
     let dataUser = ""
     try {
-       dataUser = await getUsuarioRequest(tkk);
+       dataUser = await getUsuarioRequest(tkk, state.OFFLINE);
     } catch (err){
+      console.log(err)
+      Alert.alert(SYSTEM_MESSAGES.AVISO, "")
       try {
-        dataUser = await getUsuarioRequest(tkk);
+        dataUser = await getUsuarioRequest(tkk, state.OFFLINE);
       } catch (err){
 
       }
@@ -341,7 +345,7 @@ export default function Dashboard({ navigation }) {
 
 
     return(
-      <View style={{flex: 1, backgroundColor: state.DARKMODE != true ? theme.colorsPrimary.background : theme.colorsPrimaryDark.background}}>
+      <View style={{flex: 1, bottom: 30, backgroundColor: state.DARKMODE != true ? theme.colorsPrimary.background : theme.colorsPrimaryDark.background}}>
         
         <BarraSuperior images={image} localizacao={"Dashboard"} navigation={navigation}/>
        
@@ -365,7 +369,7 @@ export default function Dashboard({ navigation }) {
                           showsVerticalScrollIndicator={true}
               />   
             </View>
-            <View style={{bottom: 25}}>
+            <View style={{bottom: 5}}>
             <BarraInferior {... {navigation}}/>
           </View>   
         </View>

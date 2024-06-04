@@ -27,7 +27,7 @@ export function ModalMacro ({reload}){
 
     const getData = async () => {
         let tkk = await SecureStore.getItemAsync("token");
-        let dataUser = await getUsuarioRequest(tkk);
+        let dataUser = await getUsuarioRequest(tkk, state.OFFLINE);
         let idUser = dataUser.data.retorno.idAuth
         
         let dados = await getMacros(idUser, tkk, state.OFFLINE);
@@ -44,7 +44,7 @@ export function ModalMacro ({reload}){
     const setData = async () => {
         setLoading(true);
         let tkk = await SecureStore.getItemAsync("token");
-        let dataUser = await getUsuarioRequest(tkk);
+        let dataUser = await getUsuarioRequest(tkk, state.OFFLINE);
         let idUser = dataUser.data.retorno.idAuth;
         let proteinas_ = "";
         let gorduras_ = "";

@@ -11,6 +11,9 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
+    "androidStatusBar":{
+      "hidden": true
+    },
     "plugins": [
       [
         "expo-image-picker",

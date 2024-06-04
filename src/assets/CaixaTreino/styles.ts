@@ -104,14 +104,14 @@ export const styles = StyleSheet.create({
         color: theme.colorsPrimary.overlay,
         fontSize: 20,
         top: 10,
-        marginLeft: 20
+        marginHorizontal: 20
     },
     CamposDark:{
         fontFamily: theme.fonts.text,
         color: theme.colorsPrimaryDark.fontColor,
         fontSize: 20,
         top: 10,
-        marginLeft: 20
+        marginHorizontal: 20
     },
     CamposEdit:{
         fontFamily: theme.fonts.text,

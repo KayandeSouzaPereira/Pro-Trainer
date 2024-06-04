@@ -1,12 +1,18 @@
 import { api } from '../Util'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function getUsuarioRequest(tk) {
+async function getUsuarioRequest(tk, OFFLINE) {
+  if(OFFLINE === false) {
     const config = {
         headers: { Authorization: `Bearer ${tk}` }
     };
 
-    return api.get('userTK', config)
+    const ret =  api.get('userTK', config)
+    await AsyncStorage.setItem("userTK", JSON.stringify(ret));
+    return ret;
+  }else if(OFFLINE === true){
+    return JSON.parse(await AsyncStorage.getItem("userTK"))
+  }
 }
 
 async function getMacros(login, tk, OFFLINE) {
